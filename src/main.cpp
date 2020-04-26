@@ -13,6 +13,7 @@
 #include "Tank.h"
 int main()
 {
+	cout << "Hello From the windows side" << endl;
 	cout<<"Game"<<endl ;
     sf::RenderWindow window(sf::VideoMode(200,200), "Hello World");
     sf::CircleShape shape(100.f);
