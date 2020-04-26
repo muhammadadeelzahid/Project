@@ -13,7 +13,7 @@
 #include "Tank.h"
 int main()
 {
-	//this is the main file
+	//this is the main files
 	sf::RenderWindow window(sf::VideoMode(200,200), "Hello World");
     sf::CircleShape shape(100.f);
     shape.setPointCount(128);
