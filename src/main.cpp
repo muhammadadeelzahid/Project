@@ -6,19 +6,19 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <SFML/Graphics.hpp>
 #include "Interface.h"
-#include "Brick.h"
+#include "Brick.h" // most probably wont be used as it doesnt require any specialized function
 #include "Bullet.h"
 #include "Tank.h"
 int main()
 {
 	//this is the main files
-	sf::RenderWindow window(sf::VideoMode(200,200), "Hello World");
-    sf::CircleShape shape(100.f);
-    shape.setPointCount(128);
-    shape.setFillColor(sf::Color::Green);
-
+	int sizeScreen = 700 ;
+	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
+	//    sf::CircleShape shape(100.f);
+	//		shape.setPointCount(128);
+    ///	shape.setFillColor(sf::Color::Green);
+	Interface game(sizeScreen) ;
     while (window.isOpen())
     {
         sf::Event event;
@@ -27,10 +27,8 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
+        game.drawMaze() ;
+        game.display(window) ;
     }
 
     return 0;
