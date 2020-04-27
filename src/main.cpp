@@ -24,9 +24,22 @@ int main()
 	shape.setSize(sf::Vector2f(10, 10)); //10x10 box
    */
 	game.drawMaze() ;
-    while (window.isOpen())
+	//displaying the values of the maze
+	/*
+	cout<<"Values of the Coordinate axis"<<endl ;
+	for (int i = 0 ; i<game.getSize() ; i++ )
+	{
+		for (int j = 0 ; j<game.getSize() ; j++)
+		{
+				cout<<game.getCoordinates()[i][j]<<" " ;
+		}
+		cout<<endl ;
+	}
+	getchar() ;
+	*/
+	while (window.isOpen())
     {
-      	window.clear(sf::Color::White);
+	 	window.clear(sf::Color::White);
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -34,6 +47,7 @@ int main()
                 window.close();
         }
         game.display(window) ;
+        window.display();
     }
 
 

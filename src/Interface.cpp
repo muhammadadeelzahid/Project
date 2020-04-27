@@ -86,17 +86,12 @@ void Interface::display(sf::RenderWindow &window)
 	//for the bricks
 	sf::RectangleShape *Brick = new sf::RectangleShape [size*size] ; // pointer to create the objects of Brick
 	int counter = 0  ;
-	for (int i = 0 ; i<size ; i++)
+	for (int i = 0 ; i<size*size; i++)
 	{
-		Brick[i].setSize(sf::Vector2f(20, 20)); //10x10 box
+		Brick[i].setSize(sf::Vector2f(10,10)); //10x10 box
 		Brick[i].setFillColor(sf::Color::Black);
 	}
-	/*
-	sf::RectangleShape Brick;
-	Brick.setSize(sf::Vector2f(10, 10)); //10x10 box
-   	Brick.setFillColor(sf::Color::Black);
-   	Brick.setPosition(0,0);
-	*/
+	int xcordinate ; int ycordinate ;
 
 	for (int i = 0 ; i<=size ; i++)
 	{
@@ -104,14 +99,18 @@ void Interface::display(sf::RenderWindow &window)
 		{
 			if (coordinates[i][j] == 1 )
 			{
-				Brick[counter].setPosition(i*10,j*10) ; // i*10 because the size of the box is of 10 units
+
+				xcordinate = i*10 ;  ycordinate = j*10;
+				//COORDINATES FOR THE ARRAY ARE DISPLAYED
+				Brick[counter].setPosition(xcordinate,ycordinate) ; // i*10 because the size of the box is of 10 units
+				
 				window.draw(Brick[counter]) ;
 				counter++ ;
+				cout<<endl;
 			}
 		}
 	}
 
-	window.display() ;
-
 }
+
 
