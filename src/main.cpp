@@ -14,22 +14,28 @@ int main()
 {
 	//this is the main files
 	int sizeScreen = 700 ;
-	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
-	//    sf::CircleShape shape(100.f);
-	//		shape.setPointCount(128);
-    ///	shape.setFillColor(sf::Color::Green);
 	Interface game(sizeScreen) ;
+
+	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
+	/*
+	sf::RectangleShape shape  ;
+	shape.setPosition(50,50);
+    shape.setFillColor(sf::Color::Green);
+	shape.setSize(sf::Vector2f(10, 10)); //10x10 box
+   */
     while (window.isOpen())
     {
+      	window.clear(sf::Color::White);
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        game.drawMaze() ;
         game.display(window) ;
     }
+
+
 
     return 0;
 }

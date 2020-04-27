@@ -60,7 +60,7 @@ void Interface::drawMaze()
 			cout<<"0,"<<i<<endl ;
 		}
 		//left most coloumn
-/*
+
 		for (int i = 0 ; i<this->size; i++)
 		{
 			coordinates[i][0] = 1 ; // 1 is the  token for a brick
@@ -75,17 +75,17 @@ void Interface::drawMaze()
 		{
 			coordinates[size-1][i] = 1 ; // 1 is the  token for a brick
 		}
-		*/
+
 }
 void Interface::display(sf::RenderWindow &window)
 {
-  	window.clear(sf::Color::White);
+	drawMaze() ;
 	//for the bricks
 	sf::RectangleShape *Brick = new sf::RectangleShape [size*size] ; // pointer to create the objects of Brick
 	int counter = 0  ;
 	for (int i = 0 ; i<size ; i++)
 	{
-		Brick[i].setSize(sf::Vector2f(10, 10)); //10x10 box
+		Brick[i].setSize(sf::Vector2f(20, 20)); //10x10 box
 		Brick[i].setFillColor(sf::Color::Black);
 	}
 	/*
@@ -94,9 +94,13 @@ void Interface::display(sf::RenderWindow &window)
    	Brick.setFillColor(sf::Color::Black);
    	Brick.setPosition(0,0);
 	*/
-	for (int i = 0 ; i<size ; i++)
+
+	coordinates[40][40] = 1 ;
+	Brick[200].setPosition(50,60) ;
+	window.draw(Brick[200]) ;
+	for (int i = 0 ; i<=size ; i++)
 	{
-		for (int j = 0 ; j<size; j ++)
+		for (int j = 0 ; j<=size; j ++)
 		{
 			if (coordinates[i][j] == 1 )
 			{
