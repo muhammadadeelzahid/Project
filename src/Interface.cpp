@@ -61,19 +61,19 @@ void Interface::drawMaze()
 		}
 		//left most coloumn
 
-		for (int i = 0 ; i<this->size; i++)
+		for (int j = 0 ; j<this->size; j++)
 		{
-			coordinates[i][0] = 1 ; // 1 is the  token for a brick
+			coordinates[j][0] = 1 ; // 1 is the  token for a brick
 		}
 		//bottom most row
-		for (int i = 0 ; i<this->size; i++)
+		for (int k = 0 ; k<this->size; k++)
 		{
-			coordinates[0][size-1] = 1 ; // 1 is the  token for a brick
+			coordinates[k][size-1] = 1 ; // 1 is the  token for a brick
 		}
 		//right most coloum
-		for (int i = 0 ; i<this->size; i++)
+		for (int l = 0 ; l<this->size; l++)
 		{
-			coordinates[size-1][i] = 1 ; // 1 is the  token for a brick
+			coordinates[size-1][l] = 1 ; // 1 is the  token for a brick
 		}
 
 }
@@ -110,6 +110,7 @@ void Interface::display(sf::RenderWindow &window)
 			}
 		}
 	}
+
 	window.display() ;
 
 }
