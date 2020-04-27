@@ -110,8 +110,7 @@ void Interface::display(sf::RenderWindow &window)
 			}
 		}
 	}
-	window.display() ;
-	//stop at first referesh of screen
+
 }
 
 

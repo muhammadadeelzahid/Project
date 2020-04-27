@@ -34,6 +34,10 @@ int main()
                 window.close();
         }
         game.display(window) ;
+        window.display();
+
+
+
     }
 
 
