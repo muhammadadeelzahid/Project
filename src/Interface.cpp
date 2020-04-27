@@ -91,7 +91,6 @@ void Interface::display(sf::RenderWindow &window)
 		Brick[i].setSize(sf::Vector2f(10,10)); //10x10 box
 		Brick[i].setFillColor(sf::Color::Black);
 	}
-	static int count = 0 ;
 	int xcordinate ; int ycordinate ;
 	for (int i = 0 ; i<=size ; i++)
 	{
@@ -100,20 +99,19 @@ void Interface::display(sf::RenderWindow &window)
 			if (coordinates[i][j] == 1 )
 			{
 				xcordinate = i*10 ;  ycordinate = j*10;
+
 				cout<<"setPosition( "<<xcordinate<<" j= "<<ycordinate<<")"<<endl ;
+
 				Brick[counter].setPosition(xcordinate,ycordinate) ; // i*10 because the size of the box is of 10 units
-				cout<<"GetPosition("<<(Brick[i].getPosition().x)<<" , "<<(Brick[i].getPosition().y)<<")"<<endl ;
-				window.draw(Brick[i]) ;
+				cout<<"GetPosition("<<(Brick[counter].getPosition().x)<<" , "<<(Brick[counter].getPosition().y)<<")"<<endl ;
+				window.draw(Brick[counter]) ;
 				counter++ ;
-				cout<<endl ;
+				cout<<endl;
 			}
 		}
 	}
-	//stop at first referesh of screen
-	count++ ;
-	if (count == 1 )
-		getchar() ;
 	window.display() ;
+	//stop at first referesh of screen
 }
 
 
