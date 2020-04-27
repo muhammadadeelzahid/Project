@@ -23,6 +23,7 @@ int main()
     shape.setFillColor(sf::Color::Green);
 	shape.setSize(sf::Vector2f(10, 10)); //10x10 box
    */
+	game.drawMaze() ;
     while (window.isOpen())
     {
       	window.clear(sf::Color::White);
