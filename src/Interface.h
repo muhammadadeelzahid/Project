@@ -23,6 +23,7 @@ public:
 	int** getCoordinates() ;
 	int getScore() const;
 	void setScore(int score);
+	int getSize() const;
 };
 
 #endif /* INTERFACE_H_ */

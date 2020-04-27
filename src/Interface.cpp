@@ -43,6 +43,10 @@ int Interface::getScore() const {
 	return score;
 }
 
+int Interface::getSize() const {
+	return size;
+}
+
 void Interface::setScore(int score) {
 	this->score = score;
 }
@@ -57,7 +61,6 @@ void Interface::drawMaze()
 		for (int i = 0 ; i<this->size; i++)
 		{
 			coordinates[0][i] = 1 ; // 1 is the  token for a brick
-			cout<<"0,"<<i<<endl ;
 		}
 		//left most coloumn
 
@@ -79,7 +82,7 @@ void Interface::drawMaze()
 }
 void Interface::display(sf::RenderWindow &window)
 {
-	drawMaze() ;
+
 	//for the bricks
 	sf::RectangleShape *Brick = new sf::RectangleShape [size*size] ; // pointer to create the objects of Brick
 	int counter = 0  ;
@@ -95,9 +98,6 @@ void Interface::display(sf::RenderWindow &window)
    	Brick.setPosition(0,0);
 	*/
 
-	coordinates[40][40] = 1 ;
-	Brick[200].setPosition(50,60) ;
-	window.draw(Brick[200]) ;
 	for (int i = 0 ; i<=size ; i++)
 	{
 		for (int j = 0 ; j<=size; j ++)
