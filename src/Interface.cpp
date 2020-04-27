@@ -88,30 +88,32 @@ void Interface::display(sf::RenderWindow &window)
 	int counter = 0  ;
 	for (int i = 0 ; i<size ; i++)
 	{
-		Brick[i].setSize(sf::Vector2f(20, 20)); //10x10 box
+		Brick[i].setSize(sf::Vector2f(10,10)); //10x10 box
 		Brick[i].setFillColor(sf::Color::Black);
 	}
-	/*
-	sf::RectangleShape Brick;
-	Brick.setSize(sf::Vector2f(10, 10)); //10x10 box
-   	Brick.setFillColor(sf::Color::Black);
-   	Brick.setPosition(0,0);
-	*/
-
+	static int count = 0 ;
+	int xcordinate ; int ycordinate ;
 	for (int i = 0 ; i<=size ; i++)
 	{
 		for (int j = 0 ; j<=size; j ++)
 		{
 			if (coordinates[i][j] == 1 )
 			{
-				Brick[counter].setPosition(i*10,j*10) ; // i*10 because the size of the box is of 10 units
+				xcordinate = i*10 ;  ycordinate = j*10;
+				cout<<"setPosition( "<<xcordinate<<" j= "<<ycordinate<<")"<<endl ;
+				Brick[counter].setPosition(xcordinate,ycordinate) ; // i*10 because the size of the box is of 10 units
+				cout<<"GetPosition("<<(Brick[i].getPosition().x)<<" , "<<(Brick[i].getPosition().y)<<")"<<endl ;
 				window.draw(Brick[i]) ;
 				counter++ ;
+				cout<<endl ;
 			}
 		}
 	}
-
+	//stop at first referesh of screen
+	count++ ;
+	if (count == 1 )
+		getchar() ;
 	window.display() ;
-
 }
+
 
