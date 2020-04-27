@@ -99,11 +99,11 @@ void Interface::display(sf::RenderWindow &window)
 			if (coordinates[i][j] == 1 )
 			{
 				xcordinate = i*10 ;  ycordinate = j*10;
-
-				cout<<"setPosition( "<<xcordinate<<" j= "<<ycordinate<<")"<<endl ;
+				//COORDINATES FOR THE ARRAY ARE DISPLAYED
+				cout<<"setPosition( "<<(xcordinate/10)<<","<<(ycordinate/10)<<")"<<endl ;
 
 				Brick[counter].setPosition(xcordinate,ycordinate) ; // i*10 because the size of the box is of 10 units
-				cout<<"GetPosition("<<(Brick[counter].getPosition().x)<<" , "<<(Brick[counter].getPosition().y)<<")"<<endl ;
+				cout<<"GetPosition("<<((Brick[counter].getPosition().x)/10)<<" , "<<((Brick[counter].getPosition().y)/10)<<")"<<endl ;
 				window.draw(Brick[counter]) ;
 				counter++ ;
 				cout<<endl;

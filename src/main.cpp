@@ -35,9 +35,6 @@ int main()
         }
         game.display(window) ;
         window.display();
-
-
-
     }
 
 
