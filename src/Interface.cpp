@@ -105,7 +105,7 @@ void Interface::display(sf::RenderWindow &window)
 			if (coordinates[i][j] == 1 )
 			{
 				Brick[counter].setPosition(i*10,j*10) ; // i*10 because the size of the box is of 10 units
-				window.draw(Brick[i]) ;
+				window.draw(Brick[counter]) ;
 				counter++ ;
 			}
 		}
