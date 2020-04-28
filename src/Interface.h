@@ -16,6 +16,7 @@ class Interface {
 	int score ;
 	int screensize ; // size of screen /screenFactor
 	int screenFactor = 25;
+
 	//all the arrays of the Game objects we will use
 	sf::RectangleShape *brick ;
 public:

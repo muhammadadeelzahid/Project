@@ -20,7 +20,6 @@ int main()
 	game.drawMaze() ;
 	while (window.isOpen())
     {
-//		cout<<"Here"<<endl; getchar() ;
 		sf::Color background (220,220,220) ;
 	 	window.clear(background);
         sf::Event event;
