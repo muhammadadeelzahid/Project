@@ -21,7 +21,8 @@ int main()
 	while (window.isOpen())
     {
 //		cout<<"Here"<<endl; getchar() ;
-	 	window.clear(sf::Color::White);
+		sf::Color background (220,220,220) ;
+	 	window.clear(background);
         sf::Event event;
         while (window.pollEvent(event))
         {

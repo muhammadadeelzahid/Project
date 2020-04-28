@@ -34,7 +34,7 @@ void Interface::BrickInitialise()
  		sf::Color grey (112,128,144);
  		brick[i].setFillColor(grey) ;
  		brick[i].setOutlineThickness(1) ;
- 		brick[i].setOutlineColor(sf::Color::White) ;
+ 		brick[i].setOutlineColor(sf::Color::Black) ;
  	}
 }
 int** Interface::getCoordinates()  {
@@ -80,6 +80,10 @@ void Interface::drawMaze()
 		{
 			coordinates[screensize-1][l] = 1 ; // 1 is the  token for a brick
 		}
+
+
+
+		//draw Rest of the maze here
 
 }
 void Interface::display(sf::RenderWindow &window)
