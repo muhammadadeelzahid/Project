@@ -6,20 +6,9 @@
  */
 
 #include "Interface.h"
-
-Interface::Interface() {
-	score = 0 ;
-	this->size = 25 ;
-	coordinates = new int*[size] ;
-	for(int i = 0 ; i<size ; i++)
-	{
-		coordinates[i] = new int[size] ;
-	}
-
-}
 Interface::Interface(int size)
 {
-	this->size = size/10 ;
+	this->screensize = size/screenFactor ;
 	score = 0 ;
 	coordinates = new int*[size] ;
 	for(int i = 0 ; i<size ; i++)
@@ -33,7 +22,20 @@ Interface::Interface(int size)
 			coordinates[i][j] = 0 ;
 		}
 	}
+	BrickInitialise() ;
+}
+void Interface::BrickInitialise()
+{
+ 	brick = new sf::RectangleShape [screensize*screensize];
 
+ 	for (int i = 0 ; i<screensize*screensize ; i++)
+ 	{
+ 		brick[i].setSize(sf::Vector2f (screenFactor,screenFactor));
+ 		sf::Color grey (112,128,144);
+ 		brick[i].setFillColor(grey) ;
+ 		brick[i].setOutlineThickness(1) ;
+ 		brick[i].setOutlineColor(sf::Color::Black) ;
+ 	}
 }
 int** Interface::getCoordinates()  {
 	return coordinates;
@@ -44,7 +46,7 @@ int Interface::getScore() const {
 }
 
 int Interface::getSize() const {
-	return size;
+	return screensize;
 }
 
 void Interface::setScore(int score) {
@@ -52,65 +54,59 @@ void Interface::setScore(int score) {
 }
 
 Interface::~Interface() {
-	// TODO Auto-generated destructor stub
+	delete [] brick ;
 }
 void Interface::drawMaze()
 {
 		//top most row
 
-		for (int i = 0 ; i<this->size; i++)
+		for (int i = 0 ; i<this->screensize; i++)
 		{
 			coordinates[0][i] = 1 ; // 1 is the  token for a brick
 		}
 		//left most coloumn
 
-		for (int j = 0 ; j<this->size; j++)
+		for (int j = 0 ; j<this->screensize; j++)
 		{
 			coordinates[j][0] = 1 ; // 1 is the  token for a brick
 		}
 		//bottom most row
-		for (int k = 0 ; k<this->size; k++)
+		for (int k = 0 ; k<this->screensize; k++)
 		{
-			coordinates[k][size-1] = 1 ; // 1 is the  token for a brick
+			coordinates[k][screensize-1] = 1 ; // 1 is the  token for a brick
 		}
 		//right most coloum
-		for (int l = 0 ; l<this->size; l++)
+		for (int l = 0 ; l<this->screensize; l++)
 		{
-			coordinates[size-1][l] = 1 ; // 1 is the  token for a brick
+			coordinates[screensize-1][l] = 1 ; // 1 is the  token for a brick
 		}
+
+
+
+		//draw Rest of the maze here
 
 }
 void Interface::display(sf::RenderWindow &window)
 {
-
-	//for the bricks
-	sf::RectangleShape *Brick = new sf::RectangleShape [size*size] ; // pointer to create the objects of Brick
 	int counter = 0  ;
-	for (int i = 0 ; i<size*size; i++)
-	{
-		Brick[i].setSize(sf::Vector2f(10,10)); //10x10 box
-		Brick[i].setFillColor(sf::Color::Black);
-	}
 	int xcordinate ; int ycordinate ;
-
-	for (int i = 0 ; i<=size ; i++)
+	for (int i = 0 ; i<=screensize ; i++)
 	{
-		for (int j = 0 ; j<=size; j ++)
+		for (int j = 0 ; j<=screensize; j ++)
 		{
 			if (coordinates[i][j] == 1 )
 			{
+					xcordinate = i*screenFactor ;  ycordinate = j*screenFactor;
+					cout<<"xcordinate: "<<xcordinate<<" ycordinate: "<<ycordinate<<endl;
 
-				xcordinate = i*10 ;  ycordinate = j*10;
-				//COORDINATES FOR THE ARRAY ARE DISPLAYED
-				Brick[counter].setPosition(xcordinate,ycordinate) ; // i*10 because the size of the box is of 10 units
-				
-				window.draw(Brick[counter]) ;
-				counter++ ;
-				cout<<endl;
+					brick[counter].setPosition(xcordinate,ycordinate) ;
+					cout<<brick[counter].getPosition().x<<","<<brick[counter].getPosition().y<<endl ;
+
+					window.draw(brick[counter]) ;
+					counter++ ;
 			}
 		}
 	}
-
 }
 
 

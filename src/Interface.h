@@ -3,7 +3,7 @@
  *
  *  Created on: Apr 26, 2020
  *      Author: AdeelZahid
- */
+ *///a
 
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
@@ -11,14 +11,19 @@
 using namespace std ;
 #include <SFML/Graphics.hpp>
 class Interface {
+	//basic array that identifies with each token of the object
 	int **coordinates ;//set the size in the constructor
 	int score ;
-	int size ;
+	int screensize ; // size of screen /screenFactor
+	int screenFactor = 25;
+
+	//all the arrays of the Game objects we will use
+	sf::RectangleShape *brick ;
 public:
-	Interface();
 	Interface(int) ;
 	void drawMaze() ;
 	void display(sf::RenderWindow &window) ;
+	void BrickInitialise() ;
 	virtual ~Interface();
 	int** getCoordinates() ;
 	int getScore() const;
