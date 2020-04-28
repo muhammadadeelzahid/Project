@@ -22,21 +22,10 @@ Interface::Interface(int size)
 			coordinates[i][j] = 0 ;
 		}
 	}
-	BrickInitialise() ;
-}
-void Interface::BrickInitialise()
-{
- 	brick = new sf::RectangleShape [screensize*screensize];
+	bricks.initialise(screensize) ;
 
- 	for (int i = 0 ; i<screensize*screensize ; i++)
- 	{
- 		brick[i].setSize(sf::Vector2f (screenFactor,screenFactor));
- 		sf::Color grey (112,128,144);
- 		brick[i].setFillColor(grey) ;
- 		brick[i].setOutlineThickness(1) ;
- 		brick[i].setOutlineColor(sf::Color::Black) ;
- 	}
 }
+
 int** Interface::getCoordinates()  {
 	return coordinates;
 }
@@ -54,7 +43,6 @@ void Interface::setScore(int score) {
 }
 
 Interface::~Interface() {
-	delete [] brick ;
 }
 void Interface::drawMaze()
 {
@@ -127,25 +115,58 @@ void Interface::drawMaze()
 }
 void Interface::display(sf::RenderWindow &window)
 {
+	//MAKE CHANGES FOR THE (X,Y) OF EVERY NEW OBJECT TO BE DRAWN
 	int counter = 0  ;
 	int xcordinate ; int ycordinate ;
 	for (int i = 0 ; i<=screensize ; i++)
 	{
 		for (int j = 0 ; j<=screensize; j ++)
 		{
+			//searching for the offset for it
+			xcordinate = 0 ;
+			ycordinate = 0 ;
+			int a = 0 ; int b =0  ;
+
+			while ( a!=i&& b!= j )
+			{
+				if (coordinates [a][b]== 1)
+					ycordinate+=bricks.getObjectsize() ;
+				 if (coordinates[a][b] == 0 )
+					ycordinate += screenFactor ;
+				//else if (Tank or Food or Mine etc )
+				b++ ;
+				if ( b >=screensize)
+				{
+					b = 0 ;
+					a++ ;
+				}
+				if (ycordinate >= screensize*screenFactor)
+				{
+					ycordinate= 0 ;
+					xcordinate++ ;
+				}
+			}
+
+			xcordinate = i*screenFactor ; ycordinate=j*screenFactor ;
+			//now draw that object
 			if (coordinates[i][j] == 1 )
 			{
-					xcordinate = i*screenFactor ;  ycordinate = j*screenFactor;
-					cout<<"xcordinate: "<<xcordinate<<" ycordinate: "<<ycordinate<<endl;
+				//1 is the token for a brick/wall
+					cout<<"xcordinate: "<<(xcordinate)<<" ycordinate: "<<(ycordinate)<<endl;
+					bricks.getBrick()[counter].setPosition(xcordinate,ycordinate) ;
+					cout<<bricks.getBrick()[counter].getPosition().x<<","<<bricks.getBrick()[counter].getPosition().y<<endl ;
 
-					brick[counter].setPosition(xcordinate,ycordinate) ;
-					cout<<brick[counter].getPosition().x<<","<<brick[counter].getPosition().y<<endl ;
-
-					window.draw(brick[counter]) ;
+					window.draw(bricks.getBrick()[counter]) ;
 					counter++ ;
 			}
+
 		}
 	}
+
+
+	//end of function
+	window.display() ;
+
 }
 
 

@@ -8,6 +8,8 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 #include <iostream>
+
+#include "Wall.h"
 using namespace std ;
 #include <SFML/Graphics.hpp>
 class Interface {
@@ -15,15 +17,15 @@ class Interface {
 	int **coordinates ;//set the size in the constructor
 	int score ;
 	int screensize ; // size of screen /screenFactor
-	int screenFactor = 25;
+	int screenFactor = 20;
 
 	//all the arrays of the Game objects we will use
-	sf::RectangleShape *brick ;
+	Wall bricks ;
+
 public:
 	Interface(int) ;
 	void drawMaze() ;
 	void display(sf::RenderWindow &window) ;
-	void BrickInitialise() ;
 	virtual ~Interface();
 	int** getCoordinates() ;
 	int getScore() const;
