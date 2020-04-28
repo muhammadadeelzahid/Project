@@ -13,7 +13,7 @@
 int main()
 {
 	//this is the main files
-	int sizeScreen = 700 ;
+	int sizeScreen = 800 ;
 	Interface game(sizeScreen) ;
 
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
