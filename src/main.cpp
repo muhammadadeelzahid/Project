@@ -20,6 +20,7 @@ int main()
 	game.drawMaze() ;
 	while (window.isOpen())
     {
+//		cout<<"Here"<<endl; getchar() ;
 	 	window.clear(sf::Color::White);
         sf::Event event;
         while (window.pollEvent(event))
@@ -28,6 +29,7 @@ int main()
                 window.close();
         }
         game.display(window) ;
+        window.display() ;
     }
 
 

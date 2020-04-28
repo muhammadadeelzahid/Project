@@ -14,7 +14,7 @@ class Interface {
 	//basic array that identifies with each token of the object
 	int **coordinates ;//set the size in the constructor
 	int score ;
-	int screensize ;
+	int screensize ; // size of screen /screenFactor
 	int screenFactor = 25;
 	//all the arrays of the Game objects we will use
 	sf::RectangleShape *brick ;

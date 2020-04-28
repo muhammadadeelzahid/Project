@@ -27,17 +27,15 @@ Interface::Interface(int size)
 void Interface::BrickInitialise()
 {
  	brick = new sf::RectangleShape [screensize*screensize];
- 	sf::Vector2f  v(25,25) ;
+
  	for (int i = 0 ; i<screensize*screensize ; i++)
  	{
- 		brick[i].setSize(v);
- 		brick[i].setFillColor(sf::Color::Black) ;
+ 		brick[i].setSize(sf::Vector2f (screenFactor,screenFactor));
+ 		sf::Color grey (112,128,144);
+ 		brick[i].setFillColor(grey) ;
  		brick[i].setOutlineThickness(1) ;
  		brick[i].setOutlineColor(sf::Color::White) ;
  	}
-
-
-
 }
 int** Interface::getCoordinates()  {
 	return coordinates;
@@ -86,7 +84,6 @@ void Interface::drawMaze()
 }
 void Interface::display(sf::RenderWindow &window)
 {
-//
 	int counter = 0  ;
 	int xcordinate ; int ycordinate ;
 	for (int i = 0 ; i<=screensize ; i++)
@@ -97,9 +94,11 @@ void Interface::display(sf::RenderWindow &window)
 			{
 					xcordinate = i*screenFactor ;  ycordinate = j*screenFactor;
 					cout<<"xcordinate: "<<xcordinate<<" ycordinate: "<<ycordinate<<endl;
+
 					brick[counter].setPosition(xcordinate,ycordinate) ;
-					window.draw(brick[counter]) ;
 					cout<<brick[counter].getPosition().x<<","<<brick[counter].getPosition().y<<endl ;
+
+					window.draw(brick[counter]) ;
 					counter++ ;
 			}
 		}
