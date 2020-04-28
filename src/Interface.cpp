@@ -58,32 +58,71 @@ Interface::~Interface() {
 }
 void Interface::drawMaze()
 {
-		//top most row
+	//draw all maze here
 
-		for (int i = 0 ; i<this->screensize; i++)
-		{
-			coordinates[0][i] = 1 ; // 1 is the  token for a brick
-		}
-		//left most coloumn
+	//top most row
 
-		for (int j = 0 ; j<this->screensize; j++)
-		{
-			coordinates[j][0] = 1 ; // 1 is the  token for a brick
-		}
-		//bottom most row
-		for (int k = 0 ; k<this->screensize; k++)
-		{
-			coordinates[k][screensize-1] = 1 ; // 1 is the  token for a brick
-		}
-		//right most coloum
-		for (int l = 0 ; l<this->screensize; l++)
-		{
-			coordinates[screensize-1][l] = 1 ; // 1 is the  token for a brick
-		}
+	for (int i = 0 ; i<this->screensize; i++)
+	{
+		coordinates[0][i] = 1 ; // 1 is the  token for a brick
+	}
+	//left most coloumn
 
+	for (int j = 0 ; j<this->screensize; j++)
+	{
+		coordinates[j][0] = 1 ; // 1 is the  token for a brick
+	}
+	//bottom most row
+	for (int k = 0 ; k<this->screensize; k++)
+	{
+		coordinates[k][screensize-1] = 1 ; // 1 is the  token for a brick
+	}
+	//right most coloum
+	for (int l = 0 ; l<this->screensize; l++)
+	{
+		coordinates[screensize-1][l] = 1 ; // 1 is the  token for a brick
+	}
+	//for first vertical line  from left
+	for (int m = 0; m < this->screensize; m++) {
+		if(m<this->screensize/3|| m>2*(this->screensize/3) )
+		coordinates[screensize/4][m] = 1;
+	}
 
+	//for second vertical line from left
+	for (int n = 0; n < this->screensize; n++) {
+		if (n<this->screensize / 3)
+			coordinates[screensize / 2][n] = 1;
+		if ((n>this->screensize / 2) & n <(5*(this->screensize/6)))
+		coordinates[screensize / 2][n] = 1;
+	}
+	//1st horizontal line from top
+	for (int k = 0; k < this->screensize; k++) {
+		if (k>3*(this->screensize / 4))
+			coordinates[k][screensize/6] = 1;
+	}
+	//2nd horizontal line from top
+	for (int k = 0; k < this->screensize; k++) {
+		if (k>3 * (this->screensize / 4))
+			coordinates[k][screensize / 3] = 1;
+	}
+	//3rd horizontal line from top
+	for (int k = 0; k < this->screensize; k++) {
+		if (k>3 * (this->screensize / 4))
+			coordinates[k][screensize / 2] = 1;
+	}
+	//4th horizontal line from top
+	for (int k = 0; k < this->screensize; k++) {
+		if (k>3 * (this->screensize / 4))
+			coordinates[k][2*(screensize /3) ] = 1;
+	}
+	//5th horizontal line from top
+	for (int k = 0; k < this->screensize; k++) {
+		if (k>3 * (this->screensize / 4) )
+			coordinates[k][5*(screensize / 6)] = 1;
+		if (k>this->screensize/4 && k<this->screensize*0.52)
+			coordinates[k][5 * (screensize / 6)] = 1;
+	}
 
-		//draw Rest of the maze here
 
 }
 void Interface::display(sf::RenderWindow &window)
