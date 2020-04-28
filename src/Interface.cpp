@@ -26,16 +26,16 @@ Interface::Interface(int size)
 }
 void Interface::BrickInitialise()
 {
-	this->Brick = new sf::Sprite [this->screensize*screensize] ;
- 	if ( !BrickTexture.loadFromFile("/Users/AdeelZahid/Desktop/Project/src/bricks.png"))
+ 	brick = new sf::RectangleShape [screensize*screensize];
+ 	for (int i = 0 ; i<screensize*screensize ; i++)
  	{
- 		cout<<"Loading of image failed"<<endl ;
- 		getchar() ;
+ 		brick[i].setFillColor(sf::Color::Black) ;
+ 		brick[i].setOutlineThickness(1) ;
+ 		brick[i].setOutlineColor(sf::Color::White) ;
  	}
- 	for(int i = 0 ; i<screensize*screensize ; i++)
- 	{
- 		Brick[i].setTexture(BrickTexture) ;
- 	}
+
+
+
 }
 int** Interface::getCoordinates()  {
 	return coordinates;
@@ -54,7 +54,7 @@ void Interface::setScore(int score) {
 }
 
 Interface::~Interface() {
-	delete [] Brick ;
+	delete [] brick ;
 }
 void Interface::drawMaze()
 {
@@ -94,10 +94,10 @@ void Interface::display(sf::RenderWindow &window)
 			if (coordinates[i][j] == 1 )
 			{
 					xcordinate = i*screenFactor ;  ycordinate = j*screenFactor;
-					Brick[counter].setTextureRect(sf::IntRect(xcordinate,ycordinate,screenFactor,screenFactor)) ;
-					Brick[counter].setPosition(xcordinate,ycordinate) ;
-					window.draw(Brick[counter]) ;
-					cout<<Brick[counter].getPosition().x<<","<<Brick[counter].getPosition().y<<endl ;
+					cout<<"xcordinate: "<<xcordinate<<"ycordinate"<<ycordinate<<endl;
+					brick[counter].setPosition(xcordinate,ycordinate) ;
+					window.draw(brick[counter]) ;
+					cout<<brick[counter].getPosition().x<<","<<brick[counter].getPosition().y<<endl ;
 					counter++ ;
 			}
 		}

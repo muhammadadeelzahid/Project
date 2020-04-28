@@ -17,8 +17,7 @@ class Interface {
 	int screensize ;
 	int screenFactor = 25;
 	//all the arrays of the Game objects we will use
-	sf::Sprite *Brick ;
-	sf::Texture BrickTexture ;
+	sf::RectangleShape *brick ;
 public:
 	Interface(int) ;
 	void drawMaze() ;
