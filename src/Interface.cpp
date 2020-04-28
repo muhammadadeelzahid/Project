@@ -122,6 +122,7 @@ void Interface::display(sf::RenderWindow &window)
 	{
 		for (int j = 0 ; j<=screensize; j ++)
 		{
+			/*
 			//searching for the offset for it
 			xcordinate = 0 ;
 			ycordinate = 0 ;
@@ -146,6 +147,7 @@ void Interface::display(sf::RenderWindow &window)
 					xcordinate++ ;
 				}
 			}
+			*/
 
 			xcordinate = i*screenFactor ; ycordinate=j*screenFactor ;
 			//now draw that object
