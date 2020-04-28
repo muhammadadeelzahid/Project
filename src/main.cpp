@@ -7,9 +7,9 @@
 //============================================================================
 
 #include "Interface.h"
-#include "Brick.h" // most probably wont be used as it doesnt require any specialized function
 #include "Bullet.h"
 #include "Tank.h"
+#include "Wall.h" // most probably wont be used as it doesnt require any specialized function
 int main()
 {
 	//this is the main files
@@ -29,7 +29,6 @@ int main()
                 window.close();
         }
         game.display(window) ;
-        window.display() ;
     }
 
 

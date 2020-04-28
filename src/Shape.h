@@ -11,6 +11,7 @@
 #include <iostream>
 using namespace std;
 class Shape {
+	int objectsize ;
 	string name ;
 	Coordinate position;
 	int speedOfMovement ;
@@ -27,6 +28,8 @@ public:
 	void setSpeedOfMovement(int speedOfMovement);
 	int getTokenValue() const;
 	void setTokenValue(int tokenValue);
+	int getObjectsize() const;
+	void setObjectsize(int objectsize);
 };
 
 #endif /* SHAPE_H_ */

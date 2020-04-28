@@ -47,3 +47,10 @@ Shape::~Shape() {
 	// TODO Auto-generated destructor stub
 }
 
+int Shape::getObjectsize() const {
+	return objectsize;
+}
+
+void Shape::setObjectsize(int objectsize) {
+	this->objectsize = objectsize;
+}
