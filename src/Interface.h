@@ -17,7 +17,7 @@ class Interface {
 	int **coordinates ;//set the size in the constructor
 	int score ;
 	int screensize ; // size of screen /screenFactor
-	int screenFactor = 20;
+	int screenFactor = 25;
 
 	//all the arrays of the Game objects we will use
 	Wall bricks ;

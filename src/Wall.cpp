@@ -23,12 +23,11 @@ Wall::~Wall() {
 
 void Wall::initialise(int screensize)
 {
-
  	brick = new sf::RectangleShape [screensize*screensize];
 
  	for (int i = 0 ; i<screensize*screensize ; i++)
  	{
- 		brick[i].setSize(sf::Vector2f (15,15));
+ 		brick[i].setSize(sf::Vector2f (getObjectsize(),getObjectsize()));
  		sf::Color grey (112,128,144);
  		brick[i].setFillColor(grey) ;
  		brick[i].setOutlineThickness(1) ;

@@ -22,8 +22,8 @@ Interface::Interface(int size)
 			coordinates[i][j] = 0 ;
 		}
 	}
+	bricks.setObjectsize(screenFactor) ; // set the size of the bricks
 	bricks.initialise(screensize) ;
-
 }
 
 int** Interface::getCoordinates()  {
