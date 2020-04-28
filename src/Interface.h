@@ -13,7 +13,7 @@ using namespace std ;
 class Interface {
 	int **coordinates ;//set the size in the constructor
 	int score ;
-	int size ;
+	int sizeOfScreen ;
 public:
 	Interface();
 	Interface(int) ;
