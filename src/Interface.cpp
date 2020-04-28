@@ -27,8 +27,10 @@ Interface::Interface(int size)
 void Interface::BrickInitialise()
 {
  	brick = new sf::RectangleShape [screensize*screensize];
+ 	sf::Vector2f  v(25,25) ;
  	for (int i = 0 ; i<screensize*screensize ; i++)
  	{
+ 		brick[i].setSize(v);
  		brick[i].setFillColor(sf::Color::Black) ;
  		brick[i].setOutlineThickness(1) ;
  		brick[i].setOutlineColor(sf::Color::White) ;
@@ -94,7 +96,7 @@ void Interface::display(sf::RenderWindow &window)
 			if (coordinates[i][j] == 1 )
 			{
 					xcordinate = i*screenFactor ;  ycordinate = j*screenFactor;
-					cout<<"xcordinate: "<<xcordinate<<"ycordinate"<<ycordinate<<endl;
+					cout<<"xcordinate: "<<xcordinate<<" ycordinate: "<<ycordinate<<endl;
 					brick[counter].setPosition(xcordinate,ycordinate) ;
 					window.draw(brick[counter]) ;
 					cout<<brick[counter].getPosition().x<<","<<brick[counter].getPosition().y<<endl ;
