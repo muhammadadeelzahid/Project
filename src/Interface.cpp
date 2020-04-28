@@ -9,17 +9,32 @@
 
 Interface::Interface() {
 	score = 0 ;
-	this->sizeOfScreen = 25 ;
-	coordinates = new int*[sizeOfScreen] ;
-	for(int i = 0 ; i<sizeOfScreen ; i++)
+	this->screensize = 25 ;
+	coordinates = new int*[screensize] ;
+	for(int i = 0 ; i<screensize ; i++)
 	{
-		coordinates[i] = new int[sizeOfScreen] ;
+		coordinates[i] = new int[screensize] ;
 	}
+	BrickInitialise() ;
 
+}
+void Interface::BrickInitialise()
+{
+	this->Brick = new sf::Sprite [this->screensize*screensize] ;
+ 	sf::Texture BrickTexture ;
+ 	if ( !BrickTexture.loadFromFile("/Users/AdeelZahid/Desktop/Project/src/bricks.png"))
+ 	{
+ 		cout<<"Loading of image failed"<<endl ;
+ 		getchar() ;
+ 	}
+ 	for(int i = 0 ; i<screensize*screensize ; i++)
+ 	{
+ 		Brick[i].setTexture(BrickTexture) ;
+ 	}
 }
 Interface::Interface(int size)
 {
-	this->sizeOfScreen = size/10 ;
+	this->screensize = size/10 ;
 	score = 0 ;
 	coordinates = new int*[size] ;
 	for(int i = 0 ; i<size ; i++)
@@ -33,7 +48,7 @@ Interface::Interface(int size)
 			coordinates[i][j] = 0 ;
 		}
 	}
-
+	BrickInitialise() ;
 }
 int** Interface::getCoordinates()  {
 	return coordinates;
@@ -44,7 +59,7 @@ int Interface::getScore() const {
 }
 
 int Interface::getSize() const {
-	return sizeOfScreen;
+	return screensize;
 }
 
 void Interface::setScore(int score) {
@@ -53,86 +68,55 @@ void Interface::setScore(int score) {
 
 Interface::~Interface() {
 	// TODO Auto-generated destructor stub
+	delete [] Brick ;
 }
 void Interface::drawMaze()
 {
 		//top most row
 
-		for (int i = 0 ; i<this->sizeOfScreen; i++)
+		for (int i = 0 ; i<this->screensize; i++)
 		{
 			coordinates[0][i] = 1 ; // 1 is the  token for a brick
 		}
 		//left most coloumn
 
-		for (int j = 0 ; j<this->sizeOfScreen; j++)
+		for (int j = 0 ; j<this->screensize; j++)
 		{
 			coordinates[j][0] = 1 ; // 1 is the  token for a brick
 		}
 		//bottom most row
-		for (int k = 0 ; k<this->sizeOfScreen; k++)
+		for (int k = 0 ; k<this->screensize; k++)
 		{
-			coordinates[k][sizeOfScreen-1] = 1 ; // 1 is the  token for a brick
+			coordinates[k][screensize-1] = 1 ; // 1 is the  token for a brick
 		}
 		//right most coloum
-		for (int l = 0 ; l<this->sizeOfScreen; l++)
+		for (int l = 0 ; l<this->screensize; l++)
 		{
-			coordinates[sizeOfScreen-1][l] = 1 ; // 1 is the  token for a brick
+			coordinates[screensize-1][l] = 1 ; // 1 is the  token for a brick
 		}
 
 }
 void Interface::display(sf::RenderWindow &window)
 {
-
-	//for the bricks
-	sf::RectangleShape *Brick = new sf::RectangleShape [sizeOfScreen*sizeOfScreen] ; // pointer to create the objects of Brick
- 	sf::VertexArray *Bricks = new sf::VertexArray [sizeOfScreen*sizeOfScreen];
-
- 	for(int i = 0 ; i<sizeOfScreen*sizeOfScreen ; i++)
- 	{
- 		Bricks[i].resize(4) ;
- 		Bricks[i].setPrimitiveType(sf::Quads) ;
- 		Bricks[i][0].color = sf::Color::Blue ;
- 		Bricks[i][1].color = (sf::Color::Blue) ;
- 		Bricks[i][2].color = (sf::Color::Blue) ;
- 		Bricks[i][3].color=(sf::Color::Blue) ;
- 	}
-
+//
 	int counter = 0  ;
-	for (int i = 0 ; i<sizeOfScreen*sizeOfScreen; i++)
-	{
-		Brick[i].setSize(sf::Vector2f(10,10)); //10x10 box
-		Brick[i].setFillColor(sf::Color::Black);
-	}
 	int xcordinate ; int ycordinate ;
-
-	for (int i = 0 ; i<=sizeOfScreen ; i++)
+	for (int i = 0 ; i<=screensize ; i++)
 	{
-		for (int j = 0 ; j<=sizeOfScreen; j ++)
+		for (int j = 0 ; j<=screensize; j ++)
 		{
 			if (coordinates[i][j] == 1 )
 			{
-
-				xcordinate = i*10 ;  ycordinate = j*10;
-				sf::Vector2f cord1  (xcordinate,ycordinate);
-				sf::Vector2f cord2  (xcordinate+10,ycordinate);
-				sf::Vector2f cord3  (xcordinate,ycordinate+10);
-				sf::Vector2f cord4  (xcordinate+10,ycordinate+10);
-				Bricks[counter][0].position=(cord1) ;
-				Bricks[counter][1].position=(cord2) ;
-				Bricks[counter][2].position=(cord3) ;
-				Bricks[counter][3].position=(cord4) ;
-				window.draw(Bricks[counter]) ;
-
-
-//				Brick[counter].setPosition(xcordinate,ycordinate) ; // i*10 because the size of the box is of 10 units
-				
-//				window.draw(Brick[counter]) ;
-				counter++ ;
-				cout<<endl;
+					xcordinate = i*10 ;  ycordinate = j*10;
+					Brick[counter].setTextureRect(sf::IntRect(xcordinate,ycordinate,10,10)) ;
+					Brick[counter].setPosition(xcordinate,ycordinate) ;
+					window.draw(Brick[counter]) ;
+					cout<<Brick[counter].getPosition().x<<","<<Brick[counter].getPosition().y<<endl ;
+					counter++ ;
 			}
 		}
 	}
-	delete [] Bricks; delete [] Brick ;
+    window.display();
 }
 
 
