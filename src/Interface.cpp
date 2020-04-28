@@ -122,33 +122,6 @@ void Interface::display(sf::RenderWindow &window)
 	{
 		for (int j = 0 ; j<=screensize; j ++)
 		{
-			/*
-			//searching for the offset for it
-			xcordinate = 0 ;
-			ycordinate = 0 ;
-			int a = 0 ; int b =0  ;
-
-			while ( a!=i&& b!= j )
-			{
-				if (coordinates [a][b]== 1)
-					ycordinate+=bricks.getObjectsize() ;
-				 if (coordinates[a][b] == 0 )
-					ycordinate += screenFactor ;
-				//else if (Tank or Food or Mine etc )
-				b++ ;
-				if ( b >=screensize)
-				{
-					b = 0 ;
-					a++ ;
-				}
-				if (ycordinate >= screensize*screenFactor)
-				{
-					ycordinate= 0 ;
-					xcordinate++ ;
-				}
-			}
-			*/
-
 			xcordinate = i*screenFactor ; ycordinate=j*screenFactor ;
 			//now draw that object
 			if (coordinates[i][j] == 1 )
