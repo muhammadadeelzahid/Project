@@ -18,6 +18,7 @@ class Interface {
 
 	//all the arrays of the Game objects we will use
 	sf::Sprite *Brick ;
+	sf::Texture BrickTexture ;
 public:
 	Interface();
 	Interface(int) ;

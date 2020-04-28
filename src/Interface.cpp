@@ -21,7 +21,6 @@ Interface::Interface() {
 void Interface::BrickInitialise()
 {
 	this->Brick = new sf::Sprite [this->screensize*screensize] ;
- 	sf::Texture BrickTexture ;
  	if ( !BrickTexture.loadFromFile("/Users/AdeelZahid/Desktop/Project/src/bricks.png"))
  	{
  		cout<<"Loading of image failed"<<endl ;
@@ -116,7 +115,6 @@ void Interface::display(sf::RenderWindow &window)
 			}
 		}
 	}
-    window.display();
 }
 
 
