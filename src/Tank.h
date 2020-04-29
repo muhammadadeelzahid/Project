@@ -9,11 +9,13 @@
 #define TANK_H_
 
 #include "Shape.h"
-
+#include <SFML/Graphics.hpp>
 class Tank: public Shape {
+	sf::Sprite *tank ;
+	int tankcount;
 
 public:
-	Tank();
+	Tank() ;
 	virtual ~Tank();
 };
 
