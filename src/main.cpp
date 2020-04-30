@@ -5,11 +5,12 @@
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-
+#include <cmath>
 #include "Interface.h"
 #include "Bullet.h"
 #include "Tank.h"
 #include "Wall.h" // most probably wont be used as it doesnt require any specialized function
+void move(string direction,Interface *game);
 int main()
 {
 	//this is the main files
@@ -28,91 +29,74 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-        }
-        //logic for movement starts
-        float movementDistance = 0.5 ;
-    	sf::Sprite *temp = &game.getTanks()[0].getTank() ;
+            //logic for movement starts
 
-    	//make changes here below to control the movement
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-        {
-        	if (temp->getRotation() == 0 || temp->getRotation() == 180 ) {
-        			temp->rotate(90) ;
-        			if (game.collisionTankWall())
-        			{
-                		temp->rotate(-90) ;
-        			}
-        		}
-        	else
-        	{
-        		temp->move(movementDistance,0) ;
-    			if (game.collisionTankWall())
-            		temp->move(-movementDistance,0) ;
+        	//make changes here below to control the movement
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+            	move("Up",&game);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+            	move("Down",&game);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+            	move("Right",&game);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+            	move("Left",&game);
+            }
 
-        	}
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-        {
-        	if (temp->getRotation() == 270 )
-        	{
-        			temp->rotate(-90) ;
-        			if (game.collisionTankWall())
-            			temp->rotate(+90) ;
 
-        	}
-        	else if ( temp->getRotation() == 90)
-        	{
-        			temp->rotate(90) ;
-        			if (game.collisionTankWall())
-            			temp->rotate(-90) ;
-
-        	}
-        	else{
-        		temp->move(0,movementDistance) ;
-    			if (game.collisionTankWall())
-        			temp->move(0,-movementDistance) ;
-
-        	}
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-        {
-        	if (temp->getRotation() == 90 ){
-        		temp->rotate(-90) ;
-    			if (game.collisionTankWall())
-        			temp->rotate(+90) ;
-
-        	}else if (temp->getRotation() == 270){
-        			temp->rotate(90) ;
-        			if (game.collisionTankWall())
-            			temp->rotate(-90) ;
-
-        	}else
-        		temp->move(0,-movementDistance) ;
-				if (game.collisionTankWall())
-					temp->move(0,movementDistance) ;
 
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-        {
-        	if ( temp->getRotation() == 0 ){
-        		temp->rotate(-90) ;
-    			if (game.collisionTankWall())
-        			temp->rotate(+90) ;
-
-        	}else if ( temp->getRotation() == 180){
-        			temp->rotate(90) ;
-        			if (game.collisionTankWall())
-            			temp->rotate(-90) ;
-
-        	}else{
-        		temp->move(-movementDistance,0) ;
-    			if (game.collisionTankWall())
-    				temp->move(movementDistance,0) ;
-         	}
-        }
-        //logic for movement ends
 
         game.display(window) ;
     }
 	return 0;
+}
+void move(string direction,Interface *game)
+{
+	sf::Sprite *temp = &game->getTanks()[0].getTank() ;
+	int radian = temp->getRotation() * 3.14 /180 ; //rotation angle is converted from degrees to rotation
+	 float distance = 10 ; //distance to be moved // controls the speed of movement
+
+	 if (direction == "Up")
+	 {
+		 int angle = temp->getRotation() ;
+		 switch (angle)
+		 {
+			 case 0:
+					temp->move(+0,-distance) ;
+					if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+						temp->move(0,+distance) ;
+						break;
+			 case 45:
+						temp->move(+distance,-distance) ;
+						if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+							temp->move(-distance,+distance) ;
+						 break;
+			 case 90:
+				 break;
+			 case 135:
+				 break ;
+
+		 }
+	 }
+	 else if (direction == "Down")
+	 {
+
+	 }
+	 else if ( direction == "Right")
+	 {
+		 temp->rotate(45) ;
+		 if ((game->collisionTankWall()) )
+			 temp->rotate(-45) ;
+	 }
+	 else if ( direction == "Left")
+	 {
+
+	 }
 }
