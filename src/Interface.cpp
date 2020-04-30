@@ -226,6 +226,7 @@ bool Interface::collisionTankWall()
 			return true ;
 		}
 	}
+	cout<<"No collision"<<endl ;
 	return false ;
 
 }

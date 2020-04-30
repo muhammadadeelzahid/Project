@@ -30,7 +30,7 @@ int main()
                 window.close();
         }
         //logic for movement starts
-        int movementDistance = 1 ;
+        float movementDistance = 0.5 ;
     	sf::Sprite *temp = &game.getTanks()[0].getTank() ;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
