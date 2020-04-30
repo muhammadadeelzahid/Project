@@ -26,6 +26,18 @@ Interface::Interface(int size,int ratio)
 	}
 	bricks.setObjectsize(screenFactor) ; // set the size of the bricks
 	bricks.initialise(sizeofcoordinates) ;
+
+	tankcount = 1 ;
+	tanks = new Tank[tankcount] ;
+	tanks[0].tank.setPosition(2*30,2*30) ;
+	coordinates[2][2] = 2;
+	if (!texture1.loadFromFile("tank[0].png"))
+	    {
+	        std::cout << "Image Loading failed" << std::endl;
+	        getchar() ;
+	    }
+	tanks[0].tank.setTexture(texture1) ;
+
 }
 
 int** Interface::getCoordinates()  {
@@ -36,6 +48,9 @@ int Interface::getScore() const {
 	return score;
 }
 
+ Tank*& Interface::getTanks()  {
+	return tanks;
+}
 
 int Interface::getSize() const {
 	return sizeofcoordinates;
@@ -144,7 +159,17 @@ void Interface::drawMaze()
 		}
 	}
 
-
+/*
+	for(int i = 0 ; i<sizeofcoordinates ; i++)
+	{
+		for (int j =0 ; j<sizeofcoordinates ;j++)
+		{
+			cout<<coordinates[i][j]<<" " ;
+		}
+		cout<<endl ;
+	}
+	getchar() ;
+	*/
 }
 void Interface::display(sf::RenderWindow &window)
 {
@@ -176,18 +201,27 @@ void Interface::display(sf::RenderWindow &window)
 			if (coordinates[i][j] == 1 )
 			{
 				//1 is the token for a brick/wall
-					cout<<"row: "<<(i)<<" col: "<<(j)<<endl;
+//					cout<<"row: "<<(i)<<" col: "<<(j)<<endl;
 
 					bricks.getBrick()[counter].setPosition(row,col) ;
 
-					cout<<bricks.getBrick()[counter].getPosition().x<<","<<bricks.getBrick()[counter].getPosition().y<<endl ;
-
+	//				cout<<bricks.getBrick()[counter].getPosition().x<<","<<bricks.getBrick()[counter].getPosition().y<<endl ;
 					window.draw(bricks.getBrick()[counter]) ;
 					counter++ ;
 			}
-
+			/*
+			if (coordinates[i][j] == 2 )
+			{
+				tanks[0].tank.setPosition(i*this->screenFactor,j*screenFactor) ;
+				cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
+				window.draw(tanks[0].tank) ;
+			}
+			*/
 		}
 	}
+	cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
+	window.draw(this->tanks[0].tank);
+
 
 
 	//end of function

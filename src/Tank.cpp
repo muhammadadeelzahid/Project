@@ -8,10 +8,20 @@
 #include "Tank.h"
 
 Tank::Tank() {
-	// TODO Auto-generated constructor stub
+	this->setTokenValue(2) ;
 
+	//setting the texture ;
 }
 
+
+void Tank::initialiseTank(int i)
+{
+    tank.setPosition(3,3);
+//    tank[i].
+ }
 Tank::~Tank() {
-	// TODO Auto-generated destructor stub
+}
+
+ sf::Sprite& Tank::getTank()  {
+	return tank;
 }

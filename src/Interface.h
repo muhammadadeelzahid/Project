@@ -21,7 +21,9 @@ class Interface {
 	int brickcounter ;
 	//all the arrays of the Game objects we will use
 	Wall bricks ;
-//	Tank tanks ;
+	Tank *tanks ;
+	int tankcount; //number of tanks
+	sf::Texture texture1 ;
 
 public:
 	Interface(int,int) ;
@@ -32,6 +34,7 @@ public:
 	int getScore() const;
 	void setScore(int score);
 	int getSize() const;
+	 Tank*& getTanks() ;
 };
 
 #endif /* INTERFACE_H_ */
