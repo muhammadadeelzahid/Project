@@ -29,8 +29,8 @@ Interface::Interface(int size,int ratio)
 
 	tankcount = 1 ;
 	tanks = new Tank[tankcount] ;
-	tanks[0].tank.setPosition(2*30,2*30) ;
-	coordinates[2][2] = 2;
+	tanks[0].tank.setPosition(10*30,10*30) ;
+	//coordinates[2][2] = 2;
 	if (!texture1.loadFromFile("tank[0].png"))
 	    {
 	        std::cout << "Image Loading failed" << std::endl;
@@ -158,9 +158,7 @@ void Interface::drawMaze()
 			coordinates[k][5 * (sizeofcoordinates / 6)] = 1;		brickcounter++ ;
 		}
 	}
-
-/*
-	for(int i = 0 ; i<sizeofcoordinates ; i++)
+/*	for(int i = 0 ; i<sizeofcoordinates ; i++)
 	{
 		for (int j =0 ; j<sizeofcoordinates ;j++)
 		{
@@ -168,43 +166,22 @@ void Interface::drawMaze()
 		}
 		cout<<endl ;
 	}
-	getchar() ;
-	*/
+	getchar() ;	*/
 }
 void Interface::display(sf::RenderWindow &window)
 {
-	//MAKE CHANGES FOR THE (X,Y) OF EVERY NEW OBJECT TO BE DRAWN
-//	cout<<"Total Coordinate"<<(sizeofcoordinates*sizeofcoordinates)<<endl;
-	//cout<<"Cooridnates Taken up by the Maze"<<brickcounter<<endl  ;getchar() ;
 	int counter = 0  ;
 	int row ; int col ;
 	for (int i = 0 ; i<sizeofcoordinates ; i++)
 	{
 		for (int j = 0 ; j<sizeofcoordinates; j ++)
 		{
-			/*
-			row = 0 ; col = 0 ;
-			int a = 0 ; int b = 0 ;
-			for (a = 0 ;  a<=sizeofcoordinates && a!=i && b!=j; a++)
-			{
-				for (b = 0 ; b<= sizeofcoordinates && a!=i && b!=j  ; b++)
-				{
-						if (coordinates[a][b] == 0 || coordinates[a][b] == 1) //for wall and empty spaces
-								col += bricks.getObjectsize() ;
-				}
-					row++ ;
-					col = 0 ;
-			}
-			//now draw that object
-			 * */
 			row = i*screenFactor ; col = j*screenFactor ;
 			if (coordinates[i][j] == 1 )
 			{
 				//1 is the token for a brick/wall
 //					cout<<"row: "<<(i)<<" col: "<<(j)<<endl;
-
 					bricks.getBrick()[counter].setPosition(row,col) ;
-
 	//				cout<<bricks.getBrick()[counter].getPosition().x<<","<<bricks.getBrick()[counter].getPosition().y<<endl ;
 					window.draw(bricks.getBrick()[counter]) ;
 					counter++ ;
@@ -219,13 +196,38 @@ void Interface::display(sf::RenderWindow &window)
 			*/
 		}
 	}
-	cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
+//	cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
 	window.draw(this->tanks[0].tank);
-
-
-
 	//end of function
 	window.display() ;
+}
+bool Interface::collisionTankWall()
+{
+	for(int i = 0 ; i<brickcounter ;i++)
+	{
+		if ( tanks[0].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
+		{
+			cout<<"COLLISION"<<endl ;
+			/*
+			cout<<tanks[0].tank.getPosition().x<<"=="<<bricks.getBrick()[i].getPosition().x<<"----" ;
+			cout<<tanks[0].tank.getPosition().y<<"=="<<bricks.getBrick()[i].getPosition().y<<"----"<<endl ;
+
+			cout<<"Height"<<bricks.getBrick()[i].getGlobalBounds().height<<endl ;
+			cout<<"Width"<<bricks.getBrick()[i].getGlobalBounds().width<<endl ;
+			cout<<"Top"<<bricks.getBrick()[i].getGlobalBounds().top<<endl ;
+			cout<<"Left"<<bricks.getBrick()[i].getGlobalBounds().left<<endl ;
+
+			cout<<endl ;
+			cout<<"Height "<<tanks[0].tank.getGlobalBounds().height<<endl ;
+			cout<<"Width "<<tanks[0].tank.getGlobalBounds().width<<endl ;
+			cout<<"Top "<<tanks[0].tank.getGlobalBounds().top<<endl ;
+			cout<<"Left "<<tanks[0].tank.getGlobalBounds().left<<endl ;
+			*/
+			return true ;
+		}
+	}
+	return false ;
+
 }
 
 

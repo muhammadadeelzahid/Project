@@ -26,6 +26,7 @@ class Interface {
 	sf::Texture texture1 ;
 
 public:
+	bool collisionTankWall() ;
 	Interface(int,int) ;
 	void drawMaze() ;
 	void display(sf::RenderWindow &window) ;
