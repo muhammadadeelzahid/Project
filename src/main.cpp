@@ -97,6 +97,8 @@ void move(string direction,Interface *game)
 	 }
 	 else if ( direction == "Left")
 	 {
-
+		 temp->rotate(-45) ;
+		 if ((game->collisionTankWall()) )
+			 temp->rotate(+45) ;
 	 }
 }
