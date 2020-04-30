@@ -33,6 +33,7 @@ int main()
         float movementDistance = 0.5 ;
     	sf::Sprite *temp = &game.getTanks()[0].getTank() ;
 
+    	//make changes here below to control the movement
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
         {
         	if (temp->getRotation() == 0 || temp->getRotation() == 180 ) {
