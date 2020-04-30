@@ -39,7 +39,7 @@ int main()
         			temp->rotate(90) ;
         			if (game.collisionTankWall())
         			{
-        				temp->rotate(-90) ;
+                		temp->rotate(-90) ;
         			}
         		}
         	else
