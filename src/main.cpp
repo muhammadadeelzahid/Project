@@ -64,31 +64,101 @@ void move(string direction,Interface *game)
 	 float distance = 10 ; //distance to be moved // controls the speed of movement
 
 	 if (direction == "Up")
-	 {
-		 int angle = temp->getRotation() ;
-		 switch (angle)
-		 {
-			 case 0:
-					temp->move(+0,-distance) ;
-					if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-						temp->move(0,+distance) ;
-						break;
-			 case 45:
-						temp->move(+distance,-distance) ;
-						if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-							temp->move(-distance,+distance) ;
-						 break;
-			 case 90:
-				 break;
-			 case 135:
-				 break ;
+	 	 {
+	 		 int angle = temp->getRotation() ;
+	 		 switch (angle)
+	 		 {
+	 			 case 0:
+	 					temp->move(+0,-distance) ;
+	 					if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 						temp->move(0,+distance) ;
+	 						break;
+	 			 case 45:
+	 						temp->move(+distance,-distance) ;
+	 						if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 							temp->move(-distance,+distance) ;
+	 						 break;
+	 			 case 90:
+	 				 temp->move(+distance, 0);
+	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(-distance, 0);
+	 				 break;
+	 			 case 135:
+	 				 temp->move(+distance, distance);
+	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(-distance, -distance);
+	 				 break;
+	 			 case 180:
+	 				 temp->move(0, distance);
+	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(0, -distance);
+	 				 break;
+	 			 case 225:
+	 				 temp->move(-distance, distance);
+	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(distance, -distance);
+	 				 break;
+	 			 case 270:
+	 				 temp->move(-distance, 0);
+	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(distance, 0);
+	 				 break;
+	 			 case 315:
+	 				 temp->move(-distance, -distance);
+	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(distance, distance);
+	 				 break;
 
-		 }
-	 }
-	 else if (direction == "Down")
-	 {
+	 		 }
+	 	 }
+	 	 else if (direction == "Down")
+	 	 {
+	 		 int angle = temp->getRotation();
+	 		 switch (angle)
+	 		 {
+	 		 case 0:
+	 			 temp->move(+0, distance);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(0, -distance);
+	 			 break;
+	 		 case 45:
+	 			 temp->move(-distance, distance);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(distance, -distance);
+	 			 break;
+	 		 case 90:
+	 			 temp->move(-distance, 0);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(distance, 0);
+	 			 break;
+	 		 case 135:
+	 			 temp->move(-distance, -distance);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(distance, distance);
+	 			 break;
+	 		 case 180:
+	 			 temp->move(0, -distance);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(0, distance);
+	 			 break;
+	 		 case 225:
+	 			 temp->move(distance, -distance);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(-distance, distance);
+	 			 break;
+	 		 case 270:
+	 			 temp->move(distance, 0);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(-distance, 0);
+	 			 break;
+	 		 case 315:
+	 			 temp->move(distance, distance);
+	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(-distance, -distance);
+	 			 break;
 
-	 }
+	 		 }
+	 	 }
 	 else if ( direction == "Right")
 	 {
 		 temp->rotate(45) ;
