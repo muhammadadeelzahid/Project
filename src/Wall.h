@@ -7,15 +7,16 @@
 
 #ifndef WALL_H_
 #define WALL_H_
-#include <SFML/Graphics.hpp>
 #include "Shape.h"
-
+class Interface;
 class Wall: public Shape {
 	sf::RectangleShape *brick ;
 public:
 	Wall();
+	friend class Interface;
+	void draw(sf::RenderWindow &window){ ;} ;
 	void initialise(int) ;
-	virtual ~Wall();
+	~Wall() { delete [] brick ;} ;
 	sf::RectangleShape*& getBrick() ;
 };
 

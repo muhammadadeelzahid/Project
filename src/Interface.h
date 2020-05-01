@@ -26,7 +26,17 @@ class Interface {
 	sf::Texture texture1 ;
 
 public:
-	bool collisionTankWall() ;
+	//functions involving movement and collision of bricks
+	void moveBullets() ;
+	void BulletscollisionWithWalls();
+	void BulletscollisionWithTank();
+	void fire(int tankNumber);
+	void destroyBullet();
+
+	//functions involving movement and collision of bricks Ends
+
+	void moveTank(string direction,int tankNumber) ;
+	bool collisionTankWall(int tankNumber) ;
 	Interface(int,int) ;
 	void drawMaze() ;
 	void display(sf::RenderWindow &window) ;

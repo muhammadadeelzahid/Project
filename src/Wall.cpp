@@ -17,9 +17,6 @@ Wall::Wall() {
 	return brick;
 }
 
-Wall::~Wall() {
-	// TODO Auto-generated destructor stub
-}
 
 void Wall::initialise(int screensize)
 {

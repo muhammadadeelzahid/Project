@@ -9,8 +9,18 @@
 
 Tank::Tank() {
 	this->setTokenValue(2) ;
-
+	firedbullets = 0;
 	//setting the texture ;
+}
+void Tank::draw(sf::RenderWindow & window)
+{
+	window.draw(this->tank) ;
+
+	//now for the bullets
+	for (int i  = 0 ; i<this->firedbullets ;i++)
+	{
+		bullets[i].draw(window);
+	}
 }
 
 
@@ -19,8 +29,7 @@ void Tank::initialiseTank(int i)
     tank.setPosition(3,3);
 //    tank[i].
  }
-Tank::~Tank() {
-}
+
 
  sf::Sprite& Tank::getTank()  {
 	return tank;

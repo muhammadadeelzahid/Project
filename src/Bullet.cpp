@@ -8,11 +8,33 @@
 #include "Bullet.h"
 
 Bullet::Bullet() {
-	// TODO Auto-generated constructor stub
-
+	if (!t.loadFromFile("Bullet.png"))
+	    {
+	        std::cout << "Image Loading failed for bullet" << std::endl;
+	        getchar() ;
+	    }
+	this->bullet.setTexture(t);
+	RotationAngle = 0 ;
 }
 
-Bullet::~Bullet() {
-	// TODO Auto-generated destructor stub
+const sf::Sprite& Bullet::getBullet() const {
+	return bullet;
+}
+
+void Bullet::setBullet(const sf::Sprite &bullet) {
+	this->bullet = bullet;
+}
+
+
+int Bullet::getRotationAngle() const {
+	return RotationAngle;
+}
+
+void Bullet::setRotationAngle(int rotationAngle) {
+	RotationAngle = rotationAngle;
+}
+void Bullet::draw(sf::RenderWindow &window)
+{
+	window.draw(bullet);
 }
 

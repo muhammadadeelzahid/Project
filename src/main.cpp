@@ -10,12 +10,11 @@
 #include "Bullet.h"
 #include "Tank.h"
 #include "Wall.h" // most probably wont be used as it doesnt require any specialized function
-void move(string direction,Interface *game);
 int main()
 {
 	//this is the main files
 	int sizeScreen = 780 ;
-	int sizeOfObject  =  30 ;
+	int sizeOfObject  =  15 ;
 	Interface game(sizeScreen,sizeOfObject) ;
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
 	game.drawMaze() ;
@@ -34,141 +33,29 @@ int main()
         	//make changes here below to control the movement
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {
-            	move("Up",&game);
+            	game.moveTank("Up",0) ; // Move tank Number 1 upwards //index of arrays start from 0
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             {
-            	move("Down",&game);
+            	game.moveTank("Down",0) ; // Move tank Number 1 Down
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
-            	move("Right",&game);
+            	game.moveTank("Right",0) ; // Move tank Number 1 Right
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
-            	move("Left",&game);
+            	game.moveTank("Left",0) ; // Move tank Number 1 Left
             }
-
-
-
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+            	cout<<"FIRE TANK 01"<<endl ;
+            	game.fire(0) ;
+            }
         }
 
         game.display(window) ;
     }
 	return 0;
 }
-void move(string direction,Interface *game)
-{
-	sf::Sprite *temp = &game->getTanks()[0].getTank() ;
-	int radian = temp->getRotation() * 3.14 /180 ; //rotation angle is converted from degrees to rotation
-	 float distance = 10 ; //distance to be moved // controls the speed of movement
 
-	 if (direction == "Up")
-	 	 {
-	 		 int angle = temp->getRotation() ;
-	 		 switch (angle)
-	 		 {
-	 			 case 0:
-	 					temp->move(+0,-distance) ;
-	 					if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 						temp->move(0,+distance) ;
-	 						break;
-	 			 case 45:
-	 						temp->move(+distance,-distance) ;
-	 						if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 							temp->move(-distance,+distance) ;
-	 						 break;
-	 			 case 90:
-	 				 temp->move(+distance, 0);
-	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 					 temp->move(-distance, 0);
-	 				 break;
-	 			 case 135:
-	 				 temp->move(+distance, distance);
-	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 					 temp->move(-distance, -distance);
-	 				 break;
-	 			 case 180:
-	 				 temp->move(0, distance);
-	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 					 temp->move(0, -distance);
-	 				 break;
-	 			 case 225:
-	 				 temp->move(-distance, distance);
-	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 					 temp->move(distance, -distance);
-	 				 break;
-	 			 case 270:
-	 				 temp->move(-distance, 0);
-	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 					 temp->move(distance, 0);
-	 				 break;
-	 			 case 315:
-	 				 temp->move(-distance, -distance);
-	 				 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 					 temp->move(distance, distance);
-	 				 break;
-
-	 		 }
-	 	 }
-	 	 else if (direction == "Down")
-	 	 {
-	 		 int angle = temp->getRotation();
-	 		 switch (angle)
-	 		 {
-	 		 case 0:
-	 			 temp->move(+0, distance);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(0, -distance);
-	 			 break;
-	 		 case 45:
-	 			 temp->move(-distance, distance);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(distance, -distance);
-	 			 break;
-	 		 case 90:
-	 			 temp->move(-distance, 0);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(distance, 0);
-	 			 break;
-	 		 case 135:
-	 			 temp->move(-distance, -distance);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(distance, distance);
-	 			 break;
-	 		 case 180:
-	 			 temp->move(0, -distance);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(0, distance);
-	 			 break;
-	 		 case 225:
-	 			 temp->move(distance, -distance);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(-distance, distance);
-	 			 break;
-	 		 case 270:
-	 			 temp->move(distance, 0);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(-distance, 0);
-	 			 break;
-	 		 case 315:
-	 			 temp->move(distance, distance);
-	 			 if (game->collisionTankWall()) // if colliding then do the reverse and move back to the same coordiantes
-	 				 temp->move(-distance, -distance);
-	 			 break;
-
-	 		 }
-	 	 }
-	 else if ( direction == "Right")
-	 {
-		 temp->rotate(45) ;
-		 if ((game->collisionTankWall()) )
-			 temp->rotate(-45) ;
-	 }
-	 else if ( direction == "Left")
-	 {
-		 temp->rotate(-45) ;
-		 if ((game->collisionTankWall()) )
-			 temp->rotate(+45) ;
-	 }
-}

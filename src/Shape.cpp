@@ -43,9 +43,6 @@ void Shape::setTokenValue(int tokenValue) {
 	this->tokenValue = tokenValue;
 }
 
-Shape::~Shape() {
-	// TODO Auto-generated destructor stub
-}
 
 int Shape::getObjectsize() const {
 	return objectsize;

@@ -9,17 +9,22 @@
 #define TANK_H_
 class Interface ;
 #include "Shape.h"
-#include <SFML/Graphics.hpp>
+#include "Bullet.h"
+#include "Wall.h"
 class Tank: public Shape {
 	sf::Sprite tank ;
+	int status; //if tank has been destroyed or not
+	Bullet bullets [10] ;
+	int firedbullets ;
 
 public:
 	friend class Interface ;
+	~Tank() { ; }
 	Tank() ;
 	void setTexture(sf::Texture &texture) ;
+	void draw(sf::RenderWindow &object) ;
 	void initialiseTank(int) ;
 
-	virtual ~Tank();
 	 sf::Sprite& getTank() ;
 };
 

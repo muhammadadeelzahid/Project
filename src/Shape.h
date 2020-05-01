@@ -9,6 +9,7 @@
 #define SHAPE_H_
 #include "Coordinate.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
 using namespace std;
 class Shape {
 	int objectsize ;
@@ -18,8 +19,9 @@ class Shape {
 	int tokenValue ;
 
 public:
+	virtual void draw(sf::RenderWindow &window) = 0 ;
 	Shape();
-	virtual ~Shape();
+	virtual ~Shape() { ;}
 	const string& getName() const;
 	void setName(const string &name);
 	const Coordinate& getPosition() const;

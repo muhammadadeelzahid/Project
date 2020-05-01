@@ -61,6 +61,7 @@ void Interface::setScore(int score) {
 }
 
 Interface::~Interface() {
+	delete [] this->coordinates ;
 }
 void Interface::drawMaze()
 {
@@ -116,7 +117,6 @@ void Interface::drawMaze()
 		{
 			coordinates[sizeofcoordinates / 2][n] = 1;
 			brickcounter++ ;
-
 		}
 	}
 	//1st horizontal line from top
@@ -158,15 +158,7 @@ void Interface::drawMaze()
 			coordinates[k][5 * (sizeofcoordinates / 6)] = 1;		brickcounter++ ;
 		}
 	}
-/*	for(int i = 0 ; i<sizeofcoordinates ; i++)
-	{
-		for (int j =0 ; j<sizeofcoordinates ;j++)
-		{
-			cout<<coordinates[i][j]<<" " ;
-		}
-		cout<<endl ;
-	}
-	getchar() ;	*/
+
 }
 void Interface::display(sf::RenderWindow &window)
 {
@@ -186,49 +178,221 @@ void Interface::display(sf::RenderWindow &window)
 					window.draw(bricks.getBrick()[counter]) ;
 					counter++ ;
 			}
-			/*
-			if (coordinates[i][j] == 2 )
-			{
-				tanks[0].tank.setPosition(i*this->screenFactor,j*screenFactor) ;
-				cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
-				window.draw(tanks[0].tank) ;
-			}
-			*/
 		}
 	}
 //	cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
-	window.draw(this->tanks[0].tank);
+	for(int i = 0 ; i<this->tankcount ;i++)
+	{
+		this->tanks[i].draw(window) ;
+	}
 	//end of function
 	window.display() ;
 }
-bool Interface::collisionTankWall()
+bool Interface::collisionTankWall(int tankNumber)
 {
 	for(int i = 0 ; i<brickcounter ;i++)
 	{
-		if ( tanks[0].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
+		if ( tanks[tankNumber].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
 		{
-			cout<<"COLLISION"<<endl ;
-			/*
-			cout<<tanks[0].tank.getPosition().x<<"=="<<bricks.getBrick()[i].getPosition().x<<"----" ;
-			cout<<tanks[0].tank.getPosition().y<<"=="<<bricks.getBrick()[i].getPosition().y<<"----"<<endl ;
-
-			cout<<"Height"<<bricks.getBrick()[i].getGlobalBounds().height<<endl ;
-			cout<<"Width"<<bricks.getBrick()[i].getGlobalBounds().width<<endl ;
-			cout<<"Top"<<bricks.getBrick()[i].getGlobalBounds().top<<endl ;
-			cout<<"Left"<<bricks.getBrick()[i].getGlobalBounds().left<<endl ;
-
-			cout<<endl ;
-			cout<<"Height "<<tanks[0].tank.getGlobalBounds().height<<endl ;
-			cout<<"Width "<<tanks[0].tank.getGlobalBounds().width<<endl ;
-			cout<<"Top "<<tanks[0].tank.getGlobalBounds().top<<endl ;
-			cout<<"Left "<<tanks[0].tank.getGlobalBounds().left<<endl ;
-			*/
+//			cout<<"COLLISION"<<endl ;
 			return true ;
 		}
 	}
-	cout<<"No collision"<<endl ;
+	//cout<<"No collision"<<endl ;
 	return false ;
+}
+void Interface::moveTank(string direction,int tankNumber)
+{
+	sf::Sprite *temp = &this->tanks[tankNumber].getTank() ;
+	 float distance = 10 ; //distance to be moved // controls the speed of movement
+	 //the key factors for movement is the direction of the movement and the angle at which the tank is rotated
+	 if (direction == "Up")
+	 	 {
+	 		 int angle = temp->getRotation() ;
+	 		 switch (angle)
+	 		 {
+	 			 case 0:
+	 					temp->move(+0,-distance) ;
+	 					if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 						temp->move(0,+distance) ;
+	 						break;
+	 			 case 45:
+	 						temp->move(+distance,-distance) ;
+	 						if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 							temp->move(-distance,+distance) ;
+	 						 break;
+	 			 case 90:
+	 				 temp->move(+distance, 0);
+	 				 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(-distance, 0);
+	 				 break;
+	 			 case 135:
+	 				 temp->move(+distance, distance);
+	 				 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(-distance, -distance);
+	 				 break;
+	 			 case 180:
+	 				 temp->move(0, distance);
+	 				 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(0, -distance);
+	 				 break;
+	 			 case 225:
+	 				 temp->move(-distance, distance);
+	 				 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(distance, -distance);
+	 				 break;
+	 			 case 270:
+	 				 temp->move(-distance, 0);
+	 				 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(distance, 0);
+	 				 break;
+	 			 case 315:
+	 				 temp->move(-distance, -distance);
+	 				 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 					 temp->move(distance, distance);
+	 				 break;
+
+	 		 }
+	 	 }
+	 	 else if (direction == "Down")
+	 	 {
+	 		 int angle = temp->getRotation();
+	 		 switch (angle)
+	 		 {
+	 		 case 0:
+	 			 temp->move(+0, distance);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(0, -distance);
+	 			 break;
+	 		 case 45:
+	 			 temp->move(-distance, distance);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(distance, -distance);
+	 			 break;
+	 		 case 90:
+	 			 temp->move(-distance, 0);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(distance, 0);
+	 			 break;
+	 		 case 135:
+	 			 temp->move(-distance, -distance);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(distance, distance);
+	 			 break;
+	 		 case 180:
+	 			 temp->move(0, -distance);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(0, distance);
+	 			 break;
+	 		 case 225:
+	 			 temp->move(distance, -distance);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(-distance, distance);
+	 			 break;
+	 		 case 270:
+	 			 temp->move(distance, 0);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(-distance, 0);
+	 			 break;
+	 		 case 315:
+	 			 temp->move(distance, distance);
+	 			 if (this->collisionTankWall(tankNumber)) // if colliding then do the reverse and move back to the same coordiantes
+	 				 temp->move(-distance, -distance);
+	 			 break;
+
+	 		 }
+	 	 }
+	 else if ( direction == "Right")
+	 {
+		 temp->rotate(45) ;
+		 if ((this->collisionTankWall(tankNumber)) )
+			 temp->rotate(-45) ;
+	 }
+	 else if ( direction == "Left")
+	 {
+		 temp->rotate(-45) ;
+		 if ((this->collisionTankWall(tankNumber)) )
+			 temp->rotate(+45) ;
+	 }
 
 }
+
+
+//function call is controlled by the timer in main.cpp
+void Interface::	destroyBullet()
+{
+	// destroy a bullet based on its own timer
+}
+
+void Interface::fire(int tankNumber)
+{
+	if (tanks[tankNumber].firedbullets <5 )
+	{
+		cout<<"Bullets Remaining"<<tanks[tankNumber].firedbullets <<endl;
+		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setPosition(tanks[tankNumber].tank.getPosition()) ;// set the same position as that of tank
+		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].setRotationAngle(tanks[tankNumber].tank.getRotation()) ;//set same rotation as that of the tank
+		tanks[tankNumber].firedbullets ++ ;
+	}
+	else
+		cout<<"All bullets used"<<endl ;
+		//code to move the current bullet one step forward
+}
+//function call is controlled by the timer in main.cpp
+void Interface::moveBullets()
+{
+	//move all bullets for all tanks
+	for (int i = 0 ; i<this->tankcount; i++)
+	{
+		for (int j = 0; j<this->tanks[i].firedbullets ; j++)
+		{
+				//code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
+
+
+			//now check collision of the bullet with tanks
+			this->BulletscollisionWithTank() ;
+
+			//now check collision of the bullet with the walls
+			BulletscollisionWithTank() ;
+		}
+	}
+}
+void Interface::BulletscollisionWithTank()
+{
+	cout<<"Checking collision of bullets with Tank"<<endl ;
+	for(int i =0 ; i<tankcount ; i++)
+	{
+		for (int j = 0 ; j <tanks[i].firedbullets; j++)
+		{
+			if (tanks[i].bullets[j].bullet.getGlobalBounds().intersects(tanks[i].tank.getGlobalBounds()))
+			{
+				tanks[i].status = 1 ;
+				cout<<"Bullets collision with tank"<<i<<endl ;
+				getchar() ;
+			}
+		}
+	}
+}
+void Interface::BulletscollisionWithWalls()
+{
+	cout<<"Checking collision of bullets with tanks"<<endl ;
+	for(int i = 0 ; i<this->brickcounter ;i++)
+	{
+		for (int j = 0 ; j<tankcount ; j++)
+		{
+				for (int k  =0 ; k<tanks[j].firedbullets ; k++)
+				{
+					if ( tanks[i].bullets[j].bullet.getGlobalBounds().intersects(bricks.brick[i].getGlobalBounds()))
+					{
+						//code for reflection of bullet
+						cout<<"Bullet reflected"<<endl ;
+					}
+				}
+
+		}
+	}
+}
+
+
+
 
 
