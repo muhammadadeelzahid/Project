@@ -62,9 +62,9 @@ int main()
 }
 void MoveBulletsTimed(sf::Clock &clock ,Interface &game)
 {
-	if( clock.getElapsedTime() > sf::microseconds(500))
+	if( clock.getElapsedTime() > sf::milliseconds(100)  )
 	{
-		sf::Time elapsed = clock.getElapsedTime() ;
+//		sf::Time elapsed = clock.getElapsedTime() ;
 		game.moveBullets() ;
 		clock.restart();
 	}

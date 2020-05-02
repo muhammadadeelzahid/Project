@@ -345,45 +345,90 @@ void Interface::fire(int tankNumber)
 //function call is controlled by the timer in main.cpp
 void Interface::moveBullets()
 {
-//	cout<<"Moving bullets"<<endl ;
-	//move all bullets for all tanks
-	for (int i = 0 ; i<this->tankcount; i++)
-	{
-		for (int j = 0; j<this->tanks[i].firedbullets ; j++)
+		//	cout<<"Moving bullets"<<endl ;
+			//move all bullets for all tanks
+		for (int i = 0; i < this->tankcount; i++)
 		{
-//			cout<<j<<endl;
-				//code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
-
-
-
-
-
-
-
-
-
-
-
-
-			//now check collision of the bullet with tanks
-			BulletscollisionWithTank() ;
-
-			//now check collision of the bullet with the walls
-			BulletscollisionWithWalls() ;
-
-
-			//why all the bullets disappear when one bullet timesout
-			if (this->tanks[i].bullets[j].CheckBulletTimeout() )
+			for (int j = 0; j < this->tanks[i].firedbullets; j++)
 			{
-//				cout<<"Times up for bullet: "<<j<<endl ;
-			for (int a = 1  ;a<=tanks[i].firedbullets ; a++)
+				//				//code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
+				sf::CircleShape *temp = &this->tanks[i].bullets[j].getBullet();
+				float distance = 10;
+				int angle = temp->getRotation();
+
+				cout << "Angle is" << temp->getRotation()<<endl;
+				float x = 0, y = 0;
+				switch (angle)
 				{
-					this->tanks[i].bullets[a-1] =  this->tanks[i].bullets[a] ;
+				case 0:
+					x = temp->getPosition().x ;
+					y = temp->getPosition().y - distance;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 45:
+
+					x = temp->getPosition().x + distance;
+					y = temp->getPosition().y - distance;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 90:
+
+					x = temp->getPosition().x + distance;
+					y = temp->getPosition().y;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 135:
+
+					x = temp->getPosition().x + distance;
+					y = temp->getPosition().y + distance;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 180:
+
+					x = temp->getPosition().x;
+					y = temp->getPosition().y + distance;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 225:
+
+					x = temp->getPosition().x - distance;
+					y = temp->getPosition().y + distance;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 270:
+
+					x = temp->getPosition().x - distance;
+					y = temp->getPosition().y;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				case 315:
+
+					x = temp->getPosition().x - distance;
+					y = temp->getPosition().y - distance;
+					temp->setPosition(sf::Vector2f(x, y));
+					break;
+				default:
+					cout << "No Angle Matching " << endl;
 				}
-				tanks[i].firedbullets-- ;
-			}
+					//now check collision of the bullet with tanks
+					BulletscollisionWithTank();
+
+					//now check collision of the bullet with the walls
+					BulletscollisionWithWalls();
+
+
+					//why all the bullets disappear when one bullet timesout
+					if (this->tanks[i].bullets[j].CheckBulletTimeout())
+					{
+						//				cout<<"Times up for bullet: "<<j<<endl ;
+						for (int a = 1; a <= tanks[i].firedbullets; a++)
+						{
+							this->tanks[i].bullets[a - 1] = this->tanks[i].bullets[a];
+						}
+						tanks[i].firedbullets--;
+					}
+				}
 		}
-	}
 }
 void Interface::BulletscollisionWithTank()
 {
@@ -410,10 +455,10 @@ void Interface::BulletscollisionWithWalls()
 		{
 				for (int k  =0 ; k<tanks[j].firedbullets ; k++)
 				{
-					if ( tanks[i].bullets[j].bullet.getGlobalBounds().intersects(bricks.brick[i].getGlobalBounds()))
+					if ( tanks[j].bullets[k].bullet.getGlobalBounds().intersects(bricks.brick[i].getGlobalBounds()))
 					{
 						//code for reflection of bullet
-	//					cout<<"Bullet reflected"<<endl ;
+						cout<<"Bullet reflected"<<endl ;
 					}
 				}
 
