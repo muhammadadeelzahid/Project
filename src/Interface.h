@@ -26,14 +26,17 @@ class Interface {
 	sf::Texture texture1 ;
 
 public:
-	//functions involving movement and collision of bricks
+	//functions involving movement and collision of Bullets
 	void moveBullets() ;
 	void BulletscollisionWithWalls();
 	void BulletscollisionWithTank();
 	void fire(int tankNumber);
 	void destroyBullet();
 
-	//functions involving movement and collision of bricks Ends
+	//functions involving movement and collision of Bullets Ends
+
+	void StopGame(); // detect if one of the tanks are shot
+
 
 	void moveTank(string direction,int tankNumber) ;
 	bool collisionTankWall(int tankNumber) ;

@@ -193,7 +193,16 @@ bool Interface::collisionTankWall(int tankNumber)
 {
 	for(int i = 0 ; i<brickcounter ;i++)
 	{
-		if ( tanks[tankNumber].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
+		sf::Image img ;
+		img.create(screenFactor,screenFactor,sf::Color::Blue) ;
+		sf::Texture temp ;
+		temp.loadFromImage(img) ;
+		sf::Sprite temp1 ;
+		temp1.setTexture(temp) ;
+		temp1.setPosition(bricks.brick[i].getPosition()) ;
+
+		if( Collision::PixelPerfectTest(tanks[tankNumber].tank,temp1) )
+//		if ( tanks[tankNumber].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
 		{
 //			cout<<"COLLISION"<<endl ;
 			return true ;
@@ -338,9 +347,11 @@ void Interface::fire(int tankNumber)
 		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setPosition(tanks[tankNumber].tank.getPosition()) ;// set the same position as that of tank
 		cout<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<","<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<endl<<endl;
 		tanks[tankNumber].setFiredbullets(tanks[tankNumber].getFiredbullets()+1);
+		this->moveBullets() ;
 	}
 	else
 		cout<<"All bullets used"<<endl ;
+
 		//code to move the current bullet one step forward
 }
 //function call is controlled by the timer in main.cpp
@@ -352,7 +363,7 @@ void Interface::moveBullets()
 		{
 			for (int j = 0; j < this->tanks[i].firedbullets; j++)
 			{
-				//				//code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
+				//	code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
 				sf::Sprite *temp = &this->tanks[i].bullets[j].getBullet();
 				float distance = 10;
 				int angle = temp->getRotation();
@@ -411,14 +422,10 @@ void Interface::moveBullets()
 				default:
 					cout << "No Angle Matching " << endl;
 				}
-					//now check collision of the bullet with tanks
-					BulletscollisionWithTank();
 
 					//now check collision of the bullet with the walls
 					BulletscollisionWithWalls();
 
-
-					//why all the bullets disappear when one bullet timesout
 					if (this->tanks[i].bullets[j].CheckBulletTimeout())
 					{
 						//				cout<<"Times up for bullet: "<<j<<endl ;
@@ -428,6 +435,8 @@ void Interface::moveBullets()
 						}
 						tanks[i].firedbullets--;
 					}
+					BulletscollisionWithWalls();
+
 				}
 		}
 }
@@ -440,23 +449,25 @@ void Interface::BulletscollisionWithTank()
 		{
 			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,tanks[i].tank))
 			{
-			//	tanks[i].status = 1 ;
+				tanks[i].status = 1 ;
 				cout<<"Bullets collision with tank"<<i<<endl ;
-				getchar() ;
+			//	getchar() ;
 			}
 		}
 	}
 }
-
 void Interface::BulletscollisionWithWalls()
 {
+
 	//cout<<"Checking collision of bullets with Walls"<<endl ;
+/*
 	for(int i = 0 ; i<this->brickcounter ;i++)
 	{
 		for (int j = 0 ; j<tankcount ; j++)
 		{
 				for (int k  =0 ; k<tanks[j].firedbullets ; k++)
 				{
+
 					sf::Image img ;
 					img.create(screenFactor,screenFactor,sf::Color::Blue) ;
 					sf::Texture temp ;
@@ -466,41 +477,50 @@ void Interface::BulletscollisionWithWalls()
 					temp1.setPosition(bricks.brick[i].getPosition()) ;
 					if (Collision::PixelPerfectTest(tanks[j].bullets[k].bullet,temp1))
 					{
-						cout<<"Collision Brick Bullet"<<endl;
-						getchar();
-					}
-					if ( tanks[j].bullets[k].bullet.getGlobalBounds().intersects(bricks.brick[i].getGlobalBounds()))
-					{
+										cout<<"Collision Brick Bullet"<<endl;
 						//code for reflection of bullet
 //						cout<<"Bullet reflected"<<endl ; break;
-/*
-						sf::CircleShape *temp= &this->tanks[j].bullets[k].getBullet();
+						sf::Sprite *temp= &this->tanks[j].bullets[k].getBullet();
 						float x = 0, y = 0;
 						int angle = temp->getRotation();
 						switch (angle) {
-						case 0:
-							temp->rotate(180);
-							break;
-						case 45:
-							temp->rotate(-90);
-							break;
-						case 90:
-							temp->rotate(-180);
-							break;
-						case 135:
-							temp->rotate(90);
-							break;
-
-						*/
-
-						}
+							case 0:
+								temp->rotate(180);
+								break;
+							case 45:
+								temp->rotate(-90);
+								break;
+							case 90:
+								temp->rotate(-180);
+								break;
+							case 135:
+								temp->rotate(90);
+								break;
+							}
 					}
+					else
+						cout<<"No collsion"<<endl ;
+
+					}
+
+
 				}
 
 		}
+		*/
 	}
 
-
+void Interface::StopGame() // detect if one of the tanks are shot
+{
+	for (int i = 0 ; i<this->tankcount ;i++)
+	{
+		if (this->tanks[i].status == 1)
+		{
+			cout<<"Tank "<<(i+1)<<"destroyed Game stopped"<<endl ;
+			getchar() ;
+		}
+	}
+}
 
 
 

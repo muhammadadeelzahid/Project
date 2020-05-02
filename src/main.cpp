@@ -56,14 +56,16 @@ int main()
         }
 
         MoveBulletsTimed(clock,game);
+        game.BulletscollisionWithWalls() ;
+
+		game.StopGame() ;
         game.display(window) ;
     }
-	sf::Image image1() ;
 	return 0;
 }
 void MoveBulletsTimed(sf::Clock &clock ,Interface &game)
 {
-	if( clock.getElapsedTime() > sf::milliseconds(100)  )
+	if( clock.getElapsedTime() > sf::milliseconds(25)  )
 	{
 //		sf::Time elapsed = clock.getElapsedTime() ;
 		game.moveBullets() ;
