@@ -6,6 +6,7 @@
  */
 
 #include "Interface.h"
+#include "Collision.hpp"
 Interface::Interface(int size,int ratio)
 {
 	screenFactor = ratio ;
@@ -352,11 +353,11 @@ void Interface::moveBullets()
 			for (int j = 0; j < this->tanks[i].firedbullets; j++)
 			{
 				//				//code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
-				sf::CircleShape *temp = &this->tanks[i].bullets[j].getBullet();
+				sf::Sprite *temp = &this->tanks[i].bullets[j].getBullet();
 				float distance = 10;
 				int angle = temp->getRotation();
 
-				cout << "Angle is" << temp->getRotation()<<endl;
+				//cout << "Angle is" << temp->getRotation()<<endl;
 				float x = 0, y = 0;
 				switch (angle)
 				{
@@ -437,15 +438,16 @@ void Interface::BulletscollisionWithTank()
 	{
 		for (int j = 0 ; j <tanks[i].firedbullets; j++)
 		{
-			if (tanks[i].bullets[j].bullet.getGlobalBounds().intersects(tanks[i].tank.getGlobalBounds()))
+			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,tanks[i].tank))
 			{
-				tanks[i].status = 1 ;
-				//cout<<"Bullets collision with tank"<<i<<endl ;
-				//getchar() ;
+			//	tanks[i].status = 1 ;
+				cout<<"Bullets collision with tank"<<i<<endl ;
+				getchar() ;
 			}
 		}
 	}
 }
+
 void Interface::BulletscollisionWithWalls()
 {
 	//cout<<"Checking collision of bullets with Walls"<<endl ;
@@ -455,16 +457,49 @@ void Interface::BulletscollisionWithWalls()
 		{
 				for (int k  =0 ; k<tanks[j].firedbullets ; k++)
 				{
+					sf::Image img ;
+					img.create(screenFactor,screenFactor,sf::Color::Blue) ;
+					sf::Texture temp ;
+					temp.loadFromImage(img) ;
+					sf::Sprite temp1 ;
+					temp1.setTexture(temp) ;
+					temp1.setPosition(bricks.brick[i].getPosition()) ;
+					if (Collision::PixelPerfectTest(tanks[j].bullets[k].bullet,temp1))
+					{
+						cout<<"Collision Brick Bullet"<<endl;
+						getchar();
+					}
 					if ( tanks[j].bullets[k].bullet.getGlobalBounds().intersects(bricks.brick[i].getGlobalBounds()))
 					{
 						//code for reflection of bullet
-						cout<<"Bullet reflected"<<endl ;
+//						cout<<"Bullet reflected"<<endl ; break;
+/*
+						sf::CircleShape *temp= &this->tanks[j].bullets[k].getBullet();
+						float x = 0, y = 0;
+						int angle = temp->getRotation();
+						switch (angle) {
+						case 0:
+							temp->rotate(180);
+							break;
+						case 45:
+							temp->rotate(-90);
+							break;
+						case 90:
+							temp->rotate(-180);
+							break;
+						case 135:
+							temp->rotate(90);
+							break;
+
+						*/
+
+						}
 					}
 				}
 
 		}
 	}
-}
+
 
 
 

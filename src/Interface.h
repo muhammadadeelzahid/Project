@@ -7,8 +7,8 @@
 
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
+//#include "Collision.hpp"
 #include <iostream>
-
 #include "Wall.h"
 #include "Tank.h"
 using namespace std ;

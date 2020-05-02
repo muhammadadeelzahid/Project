@@ -17,7 +17,7 @@ int main()
 
 	//this is the main files
 	int sizeScreen = 780 ;
-	int sizeOfObject  =  25 ;
+	int sizeOfObject  =  30 ;
 	Interface game(sizeScreen,sizeOfObject) ;
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
 	game.drawMaze() ;
@@ -58,6 +58,7 @@ int main()
         MoveBulletsTimed(clock,game);
         game.display(window) ;
     }
+	sf::Image image1() ;
 	return 0;
 }
 void MoveBulletsTimed(sf::Clock &clock ,Interface &game)

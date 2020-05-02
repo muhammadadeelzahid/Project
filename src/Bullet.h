@@ -11,7 +11,7 @@ class Interface;
 #include "Shape.h"
 class Bullet: public Shape {
 //sf::Sprite bullet ;
-sf::CircleShape bullet ;
+sf::Sprite bullet ;
 sf::Texture t;
 int RotationAngle;
 sf::Clock clock ;
@@ -22,8 +22,8 @@ public:
 	Bullet();
 	~Bullet() { ;}//
 	void draw(sf::RenderWindow &window);
-	sf::CircleShape& getBullet();
-	void setBullet(const sf::CircleShape &bullet);
+	sf::Sprite& getBullet();
+	void setBullet(const sf::Sprite &bullet);
 };
 
 #endif /* BULLET_H_ */

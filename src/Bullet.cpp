@@ -8,28 +8,29 @@
 #include "Bullet.h"
 
 Bullet::Bullet() {
-	bullet.setFillColor(sf::Color::Black) ;
-	bullet.setRadius(5);
-	bullet.setScale(1,1) ;
-	/*
-	if (!t.loadFromFile("BulletA.jpg"))
+	//bullet.setFillColor(sf::Color::Black) ;
+//	bullet.setRadius(5);
+	float sizeofBullets = 0.05;
+	bullet.setScale(sizeofBullets,sizeofBullets) ;
+
+
+	if (!t.loadFromFile("circle.png"))
 	    {
 	        std::cout << "Image Loading failed for bullet" << std::endl;
 	        getchar() ;
 	    }
-	    */
-	//this->bullet.setTexture(t);
+	bullet.setTexture(t);
 
 
 	RotationAngle = 0 ;
 }
 
- sf::CircleShape & Bullet::getBullet()
+ sf::Sprite & Bullet::getBullet()
  {
 	 return bullet;
 }
 
-void Bullet::setBullet(const sf::CircleShape &bullet) {
+void Bullet::setBullet(const sf::Sprite &bullet) {
 	this->bullet = bullet;
 }
 
