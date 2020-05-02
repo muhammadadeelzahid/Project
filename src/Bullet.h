@@ -10,18 +10,20 @@
 class Interface;
 #include "Shape.h"
 class Bullet: public Shape {
-sf::Sprite bullet ;
+//sf::Sprite bullet ;
+sf::CircleShape bullet ;
 sf::Texture t;
 int RotationAngle;
+sf::Clock clock ;
 public:
 	friend class Interface;
+	void startTimer() ;
+	bool CheckBulletTimeout() ;
 	Bullet();
 	~Bullet() { ;}//
 	void draw(sf::RenderWindow &window);
-	const sf::Sprite& getBullet() const;
-	void setBullet(const sf::Sprite &bullet);
-	int getRotationAngle() const;
-	void setRotationAngle(int rotationAngle);
+	sf::CircleShape& getBullet();
+	void setBullet(const sf::CircleShape &bullet);
 };
 
 #endif /* BULLET_H_ */

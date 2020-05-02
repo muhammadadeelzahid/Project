@@ -14,7 +14,7 @@ class Interface ;
 class Tank: public Shape {
 	sf::Sprite tank ;
 	int status; //if tank has been destroyed or not
-	Bullet bullets [10] ;
+	Bullet bullets[50]  ;
 	int firedbullets ;
 
 public:
@@ -26,6 +26,8 @@ public:
 	void initialiseTank(int) ;
 
 	 sf::Sprite& getTank() ;
+	int getFiredbullets() ;
+	void setFiredbullets(int firedbullets);
 };
 
 #endif /* TANK_H_ */

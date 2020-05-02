@@ -8,33 +8,46 @@
 #include "Bullet.h"
 
 Bullet::Bullet() {
-	if (!t.loadFromFile("Bullet.png"))
+	bullet.setFillColor(sf::Color::Black) ;
+	bullet.setRadius(5);
+	bullet.setScale(1,1) ;
+	/*
+	if (!t.loadFromFile("BulletA.jpg"))
 	    {
 	        std::cout << "Image Loading failed for bullet" << std::endl;
 	        getchar() ;
 	    }
-	this->bullet.setTexture(t);
+	    */
+	//this->bullet.setTexture(t);
+
+
 	RotationAngle = 0 ;
 }
 
-const sf::Sprite& Bullet::getBullet() const {
-	return bullet;
+ sf::CircleShape & Bullet::getBullet()
+ {
+	 return bullet;
 }
 
-void Bullet::setBullet(const sf::Sprite &bullet) {
+void Bullet::setBullet(const sf::CircleShape &bullet) {
 	this->bullet = bullet;
 }
 
 
-int Bullet::getRotationAngle() const {
-	return RotationAngle;
-}
 
-void Bullet::setRotationAngle(int rotationAngle) {
-	RotationAngle = rotationAngle;
-}
 void Bullet::draw(sf::RenderWindow &window)
 {
-	window.draw(bullet);
+	window.draw(bullet) ;
 }
-
+void Bullet::startTimer()
+{
+	this->clock.restart() ;
+}
+bool Bullet::CheckBulletTimeout()
+{
+	if (clock.getElapsedTime() > sf::seconds(5))
+	{
+		return true ;
+	}
+	return false ;
+}

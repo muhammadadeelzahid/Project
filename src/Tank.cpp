@@ -34,3 +34,12 @@ void Tank::initialiseTank(int i)
  sf::Sprite& Tank::getTank()  {
 	return tank;
 }
+
+int Tank::getFiredbullets()  {
+	return firedbullets;
+}
+
+void Tank::setFiredbullets(int firedbullets) {
+	this->firedbullets = firedbullets;
+	this->bullets[firedbullets].startTimer() ;
+}

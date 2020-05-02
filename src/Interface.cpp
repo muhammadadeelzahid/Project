@@ -326,12 +326,17 @@ void Interface::	destroyBullet()
 
 void Interface::fire(int tankNumber)
 {
-	if (tanks[tankNumber].firedbullets <5 )
+	if (tanks[tankNumber].firedbullets <=5 )
 	{
-		cout<<"Bullets Remaining"<<tanks[tankNumber].firedbullets <<endl;
+		this->tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].startTimer() ;
+
+		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setRotation(tanks[tankNumber].tank.getRotation()) ;//set same rotation as that of the tank
+
+//		cout<<"Bullets Remaining"<<tanks[tankNumber].firedbullets <<endl;
+		cout<<tanks[tankNumber].tank.getPosition().x<<","<<tanks[tankNumber].tank.getPosition().y<<endl ;
 		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setPosition(tanks[tankNumber].tank.getPosition()) ;// set the same position as that of tank
-		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].setRotationAngle(tanks[tankNumber].tank.getRotation()) ;//set same rotation as that of the tank
-		tanks[tankNumber].firedbullets ++ ;
+		cout<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<","<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<endl<<endl;
+		tanks[tankNumber].setFiredbullets(tanks[tankNumber].getFiredbullets()+1);
 	}
 	else
 		cout<<"All bullets used"<<endl ;
@@ -340,25 +345,49 @@ void Interface::fire(int tankNumber)
 //function call is controlled by the timer in main.cpp
 void Interface::moveBullets()
 {
+//	cout<<"Moving bullets"<<endl ;
 	//move all bullets for all tanks
 	for (int i = 0 ; i<this->tankcount; i++)
 	{
 		for (int j = 0; j<this->tanks[i].firedbullets ; j++)
 		{
+//			cout<<j<<endl;
 				//code the logic for movement of bullets based on their rotation angle .. logic is same as that of movement of tank
 
 
+
+
+
+
+
+
+
+
+
+
 			//now check collision of the bullet with tanks
-			this->BulletscollisionWithTank() ;
+			BulletscollisionWithTank() ;
 
 			//now check collision of the bullet with the walls
-			BulletscollisionWithTank() ;
+			BulletscollisionWithWalls() ;
+
+
+			//why all the bullets disappear when one bullet timesout
+			if (this->tanks[i].bullets[j].CheckBulletTimeout() )
+			{
+//				cout<<"Times up for bullet: "<<j<<endl ;
+			for (int a = 1  ;a<=tanks[i].firedbullets ; a++)
+				{
+					this->tanks[i].bullets[a-1] =  this->tanks[i].bullets[a] ;
+				}
+				tanks[i].firedbullets-- ;
+			}
 		}
 	}
 }
 void Interface::BulletscollisionWithTank()
 {
-	cout<<"Checking collision of bullets with Tank"<<endl ;
+//	cout<<"Checking collision of bullets with Tank"<<endl ;
 	for(int i =0 ; i<tankcount ; i++)
 	{
 		for (int j = 0 ; j <tanks[i].firedbullets; j++)
@@ -366,15 +395,15 @@ void Interface::BulletscollisionWithTank()
 			if (tanks[i].bullets[j].bullet.getGlobalBounds().intersects(tanks[i].tank.getGlobalBounds()))
 			{
 				tanks[i].status = 1 ;
-				cout<<"Bullets collision with tank"<<i<<endl ;
-				getchar() ;
+				//cout<<"Bullets collision with tank"<<i<<endl ;
+				//getchar() ;
 			}
 		}
 	}
 }
 void Interface::BulletscollisionWithWalls()
 {
-	cout<<"Checking collision of bullets with tanks"<<endl ;
+	//cout<<"Checking collision of bullets with Walls"<<endl ;
 	for(int i = 0 ; i<this->brickcounter ;i++)
 	{
 		for (int j = 0 ; j<tankcount ; j++)
@@ -384,7 +413,7 @@ void Interface::BulletscollisionWithWalls()
 					if ( tanks[i].bullets[j].bullet.getGlobalBounds().intersects(bricks.brick[i].getGlobalBounds()))
 					{
 						//code for reflection of bullet
-						cout<<"Bullet reflected"<<endl ;
+	//					cout<<"Bullet reflected"<<endl ;
 					}
 				}
 

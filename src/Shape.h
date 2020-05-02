@@ -14,7 +14,6 @@ using namespace std;
 class Shape {
 	int objectsize ;
 	string name ;
-	Coordinate position;
 	int speedOfMovement ;
 	int tokenValue ;
 
@@ -24,8 +23,6 @@ public:
 	virtual ~Shape() { ;}
 	const string& getName() const;
 	void setName(const string &name);
-	const Coordinate& getPosition() const;
-	void setPosition(const Coordinate &position);
 	int getSpeedOfMovement() const;
 	void setSpeedOfMovement(int speedOfMovement);
 	int getTokenValue() const;

@@ -10,15 +10,17 @@
 #include "Bullet.h"
 #include "Tank.h"
 #include "Wall.h" // most probably wont be used as it doesnt require any specialized function
+void MoveBulletsTimed(sf::Clock &clock ,Interface &game) ;
 int main()
 {
+	sf::Clock clock ;
+
 	//this is the main files
 	int sizeScreen = 780 ;
-	int sizeOfObject  =  15 ;
+	int sizeOfObject  =  25 ;
 	Interface game(sizeScreen,sizeOfObject) ;
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
 	game.drawMaze() ;
-
 	while (window.isOpen())
     {
 		sf::Color background (220,220,220) ;
@@ -49,13 +51,22 @@ int main()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
-            	cout<<"FIRE TANK 01"<<endl ;
             	game.fire(0) ;
             }
         }
 
+        MoveBulletsTimed(clock,game);
         game.display(window) ;
     }
 	return 0;
+}
+void MoveBulletsTimed(sf::Clock &clock ,Interface &game)
+{
+	if( clock.getElapsedTime() > sf::microseconds(500))
+	{
+		sf::Time elapsed = clock.getElapsedTime() ;
+		game.moveBullets() ;
+		clock.restart();
+	}
 }
 

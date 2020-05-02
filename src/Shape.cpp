@@ -19,14 +19,6 @@ void Shape::setName(const string &name) {
 	this->name = name;
 }
 
-const Coordinate& Shape::getPosition() const {
-	return position;
-}
-
-void Shape::setPosition(const Coordinate &position) {
-	this->position = position;
-}
-
 int Shape::getSpeedOfMovement() const {
 	return speedOfMovement;
 }
