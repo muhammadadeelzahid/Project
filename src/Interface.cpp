@@ -179,10 +179,7 @@ void Interface::display(sf::RenderWindow &window)
 			row = i*screenFactor ; col = j*screenFactor ;
 			if (coordinates[i][j] == 1 )
 			{
-				//1 is the token for a brick/wall
-//					cout<<"row: "<<(i)<<" col: "<<(j)<<endl;
 					bricks.getBrick()[counter].setPosition(row,col) ;
-	//				cout<<bricks.getBrick()[counter].getPosition().x<<","<<bricks.getBrick()[counter].getPosition().y<<endl ;
 					window.draw(bricks.getBrick()[counter]) ;
 					counter++ ;
 			}

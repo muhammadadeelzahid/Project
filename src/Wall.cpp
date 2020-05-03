@@ -25,7 +25,7 @@ void Wall::initialise(int screensize)
 {
 	sf::Color grey (112,128,144);
  	brick = new sf::RectangleShape [screensize*screensize];
-
+ 	orientation = new string [screensize*screensize] ;
  	/*
  	//Creating the image for the Brick
 	sf::Image img;

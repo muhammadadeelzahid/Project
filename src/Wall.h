@@ -13,6 +13,8 @@ class Wall: public Shape {
 	sf::RectangleShape *brick ;
 	sf::Image img ;
 	sf::Texture brickTexture ;
+
+	string *orientation ;
 public:
 	Wall();
 	friend class Interface;
