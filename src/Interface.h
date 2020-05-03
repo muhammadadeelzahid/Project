@@ -29,7 +29,7 @@ class Interface {
 	sf::Image img ;
 	sf::Sprite temp1 ;
 	sf::Texture temp;
-
+	bool duplicate(int,int) ; //helper function for drawMaze()
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;
@@ -41,7 +41,6 @@ public:
 	//functions involving movement and collision of Bullets Ends
 
 	void StopGame(); // detect if one of the tanks are shot
-
 
 	void moveTank(string direction,int tankNumber) ;
 	bool collisionTankWall(int tankNumber) ;

@@ -8,7 +8,7 @@
 #include "Wall.h"
 
 Wall::Wall() {
-	this->setObjectsize(15);
+	this->setObjectsize(30);
 	this->setTokenValue(1) ;
 	//brick = new sf::RectangleShape [NULL] ;
 	sf::Color grey (112,128,144);

@@ -20,12 +20,12 @@ int main()
 	int sizeOfObject  =  30 ;
 	Interface game(sizeScreen,sizeOfObject) ;
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
-	game.drawMaze() ;
 	while (window.isOpen())
     {
 		sf::Color background (220,220,220) ;
 	 	window.clear(background);
-        sf::Event event;
+        game.drawMaze();
+	 	sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -60,6 +60,7 @@ int main()
 
 		game.StopGame() ;
         game.display(window) ;
+        window.display();
     }
 	return 0;
 }
