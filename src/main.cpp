@@ -19,13 +19,14 @@ int main()
 	int sizeScreen = 780 ;
 	int sizeOfObject  =  30 ;
 	Interface game(sizeScreen,sizeOfObject) ;
+	game.drawMaze();
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
 	while (window.isOpen())
     {
+
 		sf::Color background (220,220,220) ;
 	 	window.clear(background);
-        game.drawMaze();
-	 	sf::Event event;
+        sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

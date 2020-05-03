@@ -237,7 +237,7 @@ void Interface::drawMaze()
 void Interface::display(sf::RenderWindow &window)
 {
 //temporary code starts
-
+	drawMaze() ;
 	int counter = 0  ;
 		int row ; int col ;
 		for (int i = 0 ; i<sizeofcoordinates ; i++)
@@ -253,7 +253,7 @@ void Interface::display(sf::RenderWindow &window)
 				}
 			}
 		}
-			cout<<counter<<endl;
+//			cout<<counter<<endl;
 			//temporary code ends
 
 
@@ -286,7 +286,7 @@ bool Interface::collisionTankWall(int tankNumber)
 		if( Collision::PixelPerfectTest(tanks[tankNumber].tank,temp1) )
 //		if ( tanks[tankNumber].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
 		{
-//			cout<<"COLLISION"<<endl ;
+		cout<<"COLLISION"<<endl ;
 			return true ;
 		}
 	}
