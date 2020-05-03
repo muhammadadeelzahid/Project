@@ -6,7 +6,7 @@
  */
 
 #include "Interface.h"
-#include "Collision.hpp"
+#include "Collision.h"
 Interface::Interface(int size,int ratio)
 {
 	screenFactor = ratio ;
