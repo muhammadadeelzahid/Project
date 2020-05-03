@@ -25,6 +25,11 @@ class Interface {
 	int tankcount; //number of tanks
 	sf::Texture texture1 ;
 
+	//temporary stuff
+	sf::Image img ;
+	sf::Sprite temp1 ;
+	sf::Texture temp;
+
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;

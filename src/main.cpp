@@ -56,7 +56,7 @@ int main()
         }
 
         MoveBulletsTimed(clock,game);
-        game.BulletscollisionWithWalls() ;
+      //  game.BulletscollisionWithWalls() ;
 
 		game.StopGame() ;
         game.display(window) ;

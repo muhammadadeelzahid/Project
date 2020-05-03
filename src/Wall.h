@@ -11,6 +11,8 @@
 class Interface;
 class Wall: public Shape {
 	sf::RectangleShape *brick ;
+	sf::Image img ;
+	sf::Texture brickTexture ;
 public:
 	Wall();
 	friend class Interface;

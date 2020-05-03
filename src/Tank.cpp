@@ -11,6 +11,10 @@ Tank::Tank() {
 	this->setTokenValue(2) ;
 	firedbullets = 0;
 	//setting the texture ;
+	for (int i = 0 ; i<50 ; i++)
+	{
+		bullets[i].getBullet().setPosition(-1,-1) ;
+	}
 }
 void Tank::draw(sf::RenderWindow & window)
 {

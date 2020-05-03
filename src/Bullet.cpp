@@ -46,9 +46,17 @@ void Bullet::startTimer()
 }
 bool Bullet::CheckBulletTimeout()
 {
-	if (clock.getElapsedTime() > sf::seconds(5))
+	if (clock.getElapsedTime() > sf::seconds(100))
 	{
 		return true ;
+	}
+	else
+	{
+		if ( this->bullet.getPosition().x >780 || bullet.getPosition().y > 780 || this->bullet.getPosition().x< 10 || bullet.getPosition().y<10)
+		{
+		//	cout<<"yass"<<endl;
+			return true ;
+		}
 	}
 	return false ;
 }

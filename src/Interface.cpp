@@ -39,6 +39,13 @@ Interface::Interface(int size,int ratio)
 	    }
 	tanks[0].tank.setTexture(texture1) ;
 
+
+	///from bulletcollisionwithwall()
+	img.create(screenFactor,screenFactor,sf::Color::Blue) ;
+	temp.loadFromImage(img) ;
+	temp1.setTexture(temp) ;
+
+
 }
 
 int** Interface::getCoordinates()  {
@@ -357,6 +364,7 @@ void Interface::fire(int tankNumber)
 //function call is controlled by the timer in main.cpp
 void Interface::moveBullets()
 {
+	BulletscollisionWithWalls();
 		//	cout<<"Moving bullets"<<endl ;
 			//move all bullets for all tanks
 		for (int i = 0; i < this->tankcount; i++)
@@ -424,7 +432,7 @@ void Interface::moveBullets()
 				}
 
 					//now check collision of the bullet with the walls
-					BulletscollisionWithWalls();
+//					BulletscollisionWithWalls();
 
 					if (this->tanks[i].bullets[j].CheckBulletTimeout())
 					{
@@ -435,10 +443,10 @@ void Interface::moveBullets()
 						}
 						tanks[i].firedbullets--;
 					}
-					BulletscollisionWithWalls();
 
 				}
 		}
+
 }
 void Interface::BulletscollisionWithTank()
 {
@@ -460,26 +468,24 @@ void Interface::BulletscollisionWithWalls()
 {
 
 	//cout<<"Checking collision of bullets with Walls"<<endl ;
-/*
+	//find out a way to reduce the BrickCounter variable or reduce the number of times these loops are executed
 	for(int i = 0 ; i<this->brickcounter ;i++)
 	{
 		for (int j = 0 ; j<tankcount ; j++)
 		{
-				for (int k  =0 ; k<tanks[j].firedbullets ; k++)
+				for (int k  =0 ; k<tanks[j].getFiredbullets() ; k++)
 				{
-
-					sf::Image img ;
-					img.create(screenFactor,screenFactor,sf::Color::Blue) ;
-					sf::Texture temp ;
-					temp.loadFromImage(img) ;
-					sf::Sprite temp1 ;
-					temp1.setTexture(temp) ;
 					temp1.setPosition(bricks.brick[i].getPosition()) ;
+
 					if (Collision::PixelPerfectTest(tanks[j].bullets[k].bullet,temp1))
 					{
-										cout<<"Collision Brick Bullet"<<endl;
+						cout<<"Collision Brick Bullet"<<endl;
+						//cout<<bricks.brick[i].getPosition().x<<","<<bricks.brick[i].getPosition().y<<endl ;
+					//	cout<<temp1.getPosition().x<<"..."<<temp1.getPosition().y<<endl ;
+
 						//code for reflection of bullet
 //						cout<<"Bullet reflected"<<endl ; break;
+						/*
 						sf::Sprite *temp= &this->tanks[j].bullets[k].getBullet();
 						float x = 0, y = 0;
 						int angle = temp->getRotation();
@@ -497,18 +503,19 @@ void Interface::BulletscollisionWithWalls()
 								temp->rotate(90);
 								break;
 							}
+							*/
 					}
-					else
-						cout<<"No collsion"<<endl ;
+//					else
+//						cout<<"No collsion"<<endl ;
+
 
 					}
-
 
 				}
-
+//		getchar() ;
 		}
-		*/
-	}
+
+}
 
 void Interface::StopGame() // detect if one of the tanks are shot
 {
