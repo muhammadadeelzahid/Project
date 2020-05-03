@@ -6,7 +6,7 @@
  */
 
 #include "Interface.h"
-#include "Collision.h"
+#include "Collision.hpp"
 Interface::Interface(int size,int ratio)
 {
 	screenFactor = ratio ;
@@ -76,12 +76,17 @@ void Interface::drawMaze()
 	//draw all maze here
 
 	//top most row
-
+;
 	for (int i = 0 ; i<this->sizeofcoordinates; i++)
 	{
 		coordinates[0][i] = 1 ; // 1 is the  token for a brick
+		bricks.getBrick()[brickcounter].setPosition(0,i) ; //  array of bricks and its orientation are parallel
+		bricks.orientation[brickcounter] = "horizontal" ;
 		brickcounter++ ;
 	}
+	//last brick of horizontal row act as a vertical wall and vice versa
+	bricks.orientation[brickcounter-1] = "vertical" ;
+
 	//left most coloumn
 
 	for (int j = 0 ; j<this->sizeofcoordinates; j++)
