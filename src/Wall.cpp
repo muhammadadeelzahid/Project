@@ -12,7 +12,7 @@ Wall::Wall() {
 	this->setTokenValue(1) ;
 	//brick = new sf::RectangleShape [NULL] ;
 	sf::Color grey (112,128,144);
-
+//
 
 }
 
