@@ -228,15 +228,61 @@ void Interface::drawMaze(int mazeNumber)
 			}
 		}
 		bricks.orientation[brickcounter - 1] = "vertical";
-		for (int i =0 ; i<brickcounter ; i++)
-		{
-			bricks.getBrick()[i].setPosition(  int(bricks.getBrick()[i].getPosition().x)*screenFactor,  int(bricks.getBrick()[i].getPosition().y)*screenFactor  );
-		}
 	}
 	else if (mazeNumber == 2 )
 	{
 		// code for second maze
+		//top most row
+		brickcounter = 0;
+		for (int i = 0; i<this->sizeofcoordinates; i++)
+		{
+			coordinates[0][i] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(0, i); //  array of bricks and its orientation are parallel
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
+		}
+		//last brick of horizontal row act as a vertical wall and vice versa
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//left most coloumn
+
+		for (int j = 0; j<this->sizeofcoordinates; j++)
+		{
+			coordinates[j][0] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(j, 0);
+			bricks.orientation[brickcounter] = "horizontal";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+		//bottom most row
+		for (int k = 0; k<this->sizeofcoordinates; k++)
+		{
+			coordinates[k][sizeofcoordinates - 1] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates - 1); //  array of bricks and its orientation are parallel
+			bricks.orientation[brickcounter] = "horizontal";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//right most coloum
+		for (int l = 0; l<this->sizeofcoordinates; l++)
+		{
+			coordinates[sizeofcoordinates - 1][l] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates - 1, l);
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+		cout<<brickcounter<<endl ;
 	}
+	for (int i =0 ; i<brickcounter ; i++)
+	{
+		bricks.getBrick()[i].setPosition(  int(bricks.getBrick()[i].getPosition().x)*screenFactor,  int(bricks.getBrick()[i].getPosition().y)*screenFactor  );
+	}
+
 
 	if ( mazeNumber == 1 )
 	{
