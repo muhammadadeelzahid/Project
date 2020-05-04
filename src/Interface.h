@@ -23,13 +23,13 @@ class Interface {
 	Wall bricks ;
 	Tank *tanks ;
 	int tankcount; //number of tanks
-	sf::Texture texture1 ;
+	sf::Texture texture1 ; //texture for tank1
+	sf::Texture texture2 ;//texture for tank2
 
 	//temporary stuff
 	sf::Image img ;
 	sf::Sprite temp1 ;
 	sf::Texture temp;
-	bool duplicate(int,int) ; //helper function for drawMaze()
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;

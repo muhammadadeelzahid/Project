@@ -28,9 +28,10 @@ Interface::Interface(int size,int ratio)
 	bricks.setObjectsize(screenFactor) ; // set the size of the bricks
 	bricks.initialise(sizeofcoordinates) ;
 
-	tankcount = 1 ;
+	tankcount = 2 ;
 	tanks = new Tank[tankcount] ;
 	tanks[0].tank.setPosition(10*30,10*30) ;
+	tanks[1].tank.setPosition(700,700) ;
 	//coordinates[2][2] = 2;
 	if (!texture1.loadFromFile("tank[0].png"))
 	    {
@@ -38,7 +39,7 @@ Interface::Interface(int size,int ratio)
 	        getchar() ;
 	    }
 	tanks[0].tank.setTexture(texture1) ;
-
+	tanks[1].tank.setTexture(texture1) ;
 
 	///from bulletcollisionwithwall()
 	img.create(screenFactor,screenFactor,sf::Color::Blue) ;
@@ -72,34 +73,22 @@ Interface::~Interface() {
 	delete [] this->coordinates ;
 }
 
-bool Interface::duplicate(int x , int y)
-{
-	sf::Vector2f position(x,y) ;
-	for(int i = 0 ; i<=brickcounter; i++)
-	{
-		if ( bricks.getBrick()[brickcounter].getPosition() == position)
-		{
-			return true;
-		}
-	}
-	return false;
 
-}
 void Interface::drawMaze()
 {
 	//draw all maze here
 
 	//top most row
-	brickcounter =0 ;
+	brickcounter = 0;
 	for (int i = 0; i<this->sizeofcoordinates; i++)
 	{
 		coordinates[0][i] = 1; // 1 is the  token for a brick
 		bricks.getBrick()[brickcounter].setPosition(0, i); //  array of bricks and its orientation are parallel
-		bricks.orientation[brickcounter] = "horizontal";
+		bricks.orientation[brickcounter] = "vertical";
 		brickcounter++;
 	}
 	//last brick of horizontal row act as a vertical wall and vice versa
-	bricks.orientation[brickcounter - 1] = "vertical";
+	bricks.orientation[brickcounter - 1] = "horizontal";
 
 	//left most coloumn
 
@@ -107,16 +96,16 @@ void Interface::drawMaze()
 	{
 		coordinates[j][0] = 1; // 1 is the  token for a brick
 		bricks.getBrick()[brickcounter].setPosition(j, 0);
-		bricks.orientation[brickcounter] = "vertical";
+		bricks.orientation[brickcounter] = "horizontal";
 		brickcounter++;
 
 	}
-	bricks.orientation[brickcounter-1] = "horizontal";
+	bricks.orientation[brickcounter - 1] = "vertical";
 	//bottom most row
 	for (int k = 0; k<this->sizeofcoordinates; k++)
 	{
 		coordinates[k][sizeofcoordinates - 1] = 1; // 1 is the  token for a brick
-		bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates-1); //  array of bricks and its orientation are parallel
+		bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates - 1); //  array of bricks and its orientation are parallel
 		bricks.orientation[brickcounter] = "horizontal";
 		brickcounter++;
 
@@ -164,7 +153,7 @@ void Interface::drawMaze()
 			brickcounter++;
 		}
 	}
-	bricks.orientation[brickcounter - 1] = "horizontal";
+	bricks.orientation[brickcounter - 1] = "vertical";
 
 	//1st horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
@@ -232,12 +221,15 @@ void Interface::drawMaze()
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
-}
+	for (int i =0 ; i<brickcounter ; i++)
+	{
+		bricks.getBrick()[i].setPosition(  int(bricks.getBrick()[i].getPosition().x)*screenFactor,  int(bricks.getBrick()[i].getPosition().y)*screenFactor  );
+	}
 
+}
 void Interface::display(sf::RenderWindow &window)
 {
 //temporary code starts
-	drawMaze() ;
 	int counter = 0  ;
 		int row ; int col ;
 		for (int i = 0 ; i<sizeofcoordinates ; i++)
@@ -259,11 +251,11 @@ void Interface::display(sf::RenderWindow &window)
 
 	for (int i =0 ; i<brickcounter ; i++)
 	{
-		bricks.getBrick()[i].setPosition(  int(bricks.getBrick()[i].getPosition().x)*screenFactor,  int(bricks.getBrick()[i].getPosition().y)*screenFactor  );
 		window.draw(bricks.getBrick()[i]);
 	}
 
 //	cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
+
 	for(int i = 0 ; i<this->tankcount ;i++)
 	{
 		this->tanks[i].draw(window) ;
@@ -286,7 +278,7 @@ bool Interface::collisionTankWall(int tankNumber)
 		if( Collision::PixelPerfectTest(tanks[tankNumber].tank,temp1) )
 //		if ( tanks[tankNumber].tank.getGlobalBounds().intersects(bricks.getBrick()[i].getGlobalBounds() ))
 		{
-		cout<<"COLLISION"<<endl ;
+		//cout<<"COLLISION"<<endl ;
 			return true ;
 		}
 	}
@@ -425,9 +417,9 @@ void Interface::fire(int tankNumber)
 		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setRotation(tanks[tankNumber].tank.getRotation()) ;//set same rotation as that of the tank
 
 //		cout<<"Bullets Remaining"<<tanks[tankNumber].firedbullets <<endl;
-		cout<<tanks[tankNumber].tank.getPosition().x<<","<<tanks[tankNumber].tank.getPosition().y<<endl ;
+	//	cout<<tanks[tankNumber].tank.getPosition().x<<","<<tanks[tankNumber].tank.getPosition().y<<endl ;
 		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setPosition(tanks[tankNumber].tank.getPosition()) ;// set the same position as that of tank
-		cout<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<","<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<endl<<endl;
+		//cout<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<","<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<endl<<endl;
 		tanks[tankNumber].setFiredbullets(tanks[tankNumber].getFiredbullets()+1);
 		this->moveBullets() ;
 	}
@@ -554,31 +546,84 @@ void Interface::BulletscollisionWithWalls()
 
 					if (Collision::PixelPerfectTest(tanks[j].bullets[k].bullet,temp1))
 					{
-						cout<<"Collision Brick Bullet"<<endl;
-						//cout<<bricks.brick[i].getPosition().x<<","<<bricks.brick[i].getPosition().y<<endl ;
-					//	cout<<temp1.getPosition().x<<"..."<<temp1.getPosition().y<<endl ;
+					//	cout<<"Collision Brick Bullet"<<endl;
 
 						//code for reflection of bullet
 //						cout<<"Bullet reflected"<<endl ; break;
-						/*
+
 						sf::Sprite *temp= &this->tanks[j].bullets[k].getBullet();
 						float x = 0, y = 0;
 						int angle = temp->getRotation();
 						switch (angle) {
-							case 0:
-								temp->rotate(180);
-								break;
-							case 45:
+						case 0:
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x, temp->getPosition().y + screenFactor);
+							break;
+						case 45:
+
+							if (bricks.orientation[i] == "vertical")
+							{
 								temp->rotate(-90);
-								break;
-							case 90:
-								temp->rotate(-180);
-								break;
-							case 135:
-								temp->rotate(90);
-								break;
+								temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y - screenFactor);
 							}
-							*/
+							if (bricks.orientation[i] == "horizontal")
+							{
+								temp->rotate(90);
+								temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y + screenFactor);
+						}
+							break;
+						case 90:
+							temp->rotate(-180);
+							temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y);
+							break;
+						case 135:
+
+							if (bricks.orientation[i] == "vertical")
+							{
+								temp->rotate(90);
+								temp->setPosition(temp->getPosition().x-screenFactor, temp->getPosition().y + screenFactor);
+							}
+							if (bricks.orientation[i] == "horizontal")
+							{
+								temp->rotate(-90);
+								temp->setPosition(temp->getPosition().x+screenFactor, temp->getPosition().y - screenFactor);
+							}
+							break;
+						case 180:
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x , temp->getPosition().y - screenFactor);
+							break;
+						case 225:
+							if (bricks.orientation[i] == "vertical")
+							{
+								temp->rotate(-90);
+								temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y + screenFactor);
+							}
+							if (bricks.orientation[i] == "horizontal")
+							{
+								temp->rotate(90);
+								temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y - screenFactor);
+							}
+							break;
+						case 270:
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y );
+							break;
+						case 315:
+
+							if (bricks.orientation[i] == "vertical")
+							{
+								temp->rotate(90);
+								temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y - screenFactor);
+							}
+							if (bricks.orientation[i] == "horizontal")
+							{
+								temp->rotate(-90);
+								temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y + screenFactor);
+							}
+							break;
+							}
+
 					}
 //					else
 //						cout<<"No collsion"<<endl ;
@@ -591,7 +636,6 @@ void Interface::BulletscollisionWithWalls()
 		}
 
 }
-
 void Interface::StopGame() // detect if one of the tanks are shot
 {
 	for (int i = 0 ; i<this->tankcount ;i++)

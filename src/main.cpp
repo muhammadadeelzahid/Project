@@ -31,6 +31,19 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if( event.type == sf::Event::KeyPressed)
+            {
+            	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+            	{
+            		game.fire(0) ;
+            		cout<<"Fire tank 1"<<endl;
+            	}
+            	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+            	{
+            		game.fire(1) ;
+            		cout<<"Fire Tank 2"<<endl;
+            	}
+            }
             //logic for movement starts
 
         	//make changes here below to control the movement
@@ -50,10 +63,24 @@ int main()
             {
             	game.moveTank("Left",0) ; // Move tank Number 1 Left
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            {
-            	game.fire(0) ;
-            }
+
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		   {
+			game.moveTank("Up",1) ; // Move tank Number 1 upwards //index of arrays start from 0
+		   }
+		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		   {
+			game.moveTank("Down",1) ; // Move tank Number 1 Down
+		   }
+		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		   {
+			game.moveTank("Right",1) ; // Move tank Number 1 Right
+		   }
+		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		   {
+			game.moveTank("Left",1) ; // Move tank Number 1 Left
+		   }
         }
 
         MoveBulletsTimed(clock,game);

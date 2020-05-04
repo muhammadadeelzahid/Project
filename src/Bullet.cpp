@@ -46,7 +46,7 @@ void Bullet::startTimer()
 }
 bool Bullet::CheckBulletTimeout()
 {
-	if (clock.getElapsedTime() > sf::seconds(100))
+	if (clock.getElapsedTime() > sf::seconds(10))
 	{
 		return true ;
 	}
