@@ -30,8 +30,6 @@ Interface::Interface(int size,int ratio)
 
 	tankcount = 2 ;
 	tanks = new Tank[tankcount] ;
-	tanks[0].tank.setPosition(10*30,10*30) ;
-	tanks[1].tank.setPosition(700,700) ;
 	//coordinates[2][2] = 2;
 	if (!texture1.loadFromFile("tank[0].png"))
 	    {
@@ -240,6 +238,16 @@ void Interface::drawMaze(int mazeNumber)
 		// code for second maze
 	}
 
+	if ( mazeNumber == 1 )
+	{
+		tanks[0].tank.setPosition(10*30,10*30) ;
+		tanks[1].tank.setPosition(700,700) ;
+	}
+	else if (mazeNumber ==2 )
+	{
+		tanks[0].tank.setPosition(10*30,10*30) ;
+		tanks[1].tank.setPosition(700,700) ;
+	}
 }
 void Interface::display(sf::RenderWindow &window)
 {
@@ -281,11 +289,7 @@ bool Interface::collisionTankWall(int tankNumber)
 {
 	for(int i = 0 ; i<brickcounter ;i++)
 	{
-		sf::Image img ;
-		img.create(screenFactor,screenFactor,sf::Color::Blue) ;
-		sf::Texture temp ;
 		temp.loadFromImage(img) ;
-		sf::Sprite temp1 ;
 		temp1.setTexture(temp) ;
 		temp1.setPosition(bricks.brick[i].getPosition()) ;
 
