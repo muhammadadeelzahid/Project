@@ -980,19 +980,38 @@ void Interface::moveBullets()
 }
 void Interface::BulletscollisionWithTank()
 {
-	//cout<<"Checking collision of bullets with Tank"<<endl ;
 	for(int i =0 ; i<tankcount ; i++)
 	{
 		for (int j = 0 ; j <tanks[i].firedbullets; j++)
 		{
 			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,tanks[i].tank))
 			{
-				tanks[i].status = 1 ;
-				//cout<<"Bullets collision with tank"<<i<<endl ;
-				getchar() ;
+				tanks[1-i].score += 20 ;
+				cout<<"Friendly FIre"<<endl;
+				//	getchar() ;
 			}
+
 		}
 	}
+
+	for(int i =0 ; i<tankcount ; i++)
+	{
+		for (int j = 0 ; j <tanks[1-i].firedbullets; j++)
+		{
+			if (Collision::PixelPerfectTest(tanks[1-i].bullets[j].bullet,tanks[i].tank))
+			{
+				cout<<"Enemy Fire"<<endl ;
+				getchar();
+				tanks[1-i].score += 40 ;
+			}
+		}
+
+	}
+
+
+
+
+
 }
 void Interface::BulletscollisionWithWalls()
 {
@@ -1101,7 +1120,7 @@ void Interface::StopGame() // detect if one of the tanks are shot
 	{
 		if (this->tanks[i].status == 1)
 		{
-			cout<<"Tank "<<(i+1)<<"destroyed Game stopped"<<endl ;
+			//cout<<"Tank "<<(i+1)<<"destroyed Game stopped"<<endl ;
 	//		getchar() ;
 		}
 	}
