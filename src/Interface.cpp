@@ -202,7 +202,52 @@ void Interface::maze1()
 }
 void Interface::maze2()
 {
+	//1st horizontal line from top
+			for (int k = 0; k < this->sizeofcoordinates; k++) {
+				if (k<(this->sizeofcoordinates / 5))
+				{
+					coordinates[k][sizeofcoordinates / 8] = 1;
+					bricks.getBrick()[brickcounter].setPosition(k, int(sizeofcoordinates / 6));
+					bricks.orientation[brickcounter] = "horizontal";
+					brickcounter++;
+				}
+				if (k>2*(this->sizeofcoordinates / 5) && k<3*(this->sizeofcoordinates/5))
+				{
+					coordinates[k][sizeofcoordinates / 8] = 1;
+					bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 6);
+					bricks.orientation[brickcounter] = "horizontal";
+					brickcounter++;
+				}
 
+
+			}
+			bricks.orientation[brickcounter - 1] = "vertical";
+			/*
+			//2nd horizontal line from top
+			for (int k = 0; k < this->sizeofcoordinates; k++) {
+				if (k>2 * (this->sizeofcoordinates / 5) && k<3*(this->sizeofcoordinates/5))
+				{
+					coordinates[k][sizeofcoordinates / 4] = 1;
+					bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 3);
+					bricks.orientation[brickcounter] = "horizontal";
+					brickcounter++;
+				}
+			}
+			bricks.orientation[brickcounter - 1] = "vertical";
+			*/
+			/*
+			//3rd horizontal line from top
+			for (int k = 0; k < this->sizeofcoordinates; k++) {
+				if (k>(this->sizeofcoordinates / 5) && k<2 * (this->sizeofcoordinates / 5))
+				{
+					coordinates[k][3*(sizeofcoordinates / 8)] = 1;
+					bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 3);
+					bricks.orientation[brickcounter] = "horizontal";
+					brickcounter++;
+				}
+			}
+			bricks.orientation[brickcounter - 1] = "vertical";
+			*/
 }
 void Interface::maze3()
 {
@@ -264,8 +309,8 @@ void Interface::drawMaze(int mazeNumber)
 	}
 	else if (mazeNumber ==2 )
 	{
-		tanks[0].tank.setPosition(10*30,10*30) ;
-		tanks[1].tank.setPosition(700,700) ;
+		tanks[0].tank.setPosition(-100,-100) ;
+		tanks[1].tank.setPosition(-100,-100) ;
 	}
 }
 void Interface::display(sf::RenderWindow &window)
