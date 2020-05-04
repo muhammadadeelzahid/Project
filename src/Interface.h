@@ -33,6 +33,9 @@ class Interface {
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;
+	void maze1() ;
+	void maze2() ;
+	void maze3() ;
 	void BulletscollisionWithWalls();
 	void BulletscollisionWithTank();
 	void fire(int tankNumber);
