@@ -202,52 +202,246 @@ void Interface::maze1()
 }
 void Interface::maze2()
 {
-	//1st horizontal line from top
-			for (int k = 0; k < this->sizeofcoordinates; k++) {
-				if (k<(this->sizeofcoordinates / 5))
-				{
-					coordinates[k][sizeofcoordinates / 8] = 1;
-					bricks.getBrick()[brickcounter].setPosition(k, int(sizeofcoordinates / 6));
-					bricks.orientation[brickcounter] = "horizontal";
-					brickcounter++;
-				}
-				if (k>2*(this->sizeofcoordinates / 5) && k<3*(this->sizeofcoordinates/5))
-				{
-					coordinates[k][sizeofcoordinates / 8] = 1;
-					bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 6);
-					bricks.orientation[brickcounter] = "horizontal";
-					brickcounter++;
-				}
+		//top most row
+		brickcounter = 0;
+		for (int i = 0; i<this->sizeofcoordinates; i++)
+		{
+			coordinates[0][i] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(0, i); //  array of bricks and its orientation are parallel
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
+		}
+		//last brick of horizontal row act as a vertical wall and vice versa
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//left most coloumn
+
+		for (int j = 0; j<this->sizeofcoordinates; j++)
+		{
+			coordinates[j][0] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(j, 0);
+			bricks.orientation[brickcounter] = "horizontal";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+		//bottom most row
+		for (int k = 0; k<this->sizeofcoordinates; k++)
+		{
+			coordinates[k][sizeofcoordinates - 1] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates - 1); //  array of bricks and its orientation are parallel
+			bricks.orientation[brickcounter] = "horizontal";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//right most coloum
+		for (int l = 0; l<this->sizeofcoordinates; l++)
+		{
+			coordinates[sizeofcoordinates - 1][l] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates - 1, l);
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//1st horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k<=(this->sizeofcoordinates / 5))
+					{
+						coordinates[k][sizeofcoordinates / 8] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, int(sizeofcoordinates / 6));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+					if (k>2*(this->sizeofcoordinates / 5) && k<=3*(this->sizeofcoordinates/5))
+					{
+						coordinates[k][sizeofcoordinates / 8] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 6);
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
 
 
-			}
-			bricks.orientation[brickcounter - 1] = "vertical";
-			/*
-			//2nd horizontal line from top
-			for (int k = 0; k < this->sizeofcoordinates; k++) {
-				if (k>2 * (this->sizeofcoordinates / 5) && k<3*(this->sizeofcoordinates/5))
-				{
-					coordinates[k][sizeofcoordinates / 4] = 1;
-					bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 3);
-					bricks.orientation[brickcounter] = "horizontal";
-					brickcounter++;
 				}
-			}
-			bricks.orientation[brickcounter - 1] = "vertical";
-			*/
-			/*
-			//3rd horizontal line from top
-			for (int k = 0; k < this->sizeofcoordinates; k++) {
-				if (k>(this->sizeofcoordinates / 5) && k<2 * (this->sizeofcoordinates / 5))
-				{
-					coordinates[k][3*(sizeofcoordinates / 8)] = 1;
-					bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 3);
-					bricks.orientation[brickcounter] = "horizontal";
-					brickcounter++;
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//2nd horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k>2 * (this->sizeofcoordinates / 5) && k<=3*(this->sizeofcoordinates/5))
+					{
+						coordinates[k][sizeofcoordinates / 4] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 4);
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
 				}
-			}
-			bricks.orientation[brickcounter - 1] = "vertical";
-			*/
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//3rd horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k> (this->sizeofcoordinates / 5) && k<=2*(this->sizeofcoordinates/5))
+					{
+						coordinates[k][3*(sizeofcoordinates / 8)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, 3 * (sizeofcoordinates / 8));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//4th horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k>2 * (this->sizeofcoordinates / 5) && k<=3 * (this->sizeofcoordinates / 5))
+					{
+						coordinates[k][(sizeofcoordinates / 2)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, (sizeofcoordinates / 2));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+					if (k>4 * (this->sizeofcoordinates / 5) || k<= (this->sizeofcoordinates / 5))
+					{
+						coordinates[k][(sizeofcoordinates / 2)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, (sizeofcoordinates / 2));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//5th horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k>2 * (this->sizeofcoordinates / 5) && k<=4 * (this->sizeofcoordinates / 5))
+					{
+						coordinates[k][5 * (sizeofcoordinates / 8)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, 5 * (sizeofcoordinates / 8));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//6th horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k>3 * (this->sizeofcoordinates / 5) || k<=2 * (this->sizeofcoordinates / 5))
+					{
+						coordinates[k][3 * (sizeofcoordinates / 4)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, 3 * (sizeofcoordinates / 4));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//7th horizontal line from top
+				for (int k = 0; k < this->sizeofcoordinates; k++) {
+					if (k>(this->sizeofcoordinates / 5) && k<=2 * (this->sizeofcoordinates / 5))
+					{
+						coordinates[k][7 * (sizeofcoordinates / 8)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, 7 * (sizeofcoordinates / 8));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+					if (k>3 * (this->sizeofcoordinates / 5) && k<=4 * (this->sizeofcoordinates / 5))
+					{
+						coordinates[k][7 * (sizeofcoordinates / 8)] = 1;
+						bricks.getBrick()[brickcounter].setPosition(k, 7 * (sizeofcoordinates / 8));
+						bricks.orientation[brickcounter] = "horizontal";
+						brickcounter++;
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "vertical";
+
+				//for first vertical line  from left
+				for (int m = 0; m < this->sizeofcoordinates; m++) {
+					if (m>this->sizeofcoordinates / 4 && m<=3 * (this->sizeofcoordinates / 8))
+					{
+						coordinates[sizeofcoordinates / 5][m] = 1;
+						bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 5, m);
+						bricks.orientation[brickcounter] = "vertical";
+						brickcounter++;
+
+					}
+					if (m>5*(this->sizeofcoordinates / 8) && m <= 6 * (this->sizeofcoordinates / 8))
+					{
+						coordinates[sizeofcoordinates / 5][m] = 1;
+						bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 5, m);
+						bricks.orientation[brickcounter] = "vertical";
+						brickcounter++;
+
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "horizontal";
+
+				//for second vertical line  from left
+				for (int m = 0; m < this->sizeofcoordinates; m++) {
+					if (m<=5*(this->sizeofcoordinates / 8) && m>3 * (this->sizeofcoordinates / 8))
+					{
+						coordinates[2*(sizeofcoordinates / 5)][m] = 1;
+						bricks.getBrick()[brickcounter].setPosition(2 * (sizeofcoordinates / 5), m);
+						bricks.orientation[brickcounter] = "vertical";
+						brickcounter++;
+
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "horizontal";
+
+
+				//for third vertical line  from left
+				for (int m = 0; m < this->sizeofcoordinates; m++) {
+					if (m<=(this->sizeofcoordinates / 8))
+					{
+						coordinates[3 * (sizeofcoordinates / 5)][m] = 1;
+						bricks.getBrick()[brickcounter].setPosition(3 * (sizeofcoordinates / 5), m);
+						bricks.orientation[brickcounter] = "vertical";
+						brickcounter++;
+
+					}
+					for (int m = 0; m < this->sizeofcoordinates; m++) {
+						if (m <= 3* (this->sizeofcoordinates / 8) && m>2* (this->sizeofcoordinates / 8))
+						{
+							coordinates[3 * (sizeofcoordinates / 5)][m] = 1;
+							bricks.getBrick()[brickcounter].setPosition(3 * (sizeofcoordinates / 5), m);
+							bricks.orientation[brickcounter] = "vertical";
+							brickcounter++;
+
+						}
+					}
+					for (int m = 0; m < this->sizeofcoordinates; m++) {
+						if (m >= 3 * (this->sizeofcoordinates / 4) && m<=7 * (this->sizeofcoordinates / 8))
+						{
+							coordinates[3 * (sizeofcoordinates / 5)][m] = 1;
+							bricks.getBrick()[brickcounter].setPosition(3 * (sizeofcoordinates / 5), m);
+							bricks.orientation[brickcounter] = "vertical";
+							brickcounter++;
+
+						}
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "horizontal";
+
+				//for 4th vertical line  from left
+				for (int m = 0; m < this->sizeofcoordinates; m++) {
+					if (m<= 5 * (this->sizeofcoordinates / 8) && m>3 * (this->sizeofcoordinates / 8))
+					{
+						coordinates[4 * (sizeofcoordinates / 5)][m] = 1;
+						bricks.getBrick()[brickcounter].setPosition(4 * (sizeofcoordinates / 5), m);
+						bricks.orientation[brickcounter] = "vertical";
+						brickcounter++;
+
+					}
+					if (m<=(this->sizeofcoordinates / 8) )
+					{
+						coordinates[4 * (sizeofcoordinates / 5)][m] = 1;
+						bricks.getBrick()[brickcounter].setPosition(4 * (sizeofcoordinates / 5), m);
+						bricks.orientation[brickcounter] = "vertical";
+						brickcounter++;
+
+					}
+				}
+				bricks.orientation[brickcounter - 1] = "horizontal";
 }
 void Interface::maze3()
 {
