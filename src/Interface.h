@@ -45,7 +45,7 @@ public:
 	void moveTank(string direction,int tankNumber) ;
 	bool collisionTankWall(int tankNumber) ;
 	Interface(int,int) ;
-	void drawMaze() ;
+	void drawMaze(int) ;
 	void display(sf::RenderWindow &window) ;
 	virtual ~Interface();
 	int** getCoordinates() ;

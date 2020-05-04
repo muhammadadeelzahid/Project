@@ -18,8 +18,9 @@ int main()
 	//this is the main files
 	int sizeScreen = 780 ;
 	int sizeOfObject  =  30 ;
+	int mazeNumber = 1 ;
 	Interface game(sizeScreen,sizeOfObject) ;
-	game.drawMaze();
+	game.drawMaze(mazeNumber);
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
 	while (window.isOpen())
     {
@@ -43,6 +44,23 @@ int main()
             		game.fire(1) ;
             		cout<<"Fire Tank 2"<<endl;
             	}
+        		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        		   {
+        			game.moveTank("Up",1) ; // Move tank Number 1 upwards //index of arrays start from 0
+        		   }
+        		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        		   {
+        			game.moveTank("Down",1) ; // Move tank Number 1 Down
+        		   }
+        		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        		   {
+        			game.moveTank("Right",1) ; // Move tank Number 1 Right
+        		   }
+        		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        		   {
+        			game.moveTank("Left",1) ; // Move tank Number 1 Left
+        		   }
+
             }
             //logic for movement starts
 
@@ -63,24 +81,6 @@ int main()
             {
             	game.moveTank("Left",0) ; // Move tank Number 1 Left
             }
-
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		   {
-			game.moveTank("Up",1) ; // Move tank Number 1 upwards //index of arrays start from 0
-		   }
-		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		   {
-			game.moveTank("Down",1) ; // Move tank Number 1 Down
-		   }
-		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		   {
-			game.moveTank("Right",1) ; // Move tank Number 1 Right
-		   }
-		   if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		   {
-			game.moveTank("Left",1) ; // Move tank Number 1 Left
-		   }
         }
 
         MoveBulletsTimed(clock,game);
@@ -96,7 +96,6 @@ void MoveBulletsTimed(sf::Clock &clock ,Interface &game)
 {
 	if( clock.getElapsedTime() > sf::milliseconds(25)  )
 	{
-//		sf::Time elapsed = clock.getElapsedTime() ;
 		game.moveBullets() ;
 		clock.restart();
 	}
