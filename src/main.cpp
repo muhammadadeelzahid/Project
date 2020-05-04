@@ -18,7 +18,7 @@ int main()
 	//this is the main files
 	int sizeScreen = 780 ;
 	int sizeOfObject  =  30 ;
-	int mazeNumber = 1 ;
+	int mazeNumber = 2 ;
 	Interface game(sizeScreen,sizeOfObject) ;
 	game.drawMaze(mazeNumber);
 	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
