@@ -14,6 +14,7 @@ class Interface ;
 class Tank: public Shape {
 	sf::Sprite tank ;
 	int status; //if tank has been destroyed or not
+	int score ;
 	Bullet bullets[50]  ;
 	int firedbullets ;
 

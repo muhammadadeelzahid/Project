@@ -17,11 +17,17 @@ int main()
 
 	//this is the main files
 	int sizeScreen = 780 ;
-	int sizeOfObject  =  30 ;
-	int mazeNumber = 2 ;
-	Interface game(sizeScreen,sizeOfObject) ;
+	int sizeOfObject  =  26 ;
+	int mazeNumber = 3;
+	int sizeForBar = 780 ;
+	Interface game(sizeForBar,sizeOfObject) ;
 	game.drawMaze(mazeNumber);
-	sf::RenderWindow window(sf::VideoMode(sizeScreen,sizeScreen), "Game");
+
+	sf::RenderWindow stats(sf::VideoMode(400,250), "Game Stats") ;
+	stats.setPosition(sf::Vector2i(10,200)) ;
+
+	sf::RenderWindow window(sf::VideoMode(sizeForBar,sizeScreen), "Game");
+	window.setPosition(sf::Vector2i(window.getPosition().x+100,window.getPosition().y)) ;
 	while (window.isOpen())
     {
 
@@ -81,11 +87,11 @@ int main()
             {
             	game.moveTank("Left",0) ; // Move tank Number 1 Left
             }
+
         }
 
         MoveBulletsTimed(clock,game);
-      //  game.BulletscollisionWithWalls() ;
-
+        game.BulletscollisionWithTank() ;
 		game.StopGame() ;
         game.display(window) ;
         window.display();

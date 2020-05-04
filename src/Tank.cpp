@@ -8,6 +8,8 @@
 #include "Tank.h"
 
 Tank::Tank() {
+	score = 0 ;
+	status =0 ;
 	this->setTokenValue(2) ;
 	firedbullets = 0;
 	//setting the texture ;

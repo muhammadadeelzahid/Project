@@ -12,7 +12,6 @@ Interface::Interface(int size,int ratio)
 	screenFactor = ratio ;
 	brickcounter =0 ;
 	this->sizeofcoordinates = size/screenFactor ;
-	score = 0 ;
 	coordinates = new int*[sizeofcoordinates] ;
 	for(int i = 0 ; i<sizeofcoordinates ; i++)
 	{
@@ -445,16 +444,199 @@ void Interface::maze2()
 }
 void Interface::maze3()
 {
+	//top most row
+		brickcounter = 0;
+		for (int i = 0; i < this->sizeofcoordinates; i++)
+		{
+			coordinates[0][i] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(0, i); //  array of bricks and its orientation are parallel
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
+		}
+		//last brick of horizontal row act as a vertical wall and vice versa
+		bricks.orientation[brickcounter - 1] = "horizontal";
 
+		//left most coloumn
+
+		for (int j = 0; j < this->sizeofcoordinates; j++)
+		{
+			coordinates[j][0] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(j, 0);
+			bricks.orientation[brickcounter] = "horizontal";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+		//bottom most row
+		for (int k = 0; k < this->sizeofcoordinates; k++)
+		{
+			coordinates[k][sizeofcoordinates - 1] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates - 1); //  array of bricks and its orientation are parallel
+			bricks.orientation[brickcounter] = "horizontal";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//right most coloum
+		for (int l = 0; l < this->sizeofcoordinates; l++)
+		{
+			coordinates[sizeofcoordinates - 1][l] = 1; // 1 is the  token for a brick
+			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates - 1, l);
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
+
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//1st horizontal line from top
+		for (int k = 0; k < this->sizeofcoordinates; k++) {
+			if (k > (this->sizeofcoordinates / 6) && k < (this->sizeofcoordinates / 3))
+			{
+				coordinates[k][sizeofcoordinates / 5] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, int(sizeofcoordinates / 5));
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+			if (k > 5 * (this->sizeofcoordinates / 6))
+			{
+				coordinates[k][sizeofcoordinates / 5] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates / 5);
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//2nd horizontal line from top
+		for (int k = 0; k < this->sizeofcoordinates; k++) {
+			if (k>2 * (this->sizeofcoordinates / 6) && k <= 3 * (this->sizeofcoordinates / 6))
+			{
+				coordinates[k][2*(sizeofcoordinates / 5)] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, 2 * (sizeofcoordinates / 5));
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+			if (k>4 * (this->sizeofcoordinates / 6) && k <= 5 * (this->sizeofcoordinates / 6))
+			{
+				coordinates[k][2 * (sizeofcoordinates / 5)] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, 2 * (sizeofcoordinates / 5));
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//3rd horizontal line from top
+		for (int k = 0; k < this->sizeofcoordinates; k++) {
+			if (k>(this->sizeofcoordinates / 6) && k <= 2 * (this->sizeofcoordinates / 6))
+			{
+				coordinates[k][3 * (sizeofcoordinates / 5)] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, 3 * (sizeofcoordinates / 5));
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+			if (k>3*(this->sizeofcoordinates / 6) && k <= 5 * (this->sizeofcoordinates / 6))
+			{
+				coordinates[k][3 * (sizeofcoordinates / 5)] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, 3 * (sizeofcoordinates / 5));
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//4th horizontal line from top
+		for (int k = 0; k < this->sizeofcoordinates; k++) {
+			if (k>3 * (this->sizeofcoordinates / 6) && k <= 4 * (this->sizeofcoordinates / 6))
+			{
+				coordinates[k][4*(sizeofcoordinates / 5)] = 1;
+				bricks.getBrick()[brickcounter].setPosition(k, 4*(sizeofcoordinates / 5));
+				bricks.orientation[brickcounter] = "horizontal";
+				brickcounter++;
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "vertical";
+
+		//for first vertical line  from left
+		for (int m = 0; m < this->sizeofcoordinates; m++) {
+			if (m <= 2 * (this->sizeofcoordinates / 5) || m>4 * (this->sizeofcoordinates / 5))
+			{
+				coordinates[(sizeofcoordinates / 6)][m] = 1;
+				bricks.getBrick()[brickcounter].setPosition((sizeofcoordinates / 6), m);
+				bricks.orientation[brickcounter] = "vertical";
+				brickcounter++;
+
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//for second vertical line  from left
+		for (int m = 0; m < this->sizeofcoordinates; m++) {
+			if (m>3 * (this->sizeofcoordinates / 5))
+			{
+				coordinates[2*(sizeofcoordinates / 6)][m] = 1;
+				bricks.getBrick()[brickcounter].setPosition(2*(sizeofcoordinates / 6), m);
+				bricks.orientation[brickcounter] = "vertical";
+				brickcounter++;
+
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//for third vertical line  from left
+		for (int m = 0; m < this->sizeofcoordinates; m++) {
+			if (m <= 3 * (this->sizeofcoordinates / 5) && m> (this->sizeofcoordinates / 5))
+			{
+				coordinates[3*(sizeofcoordinates / 6)][m] = 1;
+				bricks.getBrick()[brickcounter].setPosition(3*(sizeofcoordinates / 6), m);
+				bricks.orientation[brickcounter] = "vertical";
+				brickcounter++;
+
+			}
+			if (m>= 4*(this->sizeofcoordinates / 5))
+			{
+				coordinates[3 * (sizeofcoordinates / 6)][m] = 1;
+				bricks.getBrick()[brickcounter].setPosition(3 * (sizeofcoordinates / 6), m);
+				bricks.orientation[brickcounter] = "vertical";
+				brickcounter++;
+
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+		//for fourth vertical line  from left
+		for (int m = 0; m < this->sizeofcoordinates; m++) {
+			if (m<=2 * (this->sizeofcoordinates / 5))
+			{
+				coordinates[4 * (sizeofcoordinates / 6)][m] = 1;
+				bricks.getBrick()[brickcounter].setPosition(4 * (sizeofcoordinates / 6), m);
+				bricks.orientation[brickcounter] = "vertical";
+				brickcounter++;
+
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
+
+
+		//for fifth vertical line  from left
+		for (int m = 0; m < this->sizeofcoordinates; m++) {
+			if (m > 3 * (this->sizeofcoordinates / 5)&& m <= 4 * (this->sizeofcoordinates / 5))
+			{
+				coordinates[5 * (sizeofcoordinates / 6)][m] = 1;
+				bricks.getBrick()[brickcounter].setPosition(5 * (sizeofcoordinates / 6), m);
+				bricks.orientation[brickcounter] = "vertical";
+				brickcounter++;
+
+			}
+		}
+		bricks.orientation[brickcounter - 1] = "horizontal";
 }
 
 int** Interface::getCoordinates()  {
 	return coordinates;
 }
 
-int Interface::getScore() const {
-	return score;
-}
 
  Tank*& Interface::getTanks()  {
 	return tanks;
@@ -464,9 +646,6 @@ int Interface::getSize() const {
 	return sizeofcoordinates;
 }
 
-void Interface::setScore(int score) {
-	this->score = score;
-}
 
 Interface::~Interface() {
 	delete [] this->coordinates ;
@@ -498,7 +677,7 @@ void Interface::drawMaze(int mazeNumber)
 
 	if ( mazeNumber == 1 )
 	{
-		tanks[0].tank.setPosition(10*screenFactor,10*screenFactor) ;
+		tanks[0].tank.setPosition(20*screenFactor,20*screenFactor) ;
 		tanks[1].tank.setPosition(2*screenFactor,2*screenFactor) ;
 	}
 	else if (mazeNumber ==2 )
@@ -508,8 +687,9 @@ void Interface::drawMaze(int mazeNumber)
 	}
 	else if (mazeNumber == 3)
 	{
-		tanks[0].tank.setPosition(screenFactor*-1,screenFactor*-1) ;
-		tanks[1].tank.setPosition(-1*screenFactor ,-1*screenFactor) ;
+		tanks[0].tank.setPosition(screenFactor*3,screenFactor*3) ;
+		tanks[0].tank.rotate(180) ;
+		tanks[1].tank.setPosition(27*screenFactor ,25*screenFactor) ;
 
 	}
 }
@@ -713,7 +893,7 @@ void Interface::fire(int tankNumber)
 //function call is controlled by the timer in main.cpp
 void Interface::moveBullets()
 {
-		BulletscollisionWithWalls();
+			BulletscollisionWithWalls();
 		//	cout<<"Moving bullets"<<endl ;
 			//move all bullets for all tanks
 		for (int i = 0; i <this->tankcount; i++)
@@ -796,10 +976,11 @@ void Interface::moveBullets()
 				}
 		}
 
+
 }
 void Interface::BulletscollisionWithTank()
 {
-//	cout<<"Checking collision of bullets with Tank"<<endl ;
+	//cout<<"Checking collision of bullets with Tank"<<endl ;
 	for(int i =0 ; i<tankcount ; i++)
 	{
 		for (int j = 0 ; j <tanks[i].firedbullets; j++)
@@ -807,8 +988,8 @@ void Interface::BulletscollisionWithTank()
 			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,tanks[i].tank))
 			{
 				tanks[i].status = 1 ;
-				cout<<"Bullets collision with tank"<<i<<endl ;
-			//	getchar() ;
+				//cout<<"Bullets collision with tank"<<i<<endl ;
+				getchar() ;
 			}
 		}
 	}

@@ -15,7 +15,6 @@ using namespace std ;
 class Interface {
 	//basic array that identifies with each token of the object
 	int **coordinates ;//set the size in the constructor
-	int score ;
 	int sizeofcoordinates ; // size of screen /screenFactor
 	int screenFactor ; //Walls and spaces will be of 15x15
 	int brickcounter ;
