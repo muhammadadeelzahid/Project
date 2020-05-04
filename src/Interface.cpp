@@ -498,13 +498,19 @@ void Interface::drawMaze(int mazeNumber)
 
 	if ( mazeNumber == 1 )
 	{
-		tanks[0].tank.setPosition(10*30,10*30) ;
-		tanks[1].tank.setPosition(700,700) ;
+		tanks[0].tank.setPosition(10*screenFactor,10*screenFactor) ;
+		tanks[1].tank.setPosition(2*screenFactor,2*screenFactor) ;
 	}
 	else if (mazeNumber ==2 )
 	{
-		tanks[0].tank.setPosition(-100,-100) ;
-		tanks[1].tank.setPosition(-100,-100) ;
+		tanks[0].tank.setPosition(screenFactor*2,screenFactor*2) ;
+		tanks[1].tank.setPosition(20*screenFactor ,20*screenFactor) ;
+	}
+	else if (mazeNumber == 3)
+	{
+		tanks[0].tank.setPosition(screenFactor*-1,screenFactor*-1) ;
+		tanks[1].tank.setPosition(-1*screenFactor ,-1*screenFactor) ;
+
 	}
 }
 void Interface::display(sf::RenderWindow &window)
