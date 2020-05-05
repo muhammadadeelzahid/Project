@@ -27,7 +27,7 @@ class Interface {
 	sf::Texture texture1 ; //texture for tank1
 	sf::Texture texture2 ;//texture for tank2
 	int startDelay ;
-
+	int currentMaze ;
 	//temporary stuff
 	sf::Image img ;
 	sf::Sprite temp1 ;
@@ -54,7 +54,7 @@ public:
 	void increment(sf::Clock &clock2) ;
 
 	Interface(int,int) ;
-	void drawMaze(int) ;
+	void drawMaze() ;
 	void display(sf::RenderWindow &window) ;
 	virtual ~Interface();
 	int** getCoordinates() ;

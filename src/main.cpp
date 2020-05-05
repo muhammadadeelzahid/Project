@@ -19,21 +19,19 @@ int main() {
 	//this is the main files
 	int sizeScreen = 780;
 	int sizeOfObject = 26;
-	int mazeNumber = 1;
 	int sizeForBar = 780;
 	Interface game(sizeForBar, sizeOfObject);
-	game.drawMaze(mazeNumber);
 
 	sf::RenderWindow stats(sf::VideoMode(400, 250), "Game Stats");
 	stats.setPosition(sf::Vector2i(10, 200));
-
+	game.drawMaze();
 	sf::RenderWindow window(sf::VideoMode(sizeForBar, sizeScreen), "Game");
 	window.setPosition(sf::Vector2i(window.getPosition().x + 100, window.getPosition().y));
 
 	while (window.isOpen()) {
-
 		sf::Color background(220, 220, 220);
 		window.clear(background);
+
 		sf::Event event;
 		if (game.getPause() == 1) {
 			window.clear(background);

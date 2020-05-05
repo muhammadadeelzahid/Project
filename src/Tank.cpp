@@ -9,7 +9,7 @@
 
 Tank::Tank() {
 	score = 0 ;
-	lives = 1 ;
+	lives = 2 ;
 	this->setTokenValue(2) ;
 	firedbullets = 0;
 	//setting the texture ;

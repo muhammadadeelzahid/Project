@@ -8,6 +8,7 @@
 #include "Interface.h"
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
+	this->currentMaze = 1;
 	startDelay = 0;
 	screenFactor = ratio;
 	brickcounter = 0;
@@ -674,9 +675,9 @@ Interface::~Interface() {
 	delete[] this->coordinates;
 }
 
-void Interface::drawMaze(int mazeNumber) {
+void Interface::drawMaze() {
 	//draw all maze here
-
+	int mazeNumber = currentMaze;
 	if (mazeNumber == 1) {
 		maze1();
 	} else if (mazeNumber == 2) {
@@ -695,8 +696,8 @@ void Interface::drawMaze(int mazeNumber) {
 		tanks[0].tank.setPosition(20 * screenFactor, 20 * screenFactor);
 		tanks[1].tank.setPosition(2 * screenFactor, 2 * screenFactor);
 	} else if (mazeNumber == 2) {
-		tanks[0].tank.setPosition(screenFactor * 2, screenFactor * 2);
-		tanks[1].tank.setPosition(20 * screenFactor, 20 * screenFactor);
+		tanks[0].tank.setPosition(screenFactor * 3, screenFactor * 2);
+		tanks[1].tank.setPosition(22 * screenFactor, 20 * screenFactor);
 	} else if (mazeNumber == 3) {
 		tanks[0].tank.setPosition(screenFactor * 3, screenFactor * 3);
 		tanks[0].tank.rotate(180);
@@ -974,14 +975,14 @@ void Interface::moveBullets() {
 
 }
 void Interface::BulletscollisionWithTank() {
+	bool collided = false ;
 	for (int i = 0; i < tankcount; i++) {
 		for (int j = 0; j < tanks[i].firedbullets; j++) {
-			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,
-					tanks[i].tank)) {
+			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,tanks[i].tank)) {
+				collided = 1 ;
 				tanks[1 - i].score += 20;
 				tanks[i].lives -= 1;
-				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"
-						<< tanks[i].lives << endl;
+				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"<< tanks[i].lives << endl;
 				destruction.start = 1;
 				destruction.flames.setPosition(tanks[i].bullets[j].bullet.getPosition());
 				tanks[i].bullets[j].RemoveBullet = 1;
@@ -994,11 +995,10 @@ void Interface::BulletscollisionWithTank() {
 
 	for (int i = 0; i < tankcount; i++) {
 		for (int j = 0; j < tanks[1 - i].firedbullets; j++) {
-			if (Collision::PixelPerfectTest(tanks[1 - i].bullets[j].bullet,
-					tanks[i].tank)) {
+			if (Collision::PixelPerfectTest(tanks[1 - i].bullets[j].bullet,tanks[i].tank)) {
+				collided =  1;
 				tanks[i].lives -= 1;
-				cout << "Enemy FIre Lives for tank " << (i + 1) << ":"
-						<< tanks[i].lives << endl;
+				cout << "Enemy FIre Lives for tank " << (i + 1) << ":"<< tanks[i].lives << endl;
 				tanks[1 - i].score += 40;
 				destruction.start = 1;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
@@ -1006,7 +1006,28 @@ void Interface::BulletscollisionWithTank() {
 				destroyBullet();
 			}
 		}
+	}
+	if( currentMaze > 3)
+	{
+		cout<<"Game End"<<endl  ;
+		currentMaze = 1 ;
+	}
+	for (int i = 0; i<this->tankcount ;i++)
+	{
+		cout<<"Lives for Tank "<<(i+1)<<": "<<tanks[i].lives<<endl ;
+		if (tanks[i].lives <=0 )
+		{
+			for (int i = 0 ;i<tankcount ; i++)
+			{
+				tanks[i].lives = 2 ;
+				tanks[i].firedbullets = 0 ;
+			}
 
+			currentMaze++ ;
+			if (currentMaze> 3 )
+				currentMaze = 1 ;
+			drawMaze() ;
+		}
 	}
 
 }
