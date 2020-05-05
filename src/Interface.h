@@ -11,9 +11,11 @@
 #include <iostream>
 #include "Wall.h"
 #include "Tank.h"
+#include "TankDestroyed.h"
 using namespace std ;
 class Interface {
 	//basic array that identifies with each token of the object
+	TankDestroyed destruction;
 	int **coordinates ;//set the size in the constructor
 	int sizeofcoordinates ; // size of screen /screenFactor
 	int screenFactor ; //Walls and spaces will be of 15x15
@@ -24,6 +26,7 @@ class Interface {
 	int tankcount; //number of tanks
 	sf::Texture texture1 ; //texture for tank1
 	sf::Texture texture2 ;//texture for tank2
+	int startDelay ;
 
 	//temporary stuff
 	sf::Image img ;
@@ -46,6 +49,10 @@ public:
 
 	void moveTank(string direction,int tankNumber) ;
 	bool collisionTankWall(int tankNumber) ;
+
+	//function for flames
+	void increment(sf::Clock &clock2) ;
+
 	Interface(int,int) ;
 	void drawMaze(int) ;
 	void display(sf::RenderWindow &window) ;
@@ -55,6 +62,10 @@ public:
 	void setScore(int score);
 	int getSize() const;
 	 Tank*& getTanks() ;
+	int getPause() const;
+	void setPause(int pause);
+	 TankDestroyed& getDestruction() ;
+	void setDestruction( TankDestroyed &destruction);
 };
 
 #endif /* INTERFACE_H_ */

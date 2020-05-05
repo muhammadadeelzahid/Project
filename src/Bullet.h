@@ -15,6 +15,7 @@ sf::Sprite bullet ;
 sf::Texture t;
 int RotationAngle;
 sf::Clock clock ;
+int RemoveBullet ;
 public:
 	friend class Interface;
 	void startTimer() ;
@@ -24,6 +25,8 @@ public:
 	void draw(sf::RenderWindow &window);
 	sf::Sprite& getBullet();
 	void setBullet(const sf::Sprite &bullet);
+	int getStatus() const;
+	void setStatus(int status);
 };
 
 #endif /* BULLET_H_ */

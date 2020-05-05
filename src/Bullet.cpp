@@ -21,13 +21,21 @@ Bullet::Bullet() {
 	    }
 	bullet.setTexture(t);
 
-
+	RemoveBullet = 0;
 	RotationAngle = 0 ;
 }
 
  sf::Sprite & Bullet::getBullet()
  {
 	 return bullet;
+}
+
+int Bullet::getStatus() const {
+	return RemoveBullet;
+}
+
+void Bullet::setStatus(int status) {
+	this->RemoveBullet = status;
 }
 
 void Bullet::setBullet(const sf::Sprite &bullet) {
@@ -58,5 +66,7 @@ bool Bullet::CheckBulletTimeout()
 			return true ;
 		}
 	}
+	if (this->RemoveBullet == 1 )
+		return true ;
 	return false ;
 }
