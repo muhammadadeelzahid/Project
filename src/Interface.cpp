@@ -46,16 +46,9 @@ Interface::Interface(int size, int ratio) {
 	img.create(screenFactor, screenFactor, sf::Color::Blue);
 	temp.loadFromImage(img);
 	temp1.setTexture(temp);
-
-	if (!font.loadFromFile("font.ttf"))
-	{
-		cout<<"Unable to load font"<<endl;
-	}
-	text.setFont(font);
-
 	if (!t.loadFromFile("msg.png"))
 	{
-		cout<<"Unable to load maze change message"<<endl;
+		cout<<"Unable to load the message box"<<endl;
 	}
 	s.setTexture(t) ;
 }
@@ -997,8 +990,8 @@ void Interface::BulletscollisionWithTank() {
 				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"
 						<< tanks[i].lives << endl;
 				destruction.start = 1;
-				destruction.flames.setPosition(
-						tanks[i].bullets[j].bullet.getPosition());
+				destruction.flames.setPosition(tanks[i].tank.getPosition());
+				destruction.flames.setRotation(tanks[i].tank.getRotation());
 				tanks[i].bullets[j].RemoveBullet = 1;
 				destroyBullet();
 
