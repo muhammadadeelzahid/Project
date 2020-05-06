@@ -12,9 +12,11 @@
 #include "Wall.h" // most probably wont be used as it doesnt require any specialized function
 void MoveBulletsTimed(sf::Clock &clock, Interface &game);
 void timedIncrement(sf::Clock &clock2, Interface &game);
+void ChangeStateDelay(sf::Clock &clock3 ,Interface &game);
 int main() {
 	sf::Clock clock;
 	sf::Clock clock2;
+	sf::Clock clock3 ;
 
 	//this is the main files
 	int sizeScreen = 780;
@@ -40,7 +42,7 @@ int main() {
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (event.type == sf::Event::KeyPressed) {
-				if (game.getPause() == 0) {
+				if (game.getPause() == 0 && game.getChangeStateDelay() == 0) {
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 						game.fire(0);
 						cout << "Fire tank 1" << endl;
@@ -85,12 +87,17 @@ int main() {
 			}
 
 		}
-		if (game.getPause() == 0) {
+		if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
 			MoveBulletsTimed(clock, game);
 			game.BulletscollisionWithTank();
 			game.StopGame();
 			game.display(window);
 		}
+		if (game.getChangeStateDelay() != 0 )
+		{
+			game.MazeChangeDelay(window);
+		}
+		ChangeStateDelay(clock3,game);
 		window.display();
 		timedIncrement(clock2, game);
 	}
@@ -105,8 +112,7 @@ void timedIncrement(sf::Clock &clock2, Interface &game) {
 			return;
 		}
 		if (game.getDestruction().getStart() > 0) {
-			game.getDestruction().setStart(
-					game.getDestruction().getStart() + 1);
+			game.getDestruction().setStart(game.getDestruction().getStart() + 1);
 			clock2.restart();
 		}
 	}
@@ -116,6 +122,19 @@ void MoveBulletsTimed(sf::Clock &clock, Interface &game) {
 	if (clock.getElapsedTime() > sf::milliseconds(25)) {
 		game.moveBullets();
 		clock.restart();
+	}
+}
+void ChangeStateDelay(sf::Clock &clock3 ,Interface &game)
+{
+	if( game.getChangeStateDelay() == 1)
+	{
+		clock3.restart();
+		game.setChangeStateDelay(2);
+		return ;
+	}
+	if( clock3.getElapsedTime() > sf::seconds(2) && game.getChangeStateDelay() == 2  )
+	{
+		game.setChangeStateDelay(4) ;
 	}
 }
 

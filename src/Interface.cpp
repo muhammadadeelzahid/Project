@@ -8,6 +8,7 @@
 #include "Interface.h"
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
+	changeStateDelay = 0 ;
 	this->currentMaze = 1;
 	startDelay = 0;
 	screenFactor = ratio;
@@ -46,6 +47,17 @@ Interface::Interface(int size, int ratio) {
 	temp.loadFromImage(img);
 	temp1.setTexture(temp);
 
+	if (!font.loadFromFile("font.ttf"))
+	{
+		cout<<"Unable to load font"<<endl;
+	}
+	text.setFont(font);
+
+	if (!t.loadFromFile("msg.png"))
+	{
+		cout<<"Unable to load maze change message"<<endl;
+	}
+	s.setTexture(t) ;
 }
 void Interface::maze1() {
 	//top most row
@@ -113,7 +125,7 @@ void Interface::maze1() {
 			brickcounter++;
 		}
 		if ((n > this->sizeofcoordinates / 2)
-				& n < (5 * (this->sizeofcoordinates / 6))) {
+				& n <= (5 * (this->sizeofcoordinates / 6))) {
 			coordinates[sizeofcoordinates / 2][n] = 1;
 			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 2,
 					n);
@@ -121,7 +133,6 @@ void Interface::maze1() {
 			brickcounter++;
 		}
 	}
-	bricks.orientation[brickcounter - 1] = "vertical";
 
 	//1st horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
@@ -975,16 +986,19 @@ void Interface::moveBullets() {
 
 }
 void Interface::BulletscollisionWithTank() {
-	bool collided = false ;
+	bool collided = false;
 	for (int i = 0; i < tankcount; i++) {
 		for (int j = 0; j < tanks[i].firedbullets; j++) {
-			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,tanks[i].tank)) {
-				collided = 1 ;
+			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet,
+					tanks[i].tank)) {
+				collided = 1;
 				tanks[1 - i].score += 20;
 				tanks[i].lives -= 1;
-				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"<< tanks[i].lives << endl;
+				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"
+						<< tanks[i].lives << endl;
 				destruction.start = 1;
-				destruction.flames.setPosition(tanks[i].bullets[j].bullet.getPosition());
+				destruction.flames.setPosition(
+						tanks[i].bullets[j].bullet.getPosition());
 				tanks[i].bullets[j].RemoveBullet = 1;
 				destroyBullet();
 
@@ -995,10 +1009,12 @@ void Interface::BulletscollisionWithTank() {
 
 	for (int i = 0; i < tankcount; i++) {
 		for (int j = 0; j < tanks[1 - i].firedbullets; j++) {
-			if (Collision::PixelPerfectTest(tanks[1 - i].bullets[j].bullet,tanks[i].tank)) {
-				collided =  1;
+			if (Collision::PixelPerfectTest(tanks[1 - i].bullets[j].bullet,
+					tanks[i].tank)) {
+				collided = 1;
 				tanks[i].lives -= 1;
-				cout << "Enemy FIre Lives for tank " << (i + 1) << ":"<< tanks[i].lives << endl;
+				cout << "Enemy FIre Lives for tank " << (i + 1) << ":"
+						<< tanks[i].lives << endl;
 				tanks[1 - i].score += 40;
 				destruction.start = 1;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
@@ -1007,27 +1023,28 @@ void Interface::BulletscollisionWithTank() {
 			}
 		}
 	}
-	if( currentMaze > 3)
-	{
-		cout<<"Game End"<<endl  ;
-		currentMaze = 1 ;
+	if (currentMaze > 3) {
+		cout << "Game End" << endl;
+		currentMaze = 1;
 	}
-	for (int i = 0; i<this->tankcount ;i++)
-	{
-		cout<<"Lives for Tank "<<(i+1)<<": "<<tanks[i].lives<<endl ;
-		if (tanks[i].lives <=0 )
-		{
-			for (int i = 0 ;i<tankcount ; i++)
-			{
-				tanks[i].lives = 2 ;
-				tanks[i].firedbullets = 0 ;
+	for (int i = 0; i < this->tankcount; i++) {
+		cout << "Lives for Tank " << (i + 1) << ": " << tanks[i].lives << endl;
+		if (tanks[i].lives <= 0) {
+			for (int i = 0; i < tankcount; i++) {
+				tanks[i].lives = 2;
+				tanks[i].firedbullets = 0;
 			}
 
-			currentMaze++ ;
-			if (currentMaze> 3 )
-				currentMaze = 1 ;
-			drawMaze() ;
+			currentMaze++;
+			this->changeStateDelay = 1;
+			if (currentMaze > 3)
+				currentMaze = 1;
 		}
+	}
+	if (changeStateDelay == 4)
+	{
+		drawMaze();
+		changeStateDelay = 0 ;
 	}
 
 }
@@ -1148,4 +1165,25 @@ void Interface::StopGame() // detect if one of the tanks are shot
 		}
 	}
 }
+
+int Interface::getChangeStateDelay() const {
+	return changeStateDelay;
+}
+
+void Interface::setChangeStateDelay(int changeStateDelay) {
+	this->changeStateDelay = changeStateDelay;
+}
+
+void Interface::MazeChangeDelay(sf::RenderWindow &window)
+{
+
+	s.setPosition(sf::Vector2f(150,250));
+	window.draw(s);
+}
+
+
+
+
+
+
 

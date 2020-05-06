@@ -32,6 +32,10 @@ class Interface {
 	sf::Image img ;
 	sf::Sprite temp1 ;
 	sf::Texture temp;
+//for Maze Changing delays
+	sf::Sprite s;
+	sf::Texture t;
+	int changeStateDelay ;
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;
@@ -66,6 +70,9 @@ public:
 	void setPause(int pause);
 	 TankDestroyed& getDestruction() ;
 	void setDestruction( TankDestroyed &destruction);
+	void MazeChangeDelay(sf::RenderWindow &window) ;
+	int getChangeStateDelay() const;
+	void setChangeStateDelay(int changeStateDelay);
 };
 
 #endif /* INTERFACE_H_ */
