@@ -7,7 +7,6 @@
 
 #ifndef SHAPE_H_
 #define SHAPE_H_
-#include "Coordinate.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 using namespace std;

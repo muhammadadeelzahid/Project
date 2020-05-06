@@ -9,6 +9,11 @@
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
 	srand(time(NULL));
+	if (!this->pauseMessage.loadFromFile("Pause.png"))
+	{
+		cout<<"Pause message not loaded"<<endl ;
+	}
+	pause.setTexture(pauseMessage);
 	changeStateDelay = 0;
 	this->currentMaze = 1;
 	startDelay = 0;
@@ -657,24 +662,6 @@ void Interface::drawMaze() {
 	}
 }
 void Interface::display(sf::RenderWindow &window) {
-//temporary code starts
-	int counter = 0;
-	int row;
-	int col;
-	for (int i = 0; i < sizeofcoordinates; i++) {
-		for (int j = 0; j < sizeofcoordinates; j++) {
-			row = i * screenFactor;
-			col = j * screenFactor;
-			if (coordinates[i][j] == 1) {
-//						bricks.getBrick()[counter].setPosition(row,col) ;
-				//					window.draw(bricks.getBrick()[counter]) ;
-				counter++;
-			}
-		}
-	}
-//			cout<<counter<<endl;
-	//temporary code ends
-
 	for (int i = 0; i < brickcounter; i++) {
 		window.draw(bricks.getBrick()[i]);
 	}
@@ -687,7 +674,8 @@ void Interface::display(sf::RenderWindow &window) {
 
 	this->destruction.draw(window);
 	//end of function
-	mine.draw(window);
+	if( changeStateDelay == 0)
+		mine.draw(window);
 
 }
 bool Interface::collisionTankWall(int tankNumber) {
@@ -1069,15 +1057,7 @@ void Interface::BulletscollisionWithWalls() {
 	}
 
 }
-void Interface::StopGame() // detect if one of the tanks are shot
-{
-	for (int i = 0; i < this->tankcount; i++) {
-		if (this->tanks[i].lives == 1) {
-			//cout<<"Tank "<<(i+1)<<"destroyed Game stopped"<<endl ;
-			//		getchar() ;
-		}
-	}
-}
+
 
 int Interface::getChangeStateDelay() const {
 	return changeStateDelay;
@@ -1104,10 +1084,15 @@ void Interface::setChangeStateDelay(int changeStateDelay) {
 	reset();
 }
 
-void Interface::MazeChangeDelay(sf::RenderWindow &window) {
+void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 
 	s.setPosition(sf::Vector2f(150, 250));
-	window.draw(s);
+	pause.setPosition(sf::Vector2f(150, 250));
+	if (startDelay == 1 )
+		window.draw(pause);
+	else
+		window.draw(s);
+
 }
 
 void Interface::setMineCoordinates() {
@@ -1211,3 +1196,21 @@ void Interface::BombscollisionWithTank() {
 	}
 
 }
+
+
+void Interface::ShowStats(){
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

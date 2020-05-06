@@ -36,7 +36,7 @@ int main() {
 
 		sf::Event event;
 		if (game.getPause() == 1) {
-			window.clear(background);
+			//window.clear(background);
 		}
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
@@ -82,21 +82,27 @@ int main() {
 				//for pause
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
 					game.setPause(1 - game.getPause());
+					//cout<<"Pause status: "<<game.getPause()<<endl;
 				}
 
 			}
 
 		}
+		if( game.getPause() == 1 )
+			game.Maze_Change_And_Pause_Message(window);
 		if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
 			game.setMineCoordinates();
 			MoveBulletsTimed(clock, game);
 			game.BulletscollisionWithTank();
-			game.StopGame();
-			game.display(window);
 		}
+		game.display(window);
 		if (game.getChangeStateDelay() != 0) {
-			game.MazeChangeDelay(window);
+			game.Maze_Change_And_Pause_Message(window);
 		}
+
+
+
+
 		ChangeStateDelay(clock3, game);
 		window.display();
 		timedIncrement(clock2, game);

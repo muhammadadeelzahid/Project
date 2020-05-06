@@ -40,9 +40,12 @@ class Interface {
 //for Maze Changing delays
 	sf::Sprite s;
 	sf::Texture t;
-	int changeStateDelay ;
+	int changeStateDelay ; //variable to give a delay after one maze ends and load the next maze
 
 	Mines mine ;
+
+	sf::Sprite pause;
+	sf::Texture pauseMessage;
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;
@@ -57,9 +60,6 @@ public:
 	void reset() ;
 
 	//functions involving movement and collision of Bullets Ends
-
-	void StopGame(); // detect if one of the tanks are shot
-
 	void moveTank(string direction,int tankNumber) ;
 	bool collisionTankWall(int tankNumber) ;
 
@@ -82,9 +82,13 @@ public:
 	void setPause(int pause);
 	 TankDestroyed& getDestruction() ;
 	void setDestruction( TankDestroyed &destruction);
-	void MazeChangeDelay(sf::RenderWindow &window) ;
+	void Maze_Change_And_Pause_Message(sf::RenderWindow &window) ;
 	int getChangeStateDelay() const;
 	void setChangeStateDelay(int changeStateDelay);
+
+
+
+	void ShowStats() ;
 };
 
 #endif /* INTERFACE_H_ */
