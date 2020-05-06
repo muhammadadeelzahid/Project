@@ -12,11 +12,11 @@
 #include "Wall.h" // most probably wont be used as it doesnt require any specialized function
 void MoveBulletsTimed(sf::Clock &clock, Interface &game);
 void timedIncrement(sf::Clock &clock2, Interface &game);
-void ChangeStateDelay(sf::Clock &clock3 ,Interface &game);
+void ChangeStateDelay(sf::Clock &clock3, Interface &game);
 int main() {
 	sf::Clock clock;
 	sf::Clock clock2;
-	sf::Clock clock3 ;
+	sf::Clock clock3;
 
 	//this is the main files
 	int sizeScreen = 780;
@@ -88,17 +88,16 @@ int main() {
 
 		}
 		if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
-			game.setMineCoordinates() ;
+			game.setMineCoordinates();
 			MoveBulletsTimed(clock, game);
 			game.BulletscollisionWithTank();
 			game.StopGame();
 			game.display(window);
 		}
-		if (game.getChangeStateDelay() != 0 )
-		{
+		if (game.getChangeStateDelay() != 0) {
 			game.MazeChangeDelay(window);
 		}
-		ChangeStateDelay(clock3,game);
+		ChangeStateDelay(clock3, game);
 		window.display();
 		timedIncrement(clock2, game);
 	}
@@ -125,17 +124,14 @@ void MoveBulletsTimed(sf::Clock &clock, Interface &game) {
 		clock.restart();
 	}
 }
-void ChangeStateDelay(sf::Clock &clock3 ,Interface &game)
-{
-	if( game.getChangeStateDelay() == 1)
-	{
+void ChangeStateDelay(sf::Clock &clock3, Interface &game) {
+	if (game.getChangeStateDelay() == 1) {
 		clock3.restart();
 		game.setChangeStateDelay(2);
-		return ;
+		return;
 	}
-	if( clock3.getElapsedTime() > sf::seconds(2) && game.getChangeStateDelay() == 2  )
-	{
-		game.setChangeStateDelay(4) ;
+	if (clock3.getElapsedTime() > sf::seconds(2) && game.getChangeStateDelay() == 2) {
+		game.setChangeStateDelay(4);
 	}
 }
 
