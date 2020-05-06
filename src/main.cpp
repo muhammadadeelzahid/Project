@@ -88,6 +88,7 @@ int main() {
 
 		}
 		if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
+			game.setMineCoordinates() ;
 			MoveBulletsTimed(clock, game);
 			game.BulletscollisionWithTank();
 			game.StopGame();

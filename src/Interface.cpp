@@ -8,7 +8,8 @@
 #include "Interface.h"
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
-	changeStateDelay = 0 ;
+	srand(time(NULL)) ;
+	changeStateDelay = 0;
 	this->currentMaze = 1;
 	startDelay = 0;
 	screenFactor = ratio;
@@ -46,14 +47,14 @@ Interface::Interface(int size, int ratio) {
 	img.create(screenFactor, screenFactor, sf::Color::Blue);
 	temp.loadFromImage(img);
 	temp1.setTexture(temp);
-	if (!t.loadFromFile("msg.png"))
-	{
-		cout<<"Unable to load the message box"<<endl;
+	if (!t.loadFromFile("msg.png")) {
+		cout << "Unable to load the message box" << endl;
 	}
-	s.setTexture(t) ;
+	s.setTexture(t);
 }
 void Interface::maze1() {
 	//top most row
+	int first = 0;
 	brickcounter = 0;
 	for (int i = 0; i < this->sizeofcoordinates; i++) {
 		coordinates[0][i] = 1; // 1 is the  token for a brick
@@ -107,7 +108,6 @@ void Interface::maze1() {
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "horizontal";
-
 	//for second vertical line from left
 	for (int n = 0; n < this->sizeofcoordinates; n++) {
 		if (n < this->sizeofcoordinates / 3) {
@@ -117,6 +117,8 @@ void Interface::maze1() {
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
 		}
+
+
 		if ((n > this->sizeofcoordinates / 2)
 				& n <= (5 * (this->sizeofcoordinates / 6))) {
 			coordinates[sizeofcoordinates / 2][n] = 1;
@@ -124,9 +126,11 @@ void Interface::maze1() {
 					n);
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
+			first++;
 		}
 	}
-
+	bricks.orientation[brickcounter - first] = "horizontal";
+	first = 0;
 	//1st horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
 		if (k > 3 * (this->sizeofcoordinates / 4)) {
@@ -135,11 +139,13 @@ void Interface::maze1() {
 					sizeofcoordinates / 6);
 			bricks.orientation[brickcounter] = "horizontal";
 			brickcounter++;
+			first++;
 		}
 
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
-
+	bricks.orientation[brickcounter - first] = "vertical";
+	first = 0;
 	//2nd horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
 		if (k > 3 * (this->sizeofcoordinates / 4)) {
@@ -148,10 +154,12 @@ void Interface::maze1() {
 					sizeofcoordinates / 3);
 			bricks.orientation[brickcounter] = "horizontal";
 			brickcounter++;
+			first++;
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
-
+	bricks.orientation[brickcounter - first] = "vertical";
+	first = 0;
 	//3rd horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
 		if (k > 3 * (this->sizeofcoordinates / 4)) {
@@ -160,9 +168,12 @@ void Interface::maze1() {
 					sizeofcoordinates / 2);
 			bricks.orientation[brickcounter] = "horizontal";
 			brickcounter++;
+			first++;
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
+	bricks.orientation[brickcounter - first] = "vertical";
+	first = 0;
 	//4th horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
 		if (k > 3 * (this->sizeofcoordinates / 4)) {
@@ -171,10 +182,12 @@ void Interface::maze1() {
 					2 * (sizeofcoordinates / 3));
 			bricks.orientation[brickcounter] = "horizontal";
 			brickcounter++;
+			first++;
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
-
+	bricks.orientation[brickcounter - first] = "vertical";
+	first=0;
 	//5th horizontal line from top
 	for (int k = 0; k < this->sizeofcoordinates; k++) {
 		if (k > 3 * (this->sizeofcoordinates / 4)) {
@@ -191,10 +204,12 @@ void Interface::maze1() {
 					5 * (sizeofcoordinates / 6));
 			bricks.orientation[brickcounter] = "horizontal";
 			brickcounter++;
+			first++;
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
 
+	bricks.orientation[brickcounter - first] = "vertical";
 }
 void Interface::maze2() {
 	//top most row
@@ -740,6 +755,7 @@ void Interface::display(sf::RenderWindow &window) {
 
 	this->destruction.draw(window);
 	//end of function
+	mine.draw(window) ;
 
 }
 bool Interface::collisionTankWall(int tankNumber) {
@@ -990,7 +1006,7 @@ void Interface::BulletscollisionWithTank() {
 				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"
 						<< tanks[i].lives << endl;
 				destruction.start = 1;
-				if (tanks[i].lives <=0)
+				if (tanks[i].lives <= 0)
 					tanks[i].status = 0;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
 				destruction.flames.setRotation(tanks[i].tank.getRotation());
@@ -1011,8 +1027,8 @@ void Interface::BulletscollisionWithTank() {
 				cout << "Enemy FIre Lives for tank " << (i + 1) << ":"
 						<< tanks[i].lives << endl;
 				tanks[1 - i].score += 40;
-				if (tanks[1-i].lives <=0)
-					tanks[1-i].status = 0;
+				if (tanks[1 - i].lives <= 0)
+					tanks[1 - i].status = 0;
 				destruction.start = 1;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
 				tanks[1 - i].bullets[j].RemoveBullet = 1;
@@ -1020,30 +1036,25 @@ void Interface::BulletscollisionWithTank() {
 			}
 		}
 	}
-	if (changeStateDelay == 0)
-	{
-	for (int i = 0; i<tankcount ;i++)
-	{
-		if (tanks[i].lives <=0 )
-		{
-			currentMaze++;
-			changeStateDelay = 1;
-			if (currentMaze > 3)
-				currentMaze = 1;
+	if (changeStateDelay == 0) {
+		for (int i = 0; i < tankcount; i++) {
+			if (tanks[i].lives <= 0) {
+				currentMaze++;
+				changeStateDelay = 1;
+				if (currentMaze > 3)
+					currentMaze = 1;
 
+			}
 		}
-	}
 	}
 	if (currentMaze > 3) {
 		cout << "Game End" << endl;
 		currentMaze = 1;
 	}
-	if (changeStateDelay == 4)
-	{
+	if (changeStateDelay == 4) {
 		drawMaze();
-		changeStateDelay = 0 ;
+		changeStateDelay = 0;
 	}
-
 
 }
 void Interface::BulletscollisionWithWalls() {
@@ -1167,38 +1178,144 @@ void Interface::StopGame() // detect if one of the tanks are shot
 int Interface::getChangeStateDelay() const {
 	return changeStateDelay;
 }
-void Interface::reset()
-{
-	if ( changeStateDelay == 4 )
-	{
+void Interface::reset() {
+	if (changeStateDelay == 4) {
 		for (int i = 0; i < this->tankcount; i++) {
-			cout << "Lives for Tank " << (i + 1) << ": " << tanks[i].lives << endl;
+			cout << "Lives for Tank " << (i + 1) << ": " << tanks[i].lives
+					<< endl;
 			if (tanks[i].lives <= 0) {
 				for (int i = 0; i < tankcount; i++) {
 					tanks[i].lives = 2;
 					tanks[i].firedbullets = 0;
-					tanks[i].status = 1 ;
+					tanks[i].status = 1;
 				}
 			}
 		}
-
+		mine.setCollisionWithTank(false);
+		mine.getClock()->restart() ;
 	}
+
 }
 void Interface::setChangeStateDelay(int changeStateDelay) {
 	this->changeStateDelay = changeStateDelay;
-	reset() ;
+	reset();
 }
 
-void Interface::MazeChangeDelay(sf::RenderWindow &window)
-{
+void Interface::MazeChangeDelay(sf::RenderWindow &window) {
 
-	s.setPosition(sf::Vector2f(150,250));
+	s.setPosition(sf::Vector2f(150, 250));
 	window.draw(s);
 }
 
+void Interface::setMineCoordinates()
+{
+	int x1 , y1,x2,y2 ;
+	bool status = true ;
+	BombscollisionWithTank() ;
+	if (mine.getClock()->getElapsedTime() >sf::seconds(3) )
+	{
+		mine.getClock()->restart();
+		do{
+			status = true ;
+			x1 = rand()%(this->screenFactor*this->sizeofcoordinates) ;
+			y1 = rand()%(this->screenFactor*this->sizeofcoordinates) ;
+			x2 = rand()%(this->screenFactor*this->sizeofcoordinates) ;
+			y2 = rand()%(this->screenFactor*this->sizeofcoordinates) ;
+
+			this->mine.getMine()[0].setPosition(sf::Vector2f(x1,y1));
+			//checking collision with Tanks
+			for(int i = 0 ;i<tankcount; i++)
+			{
+				if (Collision::PixelPerfectTest(mine.getMine()[0],tanks[i].tank)) {
+					status = false ;
+				}
+			}
+			//with walls
+			for (int i = 0; i < this->brickcounter; i++)
+			{
+				for (int j = 0; j < tankcount; j++)
+				{
+						temp1.setPosition(bricks.brick[i].getPosition());
+						if (Collision::PixelPerfectTest(mine.getMine()[0],temp1)) {
+							status  = false ;
+					}
+				}
+			}
+		}while (status == false );
 
 
+		do{
+			status = true ;
+			x2 = rand()%(this->screenFactor*this->sizeofcoordinates) ;
+			y2 = rand()%(this->screenFactor*this->sizeofcoordinates) ;
+
+			this->mine.getMine()[1].setPosition(sf::Vector2f(x2,y2));
+			//checking collision with Tanks
+			for(int i = 0 ;i<tankcount; i++)
+			{
+				if (Collision::PixelPerfectTest(mine.getMine()[1],tanks[i].tank)) {
+					status = false ;
+				}
+			}
+			//with walls
+			for (int i = 0; i < this->brickcounter; i++)
+			{
+				for (int j = 0; j < tankcount; j++)
+				{
+						temp1.setPosition(bricks.brick[i].getPosition());
+						if (Collision::PixelPerfectTest(mine.getMine()[1],temp1)) {
+							status  = false ;
+					}
+				}
+				if (Collision::PixelPerfectTest(mine.getMine()[0],mine.getMine()[1]))
+					status = false ;
+			}
+		}while (status == false );
+
+	}
+
+}
+void Interface::BombscollisionWithTank()
+{
+	bool collided = false;
+	for (int i = 0; i < tankcount; i++) {
+		for (int j = 0; j < 2; j++) {
+			if (Collision::PixelPerfectTest(this->mine.getMine()[j],tanks[i].tank)) {
+				collided = 1;
+				tanks[1 - i].score += 20;
+				tanks[i].lives = 0;
+				mine.setCollisionWithTank(true);
+				cout << "Bomb exploded" << (i + 1) << ":"<< tanks[i].lives << endl;
+				destruction.start = 1;
+				if (tanks[i].lives <= 0)
+					tanks[i].status = 0;
+				destruction.flames.setPosition(tanks[i].tank.getPosition());
+				destruction.flames.setRotation(tanks[i].tank.getRotation());
+
+			}
+
+		}
+	}
+
+	if (changeStateDelay == 0) {
+		for (int i = 0; i < tankcount; i++) {
+			if (tanks[i].lives <= 0) {
+				currentMaze++;
+				changeStateDelay = 1;
+				if (currentMaze > 3)
+					currentMaze = 1;
+
+			}
+		}
+	}
+	if (currentMaze > 3) {
+		cout << "Game End" << endl;
+		currentMaze = 1;
+	}
+	if (changeStateDelay == 4) {
+		drawMaze();
+		changeStateDelay = 0;
+	}
 
 
-
-
+}

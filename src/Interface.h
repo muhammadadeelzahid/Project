@@ -8,9 +8,14 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 //#include "Collision.hpp"
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
+
 #include <iostream>
 #include "Wall.h"
 #include "Tank.h"
+#include "Mines.h"
 #include "TankDestroyed.h"
 using namespace std ;
 class Interface {
@@ -36,6 +41,8 @@ class Interface {
 	sf::Sprite s;
 	sf::Texture t;
 	int changeStateDelay ;
+
+	Mines mine ;
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;
@@ -44,6 +51,7 @@ public:
 	void maze3() ;
 	void BulletscollisionWithWalls();
 	void BulletscollisionWithTank();
+	void BombscollisionWithTank();
 	void fire(int tankNumber);
 	void destroyBullet();
 	void reset() ;
@@ -57,6 +65,9 @@ public:
 
 	//function for flames
 	void increment(sf::Clock &clock2) ;
+
+	//function for the mines
+	void setMineCoordinates();
 
 	Interface(int,int) ;
 	void drawMaze() ;
