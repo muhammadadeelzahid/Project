@@ -46,6 +46,7 @@ public:
 	void BulletscollisionWithTank();
 	void fire(int tankNumber);
 	void destroyBullet();
+	void reset() ;
 
 	//functions involving movement and collision of Bullets Ends
 

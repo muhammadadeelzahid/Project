@@ -8,6 +8,7 @@
 #include "Tank.h"
 
 Tank::Tank() {
+	status = 1;
 	score = 0 ;
 	lives = 2 ;
 	this->setTokenValue(2) ;
@@ -20,7 +21,9 @@ Tank::Tank() {
 }
 void Tank::draw(sf::RenderWindow & window)
 {
-	window.draw(this->tank) ;
+
+	if (status == 1 )
+		window.draw(this->tank) ;
 
 	//now for the bullets
 	for (int i  = 0 ; i<this->firedbullets ;i++)
@@ -48,4 +51,12 @@ int Tank::getFiredbullets()  {
 void Tank::setFiredbullets(int firedbullets) {
 	this->firedbullets = firedbullets;
 	this->bullets[firedbullets].startTimer() ;
+}
+
+int Tank::getStatus() const {
+	return status;
+}
+
+void Tank::setStatus(int status) {
+	this->status = status;
 }

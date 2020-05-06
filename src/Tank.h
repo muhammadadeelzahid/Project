@@ -17,6 +17,7 @@ class Tank: public Shape {
 	int score ;
 	Bullet bullets[50]  ;
 	int firedbullets ;
+	int status ;
 
 public:
 	friend class Interface ;
@@ -29,6 +30,8 @@ public:
 	 sf::Sprite& getTank() ;
 	int getFiredbullets() ;
 	void setFiredbullets(int firedbullets);
+	int getStatus() const;
+	void setStatus(int status);
 };
 
 #endif /* TANK_H_ */
