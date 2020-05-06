@@ -990,6 +990,8 @@ void Interface::BulletscollisionWithTank() {
 				cout << "Friendly FIre Lives for tank " << (i + 1) << ":"
 						<< tanks[i].lives << endl;
 				destruction.start = 1;
+				if (tanks[i].lives <=0)
+					tanks[i].status = 0;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
 				destruction.flames.setRotation(tanks[i].tank.getRotation());
 				tanks[i].bullets[j].RemoveBullet = 1;
@@ -1009,6 +1011,8 @@ void Interface::BulletscollisionWithTank() {
 				cout << "Enemy FIre Lives for tank " << (i + 1) << ":"
 						<< tanks[i].lives << endl;
 				tanks[1 - i].score += 40;
+				if (tanks[1-i].lives <=0)
+					tanks[1-i].status = 0;
 				destruction.start = 1;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
 				tanks[1 - i].bullets[j].RemoveBullet = 1;
@@ -1016,29 +1020,30 @@ void Interface::BulletscollisionWithTank() {
 			}
 		}
 	}
+	if (changeStateDelay == 0)
+	{
+	for (int i = 0; i<tankcount ;i++)
+	{
+		if (tanks[i].lives <=0 )
+		{
+			currentMaze++;
+			changeStateDelay = 1;
+			if (currentMaze > 3)
+				currentMaze = 1;
+
+		}
+	}
+	}
 	if (currentMaze > 3) {
 		cout << "Game End" << endl;
 		currentMaze = 1;
-	}
-	for (int i = 0; i < this->tankcount; i++) {
-		cout << "Lives for Tank " << (i + 1) << ": " << tanks[i].lives << endl;
-		if (tanks[i].lives <= 0) {
-			for (int i = 0; i < tankcount; i++) {
-				tanks[i].lives = 2;
-				tanks[i].firedbullets = 0;
-			}
-
-			currentMaze++;
-			this->changeStateDelay = 1;
-			if (currentMaze > 3)
-				currentMaze = 1;
-		}
 	}
 	if (changeStateDelay == 4)
 	{
 		drawMaze();
 		changeStateDelay = 0 ;
 	}
+
 
 }
 void Interface::BulletscollisionWithWalls() {
@@ -1162,9 +1167,26 @@ void Interface::StopGame() // detect if one of the tanks are shot
 int Interface::getChangeStateDelay() const {
 	return changeStateDelay;
 }
+void Interface::reset()
+{
+	if ( changeStateDelay == 4 )
+	{
+		for (int i = 0; i < this->tankcount; i++) {
+			cout << "Lives for Tank " << (i + 1) << ": " << tanks[i].lives << endl;
+			if (tanks[i].lives <= 0) {
+				for (int i = 0; i < tankcount; i++) {
+					tanks[i].lives = 2;
+					tanks[i].firedbullets = 0;
+					tanks[i].status = 1 ;
+				}
+			}
+		}
 
+	}
+}
 void Interface::setChangeStateDelay(int changeStateDelay) {
 	this->changeStateDelay = changeStateDelay;
+	reset() ;
 }
 
 void Interface::MazeChangeDelay(sf::RenderWindow &window)
