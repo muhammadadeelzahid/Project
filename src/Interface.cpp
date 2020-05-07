@@ -660,6 +660,7 @@ void Interface::drawMaze() {
 		tanks[1].tank.setPosition(27 * screenFactor, 25 * screenFactor);
 
 	}
+	setMineCoordinates();
 }
 void Interface::display(sf::RenderWindow &window) {
 	for (int i = 0; i < brickcounter; i++) {
@@ -958,6 +959,7 @@ void Interface::BulletscollisionWithTank() {
 			if (tanks[i].lives <= 0) {
 				currentMaze++;
 				changeStateDelay = 1;
+				mine.setResetMines(true);
 				if (currentMaze > 3){
 					gameOver = true ;
 					currentMaze = 1;
@@ -1080,7 +1082,6 @@ void Interface::reset() {
 		}
 		mine.setCollisionWithTank(false);
 		//mine.getClock()->restart();
-		mine.setResetMines(true);
 	}
 
 }
@@ -1103,7 +1104,7 @@ void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 void Interface::setMineCoordinates() {
 	int x1, y1, x2, y2;
 	bool status = true;
-	if (mine.getClock()->getElapsedTime() > sf::seconds(3) || mine.isResetMines() == true)  {
+	if (mine.getClock()->getElapsedTime() > sf::seconds(10)  || mine.isResetMines() == true)  {
 		mine.getClock()->restart();
 		do {
 			status = true;
@@ -1155,10 +1156,10 @@ void Interface::setMineCoordinates() {
 			}
 		} while (status == false);
 
-		if (mine.getClock()->getElapsedTime() < sf::seconds(3) && mine.isResetMines() == true)
-		{
+		if (!(mine.getClock()->getElapsedTime() > sf::seconds(3))  && mine.isResetMines() == true)  {
 			mine.setResetMines(false);
 		}
+
 	}
 
 }
@@ -1190,6 +1191,7 @@ void Interface::BombscollisionWithTank() {
 	if (changeStateDelay == 0) {
 		for (int i = 0; i < tankcount; i++) {
 			if (tanks[i].lives <= 0) {
+				mine.setResetMines(true);
 				currentMaze++;
 				changeStateDelay = 1;
 				if (currentMaze > 3){

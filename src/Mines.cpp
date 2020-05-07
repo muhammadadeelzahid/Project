@@ -11,6 +11,7 @@ Mines::Mines() {
 	clock = new sf::Clock ;
 	clock->restart() ;
 	CollisionWithTank = false;
+	this->resetMines = true ;
 	if(!t.loadFromFile("mine.png"))
 	{
 		cout<<"Mine image not found"<<endl ;
