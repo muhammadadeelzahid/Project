@@ -9,9 +9,8 @@
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
 	srand(time(NULL));
-	if (!this->pauseMessage.loadFromFile("Pause.png"))
-	{
-		cout<<"Pause message not loaded"<<endl ;
+	if (!this->pauseMessage.loadFromFile("Pause.png")) {
+		cout << "Pause message not loaded" << endl;
 	}
 	pause.setTexture(pauseMessage);
 	changeStateDelay = 0;
@@ -674,7 +673,7 @@ void Interface::display(sf::RenderWindow &window) {
 
 	this->destruction.draw(window);
 	//end of function
-	if( changeStateDelay == 0)
+	if (changeStateDelay == 0)
 		mine.draw(window);
 
 }
@@ -1058,7 +1057,6 @@ void Interface::BulletscollisionWithWalls() {
 
 }
 
-
 int Interface::getChangeStateDelay() const {
 	return changeStateDelay;
 }
@@ -1088,7 +1086,7 @@ void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 
 	s.setPosition(sf::Vector2f(150, 250));
 	pause.setPosition(sf::Vector2f(150, 250));
-	if (startDelay == 1 )
+	if (startDelay == 1)
 		window.draw(pause);
 	else
 		window.draw(s);
@@ -1197,20 +1195,7 @@ void Interface::BombscollisionWithTank() {
 
 }
 
-
-void Interface::ShowStats(){
-
+void Interface::ShowStats() {
 
 }
-
-
-
-
-
-
-
-
-
-
-
 

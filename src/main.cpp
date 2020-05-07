@@ -9,6 +9,7 @@
 #include "Interface.h"
 #include "Bullet.h"
 #include "Tank.h"
+#include "stats.h"
 #include "Wall.h" // most probably wont be used as it doesnt require any specialized function
 void MoveBulletsTimed(sf::Clock &clock, Interface &game);
 void timedIncrement(sf::Clock &clock2, Interface &game);
@@ -17,27 +18,23 @@ int main() {
 	sf::Clock clock;
 	sf::Clock clock2;
 	sf::Clock clock3;
-
+	stats Stat;
 	//this is the main files
 	int sizeScreen = 780;
 	int sizeOfObject = 26;
 	int sizeForBar = 780;
 	Interface game(sizeForBar, sizeOfObject);
 
-	sf::RenderWindow stats(sf::VideoMode(400, 250), "Game Stats");
-	stats.setPosition(sf::Vector2i(10, 200));
+	sf::RenderWindow stat(sf::VideoMode(400, 250), "Game Stats");
+	stat.setPosition(sf::Vector2i(10, 200));
 	game.drawMaze();
 	sf::RenderWindow window(sf::VideoMode(sizeForBar, sizeScreen), "Game");
 	window.setPosition(sf::Vector2i(window.getPosition().x + 100, window.getPosition().y));
-
 	while (window.isOpen()) {
 		sf::Color background(220, 220, 220);
 		window.clear(background);
 
 		sf::Event event;
-		if (game.getPause() == 1) {
-			//window.clear(background);
-		}
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -88,7 +85,7 @@ int main() {
 			}
 
 		}
-		if( game.getPause() == 1 )
+		if (game.getPause() == 1)
 			game.Maze_Change_And_Pause_Message(window);
 		if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
 			game.setMineCoordinates();
@@ -99,9 +96,6 @@ int main() {
 		if (game.getChangeStateDelay() != 0) {
 			game.Maze_Change_And_Pause_Message(window);
 		}
-
-
-
 
 		ChangeStateDelay(clock3, game);
 		window.display();
