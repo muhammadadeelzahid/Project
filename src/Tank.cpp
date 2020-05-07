@@ -61,6 +61,10 @@ void Tank::setStatus(int status) {
 	this->status = status;
 }
 
+void Tank::setScore(int score) {
+	this->score = score;
+}
+
 int Tank::getScore() const {
 	return score;
 }

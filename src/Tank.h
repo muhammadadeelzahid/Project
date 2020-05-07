@@ -33,6 +33,7 @@ public:
 	int getStatus() const;
 	void setStatus(int status);
 	int getScore() const;
+	void setScore(int score);
 };
 
 #endif /* TANK_H_ */
