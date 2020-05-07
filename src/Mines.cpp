@@ -65,3 +65,11 @@ bool Mines::isCollisionWithTank() const {
 void Mines::setCollisionWithTank(bool collisionWithTank) {
 	CollisionWithTank = collisionWithTank;
 }
+
+bool Mines::isResetMines() const {
+	return resetMines;
+}
+
+void Mines::setResetMines(bool resetMines) {
+	this->resetMines = resetMines;
+}

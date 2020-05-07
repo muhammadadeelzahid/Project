@@ -20,6 +20,7 @@
 using namespace std ;
 class Interface {
 	//basic array that identifies with each token of the object
+	bool gameOver ;
 	TankDestroyed destruction;
 	int **coordinates ;//set the size in the constructor
 	int sizeofcoordinates ; // size of screen /screenFactor
@@ -89,6 +90,8 @@ public:
 
 
 	void ShowStats() ;
+	bool isGameOver() const;
+	void setGameOver(bool gameOver);
 };
 
 #endif /* INTERFACE_H_ */

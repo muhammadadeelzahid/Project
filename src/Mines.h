@@ -13,6 +13,7 @@ class Mines: public Shape {
 	sf::Texture t;
 	sf::Sprite mine[2] ;
 	sf::Clock *clock ;
+	bool resetMines ;
 	bool CollisionWithTank ;
 public:
 	void draw(sf::RenderWindow &window) ;
@@ -24,6 +25,8 @@ public:
 	void setT(const sf::Texture &t);
 	bool isCollisionWithTank() const;
 	void setCollisionWithTank(bool collisionWithTank);
+	bool isResetMines() const;
+	void setResetMines(bool resetMines);
 };
 
 #endif /* MINES_H_ */
