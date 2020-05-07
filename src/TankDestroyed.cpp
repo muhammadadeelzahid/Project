@@ -12,6 +12,7 @@ TankDestroyed::TankDestroyed() {
 }
 void TankDestroyed::draw(sf::RenderWindow &window)
 {
+
 	if (start == 1)
 	{
 		//cout<<"Draw image 1"<<endl;

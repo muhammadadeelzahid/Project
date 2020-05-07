@@ -47,12 +47,14 @@ int main() {
 			game.setMineCoordinates();
 			MoveBulletsTimed(clock, game);
 			game.BulletscollisionWithTank();
+			game.BombscollisionWithTank();
 		}
 		game.display(window);
+
+
 		if (game.getChangeStateDelay() != 0 || game.getPause() == 1) {
 			game.Maze_Change_And_Pause_Message(window);
 		}
-
 		ChangeStateDelay(clock3, game);
 		window.display();
 		timedIncrement(clock2, game);
