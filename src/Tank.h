@@ -32,6 +32,7 @@ public:
 	void setFiredbullets(int firedbullets);
 	int getStatus() const;
 	void setStatus(int status);
+	int getScore() const;
 };
 
 #endif /* TANK_H_ */

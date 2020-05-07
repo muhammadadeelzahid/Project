@@ -8,7 +8,7 @@
 #include "Interface.h"
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
-	gameOver = false ;
+	gameOver = false;
 	srand(time(NULL));
 	if (!this->pauseMessage.loadFromFile("Pause.png")) {
 		cout << "Pause message not loaded" << endl;
@@ -814,6 +814,19 @@ void Interface::destroyBullet() {
 
 		}
 	}
+	for (int i = 0; i < this->tankcount; i++) {
+		if (tanks[i].getStatus() == 0) {
+			for (int j = 0; j < this->tanks[i].firedbullets; j++) {
+				//				cout<<"Times up for bullet: "<<j<<endl ;
+				for (int a = 1; a <= tanks[i].firedbullets; a++) {
+					this->tanks[i].bullets[a - 1] = this->tanks[i].bullets[a];
+				}
+				tanks[i].firedbullets--;
+
+			}
+
+		}
+	}
 
 }
 
@@ -915,12 +928,12 @@ void Interface::moveBullets() {
 void Interface::BulletscollisionWithTank() {
 	bool collided = false;
 	for (int i = 0; i < tankcount; i++) {
-		for (int j = 0; j < tanks[i].firedbullets; j++) {
+		for (int j = 0; j < tanks[i].firedbullets && collided == false; j++) {
 			if (Collision::PixelPerfectTest(tanks[i].bullets[j].bullet, tanks[i].tank)) {
 				collided = 1;
 				tanks[1 - i].score += 20;
 				tanks[i].lives -= 1;
-			//	cout << "Friendly FIre Lives for tank " << (i + 1) << ":" << tanks[i].lives << endl;
+				//	cout << "Friendly FIre Lives for tank " << (i + 1) << ":" << tanks[i].lives << endl;
 				destruction.start = 1;
 				if (tanks[i].lives <= 0)
 					tanks[i].status = 0;
@@ -928,15 +941,15 @@ void Interface::BulletscollisionWithTank() {
 				destruction.flames.setRotation(tanks[i].tank.getRotation());
 				tanks[i].bullets[j].RemoveBullet = 1;
 				destroyBullet();
-				cout<<"-\tScore Update: \t-"<<endl ;
-				cout<<"Tank [1]: "<<tanks[0].score<<"\tTank [2]: "<<tanks[1].score<<endl;
+				cout << "-\tScore Update: \t-" << endl;
+				cout << "Tank [1]: " << tanks[0].score << "\tTank [2]: " << tanks[1].score << endl;
 			}
 
 		}
 	}
-
+	collided = false;
 	for (int i = 0; i < tankcount; i++) {
-		for (int j = 0; j < tanks[1 - i].firedbullets; j++) {
+		for (int j = 0; j < tanks[1 - i].firedbullets && collided == false; j++) {
 			if (Collision::PixelPerfectTest(tanks[1 - i].bullets[j].bullet, tanks[i].tank)) {
 				collided = 1;
 				tanks[i].lives -= 1;
@@ -948,8 +961,8 @@ void Interface::BulletscollisionWithTank() {
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
 				tanks[1 - i].bullets[j].RemoveBullet = 1;
 				destroyBullet();
-				cout<<"-\tScore Update: \t-"<<endl ;
-				cout<<"Tank [1]: "<<tanks[0].score<<"\tTank [2]: "<<tanks[1].score<<endl;
+				cout << "-\tScore Update: \t-" << endl;
+				cout << "Tank [1]: " << tanks[0].score << "\tTank [2]: " << tanks[1].score << endl;
 
 			}
 		}
@@ -960,8 +973,8 @@ void Interface::BulletscollisionWithTank() {
 				currentMaze++;
 				changeStateDelay = 1;
 				mine.setResetMines(true);
-				if (currentMaze > 3){
-					gameOver = true ;
+				if (currentMaze > 3) {
+					gameOver = true;
 					currentMaze = 1;
 				}
 			}
@@ -969,6 +982,7 @@ void Interface::BulletscollisionWithTank() {
 	}
 	if (currentMaze > 3) {
 		cout << "Game End" << endl;
+		this->gameOver = true;
 		currentMaze = 1;
 	}
 	if (changeStateDelay == 4) {
@@ -1097,21 +1111,29 @@ void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 	if (startDelay == 1)
 		window.draw(pause);
 	else
-		window.draw(s);
+	{
+		if (this->gameOver == false)
+			window.draw(s);
+
+	}
 
 }
 
 void Interface::setMineCoordinates() {
 	int x1, y1, x2, y2;
 	bool status = true;
-	if (mine.getClock()->getElapsedTime() > sf::seconds(10)  || mine.isResetMines() == true)  {
+
+	for (int i = 0; i < tankcount; i++) {
+		if (tanks[i].getStatus() == 0)
+			mine.setResetMines(true);
+	}
+
+	if (mine.getClock()->getElapsedTime() > sf::seconds(10) || mine.isResetMines() == true) {
 		mine.getClock()->restart();
 		do {
 			status = true;
 			x1 = rand() % (this->screenFactor * this->sizeofcoordinates);
 			y1 = rand() % (this->screenFactor * this->sizeofcoordinates);
-			x2 = rand() % (this->screenFactor * this->sizeofcoordinates);
-			y2 = rand() % (this->screenFactor * this->sizeofcoordinates);
 
 			this->mine.getMine()[0].setPosition(sf::Vector2f(x1, y1));
 			//checking collision with Tanks
@@ -1122,12 +1144,11 @@ void Interface::setMineCoordinates() {
 			}
 			//with walls
 			for (int i = 0; i < this->brickcounter; i++) {
-				for (int j = 0; j < tankcount; j++) {
-					temp1.setPosition(bricks.brick[i].getPosition());
-					if (Collision::PixelPerfectTest(mine.getMine()[0], temp1)) {
-						status = false;
-					}
+				temp1.setPosition(bricks.brick[i].getPosition());
+				if (Collision::PixelPerfectTest(mine.getMine()[0], temp1)) {
+					status = false;
 				}
+
 			}
 		} while (status == false);
 
@@ -1145,18 +1166,18 @@ void Interface::setMineCoordinates() {
 			}
 			//with walls
 			for (int i = 0; i < this->brickcounter; i++) {
-				for (int j = 0; j < tankcount; j++) {
-					temp1.setPosition(bricks.brick[i].getPosition());
-					if (Collision::PixelPerfectTest(mine.getMine()[1], temp1)) {
-						status = false;
-					}
-				}
-				if (Collision::PixelPerfectTest(mine.getMine()[0], mine.getMine()[1]))
+
+				temp1.setPosition(bricks.brick[i].getPosition());
+				if (Collision::PixelPerfectTest(mine.getMine()[1], temp1)) {
 					status = false;
+				}
 			}
+			if (Collision::PixelPerfectTest(mine.getMine()[0], mine.getMine()[1]))
+				status = false;
+
 		} while (status == false);
 
-		if (!(mine.getClock()->getElapsedTime() > sf::seconds(3))  && mine.isResetMines() == true)  {
+		if (!(mine.getClock()->getElapsedTime() > sf::seconds(3)) && mine.isResetMines() == true) {
 			mine.setResetMines(false);
 		}
 
@@ -1165,7 +1186,7 @@ void Interface::setMineCoordinates() {
 }
 void Interface::BombscollisionWithTank() {
 	bool collided = false;
-	for (int i = 0; i < tankcount; i++) {
+	for (int i = 0; i < tankcount && collided == false; i++) {
 		for (int j = 0; j < 2; j++) {
 			if (mine.isCollisionWithTank() == false) {
 				if (Collision::PixelPerfectTest(mine.getMine()[j], tanks[i].tank)) {
@@ -1177,11 +1198,11 @@ void Interface::BombscollisionWithTank() {
 					mine.setCollisionWithTank(true);
 					if (tanks[i].lives <= 0)
 						tanks[i].status = 0;
+					collided = true;
 					destruction.flames.setPosition(tanks[i].tank.getPosition());
 					destruction.flames.setRotation(tanks[i].tank.getRotation());
-					cout<<"-\tScore Update: \t-"<<endl ;
-					cout<<"Tank [1]: "<<tanks[0].score<<"\tTank [2]: "<<tanks[1].score<<endl;
-
+					cout << "-\tScore Update: \t-" << endl;
+					cout << "Tank [1]: " << tanks[0].score << "\tTank [2]: " << tanks[1].score << endl;
 
 				}
 			}
@@ -1194,8 +1215,8 @@ void Interface::BombscollisionWithTank() {
 				mine.setResetMines(true);
 				currentMaze++;
 				changeStateDelay = 1;
-				if (currentMaze > 3){
-					gameOver = true ;
+				if (currentMaze > 3) {
+					gameOver = true;
 					currentMaze = 1;
 				}
 
@@ -1203,7 +1224,7 @@ void Interface::BombscollisionWithTank() {
 		}
 	}
 	if (currentMaze > 3) {
-		gameOver = true ;
+		gameOver = true;
 		cout << "Game End" << endl;
 		currentMaze = 1;
 	}

@@ -37,17 +37,17 @@ int main() {
 
 	game.drawMaze();
 	while (window.isOpen()) {
+		stat.draw2(window2) ;
 		sf::Color background(220, 220, 220);
 		window.clear(background);
 
 		sf::Event event;
 		while (window.pollEvent(event)) {EventHandle(event,window,game,stat); }
-		if (game.isGameOver() == true )
+		if (game.isGameOver() == true && game.getChangeStateDelay() == 4)
 			stat.setCurrentScreen(4);
 		if (stat.getCurrentScreen() == 3)
 		{
 			if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
-				game.setMineCoordinates();
 				MoveBulletsTimed(clock, game);
 				game.BulletscollisionWithTank();
 				game.BombscollisionWithTank();
@@ -66,6 +66,7 @@ int main() {
 			stat.draw(window);
 		}
 		window.display();
+		window2.display();
 	}
 
 	return 0;

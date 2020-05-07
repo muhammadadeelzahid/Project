@@ -10,6 +10,7 @@
 
 #include "Shape.h"
 #include "Interface.h"
+#include <string>
 class stats: public Shape {
 	int currentScreen ;
 	sf::Text text ;
@@ -20,6 +21,7 @@ class stats: public Shape {
 
 public:
 	void draw(sf::RenderWindow &window) ;
+	void draw2(sf::RenderWindow &window) ;
 	stats();
 	virtual ~stats();
 	void setGame(Interface &game) ;
