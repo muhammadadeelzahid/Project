@@ -380,7 +380,7 @@ void Interface::maze2() {
 
 		}
 		for (int m = 0; m < this->sizeofcoordinates; m++) {
-			if (m <= 5 * (this->sizeofcoordinates / 7) && m > 4 * (this->sizeofcoordinates / 7)) {
+			if (m < 5 * (this->sizeofcoordinates / 7) && m > 4 * (this->sizeofcoordinates / 7)) {
 				coordinates[3 * (sizeofcoordinates / 6)][m] = 1;
 				bricks.getBrick()[brickcounter].setPosition(3 * (sizeofcoordinates / 6), m);
 				bricks.orientation[brickcounter] = "vertical";
@@ -393,14 +393,14 @@ void Interface::maze2() {
 
 	//for 4th vertical line  from left
 	for (int m = 0; m < this->sizeofcoordinates; m++) {
-		if (m <= 2 * (this->sizeofcoordinates / 7) && m >= (this->sizeofcoordinates / 7)) {
+		if (m <= 2 * (this->sizeofcoordinates / 7) && m > (this->sizeofcoordinates / 7)) {
 			coordinates[4 * (sizeofcoordinates / 6)][m] = 1;
 			bricks.getBrick()[brickcounter].setPosition(4 * (sizeofcoordinates / 6), m);
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
 
 		}
-		if (m <= 6 * (this->sizeofcoordinates / 7) && m > 5 * (this->sizeofcoordinates / 7)) {
+		if (m < 6 * (this->sizeofcoordinates / 7) && m > 5 * (this->sizeofcoordinates / 7)) {
 			coordinates[4 * (sizeofcoordinates / 6)][m] = 1;
 			bricks.getBrick()[brickcounter].setPosition(4 * (sizeofcoordinates / 6), m);
 			bricks.orientation[brickcounter] = "vertical";
@@ -410,12 +410,20 @@ void Interface::maze2() {
 	}
 
 	//for 5th vertical line  from left
+	int first = 0;
 	for (int m = 0; m < this->sizeofcoordinates; m++) {
-		if (m <= 5 * (this->sizeofcoordinates / 7) && m > 3 * (this->sizeofcoordinates / 7)) {
+		if (m < 4 * (this->sizeofcoordinates / 7) && m > 3 * (this->sizeofcoordinates / 7)) {
 			coordinates[5 * (sizeofcoordinates / 6)][m] = 1;
 			bricks.getBrick()[brickcounter].setPosition(5 * (sizeofcoordinates / 6), m);
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
+
+		}
+		if (m > 4 * (this->sizeofcoordinates / 7) && m <= 5 * (this->sizeofcoordinates / 7)) {
+		coordinates[5 * (sizeofcoordinates / 6)][m] = 1;
+		bricks.getBrick()[brickcounter].setPosition(5 * (sizeofcoordinates / 6), m);
+		bricks.orientation[brickcounter] = "vertical";
+		brickcounter++;
 
 		}
 		if (m > 6 * (this->sizeofcoordinates / 7)) {
@@ -423,10 +431,10 @@ void Interface::maze2() {
 			bricks.getBrick()[brickcounter].setPosition(5 * (sizeofcoordinates / 6), m);
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
+			first++;
 
 		}
-		bricks.orientation[brickcounter - 1] = "horizontal";
-
+		bricks.orientation[brickcounter - 1] = "vertical";
 	}
 }
 void Interface::maze3() {
@@ -661,6 +669,19 @@ void Interface::drawMaze() {
 
 	}
 	setMineCoordinates();
+/*
+		for (int i = 0 ; i<this->sizeofcoordinates ; i++)
+		{
+			for(int j = 0 ; j<this->sizeofcoordinates ;j++)
+			{
+					cout<<coordinates[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+		*/
+
+
+
 }
 void Interface::display(sf::RenderWindow &window) {
 	for (int i = 0; i < brickcounter; i++) {
@@ -1002,7 +1023,8 @@ void Interface::BulletscollisionWithWalls() {
 				temp1.setPosition(bricks.brick[i].getPosition());
 
 				if (Collision::PixelPerfectTest(tanks[j].bullets[k].bullet, temp1)) {
-
+					cout<<"Brick collision coordinates are : "<<temp1.getPosition().x<<","<<temp1.getPosition().y<<endl;
+				//	getchar() ;
 					sf::Sprite *temp = &this->tanks[j].bullets[k].getBullet();
 					float x = 0, y = 0;
 					int angle = temp->getRotation();
