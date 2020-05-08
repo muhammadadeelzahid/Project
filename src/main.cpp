@@ -61,6 +61,15 @@ int main() {
 			ChangeStateDelay(clock3, game);
 			timedIncrement(clock2, game);
 		}
+		if (stat.getCurrentScreen() == 4 &&  stat.getReadWritePermission() == 1)
+		{
+				stat.savetoFile();
+				stat.readFromFile();
+		}
+
+
+
+
 		stat.draw(window);
 		window.display();
 		window2.display();
@@ -125,14 +134,9 @@ void EventHandle(sf::Event &event,sf::RenderWindow &window, Interface &game, sta
 				game.setGameOver(false);
 				game.getTanks()[0].setScore(0);
 				game.getTanks()[1].setScore(0);
+				stat.setReadWritePermission(1);
 
 			//cout<<"Pause status: "<<game.getPause()<<endl;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			stat.savetoFile() ;
-			stat.readFromFile();
-			stat.draw(window);
 		}
 
 

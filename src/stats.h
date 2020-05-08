@@ -18,9 +18,10 @@ class stats: public Shape {
 	sf::Font font ;
 	sf::Sprite s ;
 	int scoret1 ,scoret2;
-	string readScore1 , readScore2 ;
+	string readScore1[3] , readScore2[3] ;
 	sf::Texture icons ;
 	Interface *game;
+	int readWritePermission;
 public:
 	void draw(sf::RenderWindow &window) ;
 	void draw2(sf::RenderWindow &window) ;
@@ -32,6 +33,8 @@ public:
 	void readFromFile();
 	void savetoFile();
 	void setCurrentScreen(int currentScreen);
+	int getReadWritePermission() const;
+	void setReadWritePermission(int readWritePermission);
 };
 
 #endif /* STATS_H_ */
