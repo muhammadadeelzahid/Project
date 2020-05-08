@@ -145,7 +145,7 @@ void stats::savetoFile() {
 	for (int i = 0 ; i<3 ; i++)
 	{
 		getline(file,stringtemp[i]) ;
-		cout<<"HEre "<<stringtemp[i]<<endl;
+//		cout<<"HEre "<<stringtemp[i]<<endl;
 	}
 	file.close() ;
 
@@ -159,7 +159,7 @@ void stats::savetoFile() {
 	file2.open("score.txt");
 	for (int i = 0 ; i<3 ; i++)
 	{
-		cout<<"i: "<<i<<stringtemp[i]<<endl ;
+		cout<<"i: "<<i<<"  "<<stringtemp[i]<<endl ;
 		file2<<stringtemp[i]<<"\n" ;
 		//cout<<"Writing this "<<stringtemp[i]<<endl;
 	}
@@ -180,7 +180,7 @@ void stats::readFromFile() {
 	int count = 0;
 	for (; count < 3; count++) {
 		getline(file, score1[count]);
-		cout << "Length of this line : " << score1[count].length() << endl;
+	//	cout << "Length of this line : " << score1[count].length() << endl;
 		if (score1[count].length() != 0)
 			scoret[count] = score1[count];
 	}

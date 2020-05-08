@@ -82,6 +82,7 @@ public:
 	int getPause() const;
 	void setPause(int pause);
 	 TankDestroyed& getDestruction() ;
+	 void DestroyBullet2();
 	void setDestruction( TankDestroyed &destruction);
 	void Maze_Change_And_Pause_Message(sf::RenderWindow &window) ;
 	int getChangeStateDelay() const;
