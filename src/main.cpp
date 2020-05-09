@@ -38,7 +38,7 @@ int main() {
 	game.drawMaze();
 	while (window.isOpen()) {
 		stat.draw2(window2) ;
-		sf::Color background(220, 220, 220);
+		sf::Color background(32, 32, 32);
 		window.clear(background);
 
 		sf::Event event;

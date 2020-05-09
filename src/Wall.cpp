@@ -11,7 +11,7 @@ Wall::Wall() {
 	this->setObjectsize(30);
 	this->setTokenValue(1) ;
 	//brick = new sf::RectangleShape [NULL] ;
-	sf::Color grey (112,128,144);
+	sf::Color grey (128,128,128);
 //
 
 }
@@ -23,7 +23,7 @@ Wall::Wall() {
 
 void Wall::initialise(int screensize)
 {
-	sf::Color grey (112,128,144);
+	sf::Color grey (32,32,32);
  	brick = new sf::RectangleShape [screensize*screensize];
  	orientation = new string [screensize*screensize] ;
  	/*
@@ -68,8 +68,8 @@ void Wall::initialise(int screensize)
 // 		brick[i].setTexture(brickTexture);
 
  		brick[i].setSize(sf::Vector2f (getObjectsize(),getObjectsize()));
- 		brick[i].setFillColor(grey) ;
- 		brick[i].setOutlineThickness(1.5) ;
- 		brick[i].setOutlineColor(sf::Color::Black) ;
+ 		brick[i].setFillColor(sf::Color(0,0,0)) ;
+ 		brick[i].setOutlineColor(sf::Color(255,102,0)); //255 102 0
+ 		brick[i].setOutlineThickness(2.7) ;
  	}
 }
