@@ -51,7 +51,7 @@ int main() {
 				MoveBulletsTimed(clock, game);
 				game.BulletscollisionWithTank();
 				game.BombscollisionWithTank();
-			}
+				game.setMineCoordinates();			}
 			game.display(window);
 
 

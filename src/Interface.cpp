@@ -35,18 +35,18 @@ Interface::Interface(int size, int ratio) {
 	tankcount = 2;
 	tanks = new Tank[tankcount];
 	//coordinates[2][2] = 2;
-	if (!texture1.loadFromFile("tank[0].png")) {
+	if (!texture1.loadFromFile("Asset 2.png")) {
 		std::cout << "Image Loading failed" << std::endl;
 		getchar();
 	}
 	tanks[0].tank.setTexture(texture1);
 
-	if (!texture2.loadFromFile("tank[0].png")) {
+	if (!texture2.loadFromFile("Asset 1.png")) {
 		std::cout << "Image Loading failed" << std::endl;
 		getchar();
 	}
 
-	tanks[1].tank.setTexture(texture1);
+	tanks[1].tank.setTexture(texture2);
 
 	///from bulletcollisionwithwall()
 	img.create(screenFactor, screenFactor, sf::Color::Blue);
@@ -61,65 +61,85 @@ void Interface::maze1() {
 	//top most row
 	int first = 0;
 	brickcounter = 0;
-	for (int i = 0; i < this->sizeofcoordinates; i++) {
+	for (int i = 1; i < this->sizeofcoordinates; i++) {
 		coordinates[0][i] = 1; // 1 is the  token for a brick
 		bricks.getBrick()[brickcounter].setPosition(0, i); //  array of bricks and its orientation are parallel
 		bricks.orientation[brickcounter] = "vertical";
 		brickcounter++;
+		first++;
 	}
 	//last brick of horizontal row act as a vertical wall and vice versa
 	bricks.orientation[brickcounter - 1] = "horizontal";
-
+	bricks.orientation[brickcounter - first] = "end";
+	bricks.orientation[brickcounter] = "end";
 	//left most coloumn
-
+	first = 0;
 	for (int j = 0; j < this->sizeofcoordinates; j++) {
 		coordinates[j][0] = 1; // 1 is the  token for a brick
 		bricks.getBrick()[brickcounter].setPosition(j, 0);
 		bricks.orientation[brickcounter] = "horizontal";
 		brickcounter++;
+		first++;
 
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
+	bricks.orientation[brickcounter - first] = "end";
+	bricks.orientation[brickcounter] = "end";
 	//bottom most row
-	for (int k = 0; k < this->sizeofcoordinates; k++) {
+	first = 0;
+	for (int k = 1; k < this->sizeofcoordinates; k++) {
 		coordinates[k][sizeofcoordinates - 1] = 1; // 1 is the  token for a brick
 		bricks.getBrick()[brickcounter].setPosition(k, sizeofcoordinates - 1); //  array of bricks and its orientation are parallel
 		bricks.orientation[brickcounter] = "horizontal";
 		brickcounter++;
+		first++;
 
 	}
 	bricks.orientation[brickcounter - 1] = "vertical";
-
+	bricks.orientation[brickcounter - first] = "end";
+	bricks.orientation[brickcounter] = "end";
+	first = 0;
 	//right most coloum
-	for (int l = 0; l < this->sizeofcoordinates; l++) {
+	for (int l = 1; l < this->sizeofcoordinates; l++) {
 		coordinates[sizeofcoordinates - 1][l] = 1; // 1 is the  token for a brick
 		bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates - 1, l);
 		bricks.orientation[brickcounter] = "vertical";
 		brickcounter++;
+		first++;
 
 	}
 	bricks.orientation[brickcounter - 1] = "horizontal";
-
+	bricks.orientation[brickcounter - first] = "end";
+	bricks.orientation[brickcounter] = "end";
+	first = 0;
 	//for first vertical line  from left
-	for (int m = 0; m < this->sizeofcoordinates; m++) {
+	for (int m = 1; m < this->sizeofcoordinates; m++) {
 		if (m < this->sizeofcoordinates / 3 || m > 2 * (this->sizeofcoordinates / 3)) {
 			coordinates[sizeofcoordinates / 4][m] = 1;
 			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 4, m);
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
+			first++;
 
 		}
 	}
 	bricks.orientation[brickcounter - 1] = "horizontal";
+	bricks.orientation[brickcounter - first] = "end";
+	first = 0;
 	//for second vertical line from left
-	for (int n = 0; n < this->sizeofcoordinates; n++) {
+	for (int n = 1; n < this->sizeofcoordinates; n++) {
 		if (n < this->sizeofcoordinates / 3) {
 			coordinates[sizeofcoordinates / 2][n] = 1;
 			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 2, n);
 			bricks.orientation[brickcounter] = "vertical";
 			brickcounter++;
+			first++;
 		}
-
+	}
+	bricks.orientation[brickcounter - first] = "end";
+	bricks.orientation[brickcounter - 1] = "horizontal";
+	first = 0;
+	for (int n = 1; n < this->sizeofcoordinates; n++) {
 		if ((n > this->sizeofcoordinates / 2) & n <= (5 * (this->sizeofcoordinates / 6))) {
 			coordinates[sizeofcoordinates / 2][n] = 1;
 			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 2, n);
@@ -141,7 +161,7 @@ void Interface::maze1() {
 		}
 
 	}
-	bricks.orientation[brickcounter - 1] = "vertical";
+	bricks.orientation[brickcounter - 1] = "end";
 	bricks.orientation[brickcounter - first] = "vertical";
 	first = 0;
 	//2nd horizontal line from top
@@ -154,7 +174,7 @@ void Interface::maze1() {
 			first++;
 		}
 	}
-	bricks.orientation[brickcounter - 1] = "vertical";
+	bricks.orientation[brickcounter - 1] = "end";
 	bricks.orientation[brickcounter - first] = "vertical";
 	first = 0;
 	//3rd horizontal line from top
@@ -167,7 +187,7 @@ void Interface::maze1() {
 			first++;
 		}
 	}
-	bricks.orientation[brickcounter - 1] = "vertical";
+	bricks.orientation[brickcounter - 1] = "end";
 	bricks.orientation[brickcounter - first] = "vertical";
 	first = 0;
 	//4th horizontal line from top
@@ -199,8 +219,7 @@ void Interface::maze1() {
 			first++;
 		}
 	}
-	bricks.orientation[brickcounter - 1] = "vertical";
-
+	bricks.orientation[brickcounter - 1] = "end";
 	bricks.orientation[brickcounter - first] = "vertical";
 }
 void Interface::maze2() {
@@ -420,10 +439,10 @@ void Interface::maze2() {
 
 		}
 		if (m > 4 * (this->sizeofcoordinates / 7) && m <= 5 * (this->sizeofcoordinates / 7)) {
-		coordinates[5 * (sizeofcoordinates / 6)][m] = 1;
-		bricks.getBrick()[brickcounter].setPosition(5 * (sizeofcoordinates / 6), m);
-		bricks.orientation[brickcounter] = "vertical";
-		brickcounter++;
+			coordinates[5 * (sizeofcoordinates / 6)][m] = 1;
+			bricks.getBrick()[brickcounter].setPosition(5 * (sizeofcoordinates / 6), m);
+			bricks.orientation[brickcounter] = "vertical";
+			brickcounter++;
 
 		}
 		if (m > 6 * (this->sizeofcoordinates / 7)) {
@@ -668,19 +687,18 @@ void Interface::drawMaze() {
 		tanks[1].tank.setPosition(27 * screenFactor, 25 * screenFactor);
 
 	}
+	mine.setResetMines(1);
 	setMineCoordinates();
-/*
-		for (int i = 0 ; i<this->sizeofcoordinates ; i++)
-		{
-			for(int j = 0 ; j<this->sizeofcoordinates ;j++)
-			{
-					cout<<coordinates[i][j]<<" ";
-			}
-			cout<<endl;
-		}
-		*/
-
-
+	/*
+	 for (int i = 0 ; i<this->sizeofcoordinates ; i++)
+	 {
+	 for(int j = 0 ; j<this->sizeofcoordinates ;j++)
+	 {
+	 cout<<coordinates[i][j]<<" ";
+	 }
+	 cout<<endl;
+	 }
+	 */
 
 }
 void Interface::display(sf::RenderWindow &window) {
@@ -943,7 +961,7 @@ void Interface::BulletscollisionWithTank() {
 				tanks[i].lives -= 1;
 				//	cout << "Friendly FIre Lives for tank " << (i + 1) << ":" << tanks[i].lives << endl;
 				destruction.start = 1;
-				if (tanks[i].lives <= 0){
+				if (tanks[i].lives <= 0) {
 					tanks[i].status = 0;
 					DestroyBullet2();
 				}
@@ -965,7 +983,7 @@ void Interface::BulletscollisionWithTank() {
 				tanks[i].lives -= 1;
 				//cout << "Enemy FIre Lives for tank " << (i + 1) << ":" << tanks[i].lives << endl;
 				tanks[1 - i].score += 40;
-				if (tanks[1 - i].lives <= 0){
+				if (tanks[1 - i].lives <= 0) {
 					tanks[1 - i].status = 0;
 					DestroyBullet2();
 				}
@@ -1003,28 +1021,21 @@ void Interface::BulletscollisionWithTank() {
 	}
 
 }
-void Interface::DestroyBullet2()
-{
-	for (int i = 0 ; i<tankcount ;i++)
-	{
-		for (int j =0 ; j<40 ;j++)
-		{
-			tanks[i].bullets[j].bullet.setPosition(sf::Vector2f(-1000,-1000)) ;
+void Interface::DestroyBullet2() {
+	for (int i = 0; i < tankcount; i++) {
+		for (int j = 0; j < 40; j++) {
+			tanks[i].bullets[j].bullet.setPosition(sf::Vector2f(-1000, -1000));
 		}
 	}
 }
 void Interface::BulletscollisionWithWalls() {
-
-	//cout<<"Checking collision of bullets with Walls"<<endl ;
-	//find out a way to reduce the BrickCounter variable or reduce the number of times these loops are executed
 	for (int i = 0; i < this->brickcounter; i++) {
 		for (int j = 0; j < tankcount; j++) {
 			for (int k = 0; k < tanks[j].getFiredbullets(); k++) {
 				temp1.setPosition(bricks.brick[i].getPosition());
 
 				if (Collision::PixelPerfectTest(tanks[j].bullets[k].bullet, temp1)) {
-					cout<<"Brick collision coordinates are : "<<temp1.getPosition().x<<","<<temp1.getPosition().y<<endl;
-				//	getchar() ;
+
 					sf::Sprite *temp = &this->tanks[j].bullets[k].getBullet();
 					float x = 0, y = 0;
 					int angle = temp->getRotation();
@@ -1043,6 +1054,11 @@ void Interface::BulletscollisionWithWalls() {
 							temp->rotate(90);
 							temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y + screenFactor);
 						}
+						if (bricks.orientation[i] == "end") {
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y + screenFactor);
+
+						}
 						break;
 					case 90:
 						temp->rotate(-180);
@@ -1058,6 +1074,11 @@ void Interface::BulletscollisionWithWalls() {
 							temp->rotate(-90);
 							temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y - screenFactor);
 						}
+						if (bricks.orientation[i] == "end") {
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y - screenFactor);
+
+						}
 						break;
 					case 180:
 						temp->rotate(180);
@@ -1071,6 +1092,11 @@ void Interface::BulletscollisionWithWalls() {
 						if (bricks.orientation[i] == "horizontal") {
 							temp->rotate(90);
 							temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y - screenFactor);
+						}
+						if (bricks.orientation[i] == "end") {
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y - screenFactor);
+
 						}
 						break;
 					case 270:
@@ -1087,21 +1113,21 @@ void Interface::BulletscollisionWithWalls() {
 							temp->rotate(-90);
 							temp->setPosition(temp->getPosition().x - screenFactor, temp->getPosition().y + screenFactor);
 						}
+						if (bricks.orientation[i] == "end") {
+							temp->rotate(180);
+							temp->setPosition(temp->getPosition().x + screenFactor, temp->getPosition().y + screenFactor);
+
+						}
 						break;
 					}
 
 				}
-//					else
-//						cout<<"No collsion"<<endl ;
-
 			}
 
 		}
-//		getchar() ;
 	}
 
 }
-
 int Interface::getChangeStateDelay() const {
 	return changeStateDelay;
 }
@@ -1144,62 +1170,66 @@ void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 void Interface::setMineCoordinates() {
 	int x1, y1, x2, y2;
 	bool status = true;
-
+	int time = 3 ;
 	for (int i = 0; i < tankcount; i++) {
 		if (tanks[i].getStatus() == 0)
 			mine.setResetMines(true);
 	}
 
-	if (mine.getClock()->getElapsedTime() > sf::seconds(10) || mine.isResetMines() == true) {
+	if (mine.getClock()->getElapsedTime() > sf::seconds(time) || mine.isResetMines() == true) {
 		mine.getClock()->restart();
-		do {
-			status = true;
-			x1 = rand() % (this->screenFactor * this->sizeofcoordinates);
-			y1 = rand() % (this->screenFactor * this->sizeofcoordinates);
+		/*
+		 do {
+		 status = true;
+		 x1 = rand() % (this->screenFactor * this->sizeofcoordinates);
+		 y1 = rand() % (this->screenFactor * this->sizeofcoordinates);
 
-			this->mine.getMine()[0].setPosition(sf::Vector2f(x1, y1));
-			//checking collision with Tanks
-			for (int i = 0; i < tankcount; i++) {
-				if (Collision::PixelPerfectTest(mine.getMine()[0], tanks[i].tank)) {
-					status = false;
+		 this->mine.getMine()[0].setPosition(sf::Vector2f(x1, y1));
+		 //checking collision with Tanks
+		 for (int i = 0; i < tankcount; i++) {
+		 if (Collision::PixelPerfectTest(mine.getMine()[0], tanks[i].tank)) {
+		 status = false;
+		 }
+		 }
+		 //with walls
+		 for (int i = 0; i < this->brickcounter; i++) {
+		 temp1.setPosition(bricks.brick[i].getPosition());
+		 if (Collision::PixelPerfectTest(mine.getMine()[0], temp1)) {
+		 status = false;
+		 }
+
+		 }
+		 } while (status == false);
+		 */
+		for (int a = 0; a < 4; a++) {
+			do {
+				status = true;
+				x2 = rand() % (this->screenFactor * this->sizeofcoordinates);
+				y2 = rand() % (this->screenFactor * this->sizeofcoordinates);
+
+				this->mine.getMine()[a].setPosition(sf::Vector2f(x2, y2));
+				//checking collision with Tanks
+				for (int i = 0; i < tankcount; i++) {
+					if (Collision::PixelPerfectTest(mine.getMine()[a], tanks[i].tank)) {
+						status = false;
+					}
 				}
-			}
-			//with walls
-			for (int i = 0; i < this->brickcounter; i++) {
-				temp1.setPosition(bricks.brick[i].getPosition());
-				if (Collision::PixelPerfectTest(mine.getMine()[0], temp1)) {
-					status = false;
+				//with walls
+				for (int i = 0; i < this->brickcounter; i++) {
+					temp1.setPosition(bricks.brick[i].getPosition());
+					if (Collision::PixelPerfectTest(mine.getMine()[a], temp1)) {
+						status = false;
+					}
+				}
+				//Most important check if two mines have exact same coordinates
+				for (int g = 0; g < a; g++) {
+					if (Collision::PixelPerfectTest(mine.getMine()[a], mine.getMine()[g]))
+						status = false;
 				}
 
-			}
-		} while (status == false);
-
-		do {
-			status = true;
-			x2 = rand() % (this->screenFactor * this->sizeofcoordinates);
-			y2 = rand() % (this->screenFactor * this->sizeofcoordinates);
-
-			this->mine.getMine()[1].setPosition(sf::Vector2f(x2, y2));
-			//checking collision with Tanks
-			for (int i = 0; i < tankcount; i++) {
-				if (Collision::PixelPerfectTest(mine.getMine()[1], tanks[i].tank)) {
-					status = false;
-				}
-			}
-			//with walls
-			for (int i = 0; i < this->brickcounter; i++) {
-
-				temp1.setPosition(bricks.brick[i].getPosition());
-				if (Collision::PixelPerfectTest(mine.getMine()[1], temp1)) {
-					status = false;
-				}
-			}
-			if (Collision::PixelPerfectTest(mine.getMine()[0], mine.getMine()[1]))
-				status = false;
-
-		} while (status == false);
-
-		if (!(mine.getClock()->getElapsedTime() > sf::seconds(3)) && mine.isResetMines() == true) {
+			} while (status == false);
+		}
+		if (!(mine.getClock()->getElapsedTime() > sf::seconds(time)) && mine.isResetMines() == true) {
 			mine.setResetMines(false);
 		}
 
@@ -1209,7 +1239,7 @@ void Interface::setMineCoordinates() {
 void Interface::BombscollisionWithTank() {
 	bool collided = false;
 	for (int i = 0; i < tankcount && collided == false; i++) {
-		for (int j = 0; j < 2; j++) {
+		for (int j = 0; j < 4; j++) {
 			if (mine.isCollisionWithTank() == false) {
 				if (Collision::PixelPerfectTest(mine.getMine()[j], tanks[i].tank)) {
 					collided = 1;

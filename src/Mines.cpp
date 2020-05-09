@@ -17,23 +17,39 @@ Mines::Mines() {
 		cout<<"Mine image not found"<<endl ;
 	}
 	srand(time(NULL));
-	mine[0].setTexture(t) ;
+	for (int i = 0 ; i<4 ; i++)
+	{
+		mine[i].setTexture(t);
+		mine[i].setPosition(sf::Vector2f(-1000,-1000)) ;
+	}
+
+
+	/*mine[0].setTexture(t) ;
 	mine[0].setPosition(sf::Vector2f(-1000,-1000)) ;
 	mine[1].setTexture(t) ;
 	mine[1].setPosition(sf::Vector2f(-1000,-1000)) ;
-
+	*/
 }
 
 void Mines::draw(sf::RenderWindow &window)
 {
 	if (this->CollisionWithTank == false) {
+		for ( int i = 0 ; i<4 ; i++)
+		{
+			window.draw(mine[i]);
+		}
+		/*
 	window.draw(mine[0]);
 	window.draw(mine[1]);
+	*/
 	}
 	else
 	{
-		mine[0].setPosition(sf::Vector2f(-1000,-1000)) ;
-		mine[1].setPosition(sf::Vector2f(-1000,-1000)) ;
+
+		for ( int i = 0 ; i<4 ; i++)
+		{
+			mine[i].setPosition(sf::Vector2f(-1000,-1000)) ;
+		}
 	}
 
 }

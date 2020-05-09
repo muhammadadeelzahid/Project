@@ -11,7 +11,7 @@
 
 class Mines: public Shape {
 	sf::Texture t;
-	sf::Sprite mine[2] ;
+	sf::Sprite mine[10] ;
 	sf::Clock *clock ;
 	bool resetMines ;
 	bool CollisionWithTank ;
