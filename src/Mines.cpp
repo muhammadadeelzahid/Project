@@ -12,7 +12,7 @@ Mines::Mines() {
 	clock->restart() ;
 	CollisionWithTank = false;
 	this->resetMines = true ;
-	if(!t.loadFromFile("mine.png"))
+	if(!t.loadFromFile("mines 3.png"))
 	{
 		cout<<"Mine image not found"<<endl ;
 	}

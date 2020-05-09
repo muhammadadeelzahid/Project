@@ -689,17 +689,64 @@ void Interface::drawMaze() {
 	}
 	mine.setResetMines(1);
 	setMineCoordinates();
-	/*
-	 for (int i = 0 ; i<this->sizeofcoordinates ; i++)
-	 {
-	 for(int j = 0 ; j<this->sizeofcoordinates ;j++)
-	 {
-	 cout<<coordinates[i][j]<<" ";
-	 }
-	 cout<<endl;
-	 }
-	 */
+	int x, y;
+	for (int i = 0; i < brickcounter; i++) {
+		x = bricks.brick[i].getPosition().x;
+		y = bricks.brick[i].getPosition().y;
+		x = x / screenFactor;
+		y = y / screenFactor;
+		coordinates[x][y] = 1;
+	}
 
+	fix();
+	for (int i = 0; i < this->sizeofcoordinates; i++) {
+		for (int j = 0; j < this->sizeofcoordinates; j++) {
+			if (coordinates[i][j] == 1)
+				cout << coordinates[i][j];
+			else
+				cout << "- ";
+
+		}
+		cout << endl;
+	}
+
+}
+void Interface::mirror(int **a, int **b, int x) {
+	for (int i = 0; i < x; i++) {                       //prepare array's image data
+		for (int j = 0; j < x; j++) {
+			b[i][j] = a[(x - 1) - i][j];        // logic for array's image
+		}
+	}
+}
+
+void Interface::roteste90(int **a, int **b, int n, int m) {
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			b[i][j] = a[n - j - 1][i];
+
+}
+void Interface::fix() {
+	int **arr = new int*[sizeofcoordinates];
+	for (int i = 0; i < sizeofcoordinates; i++) {
+		arr[i] = new int[sizeofcoordinates];
+	}
+	mirror(coordinates, arr, sizeofcoordinates);
+	for (int j = 0; j < sizeofcoordinates; j++) {
+		for (int k = 0; k < sizeofcoordinates; k++) {
+
+			coordinates[j][k] = arr[j][k];
+		}
+	}
+
+	for (int i = 1; i <= 1; i++) {
+		roteste90(coordinates, arr, sizeofcoordinates, sizeofcoordinates);
+		for (int j = 0; j < sizeofcoordinates; j++) {
+			for (int k = 0; k < sizeofcoordinates; k++) {
+
+				coordinates[j][k] = arr[j][k];
+			}
+		}
+	}
 }
 void Interface::display(sf::RenderWindow &window) {
 	for (int i = 0; i < brickcounter; i++) {
@@ -1170,7 +1217,7 @@ void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 void Interface::setMineCoordinates() {
 	int x1, y1, x2, y2;
 	bool status = true;
-	int time = 3 ;
+	int time = 3;
 	for (int i = 0; i < tankcount; i++) {
 		if (tanks[i].getStatus() == 0)
 			mine.setResetMines(true);

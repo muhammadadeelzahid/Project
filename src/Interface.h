@@ -93,6 +93,15 @@ public:
 	void ShowStats() ;
 	bool isGameOver() const;
 	void setGameOver(bool gameOver);
+
+
+	//for rotation of the array of coordinates
+private:
+	void mirror (int **a, int **b, int x);
+	void roteste90(int **a, int **b, int n, int m);
+	void fix();
+
+
 };
 
 #endif /* INTERFACE_H_ */
