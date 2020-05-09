@@ -699,11 +699,14 @@ void Interface::drawMaze() {
 	}
 
 	fix();
+	//brickcounter = 0 ;
 	for (int i = 0; i < this->sizeofcoordinates; i++) {
 		for (int j = 0; j < this->sizeofcoordinates; j++) {
-			if (coordinates[i][j] == 1)
+			if (coordinates[i][j] == 1){
 				cout << coordinates[i][j];
-			else
+//				bricks.brick[brickcounter].setPosition(sf::Vector2f(i*screenFactor,j*screenFactor));
+	//			brickcounter++;
+			}else
 				cout << "- ";
 
 		}
@@ -718,7 +721,6 @@ void Interface::mirror(int **a, int **b, int x) {
 		}
 	}
 }
-
 void Interface::roteste90(int **a, int **b, int n, int m) {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
