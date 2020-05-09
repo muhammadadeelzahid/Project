@@ -35,7 +35,7 @@ Interface::Interface(int size, int ratio) {
 	tankcount = 2;
 	tanks = new Tank[tankcount];
 	//coordinates[2][2] = 2;
-	if (!texture1.loadFromFile("Asset 2.png")) {
+	if (!texture1.loadFromFile("Asset 2.png")) { // Asset 11
 		std::cout << "Image Loading failed" << std::endl;
 		getchar();
 	}
