@@ -19,9 +19,14 @@ class stats: public Shape {
 	sf::Sprite s ;
 	int scoret1 ,scoret2;
 	string readScore1[3] , readScore2[3] ;
-	sf::Texture icons ;
+	sf::Texture option1 ;
+	sf::Texture option2 ;
+	sf::Texture option3 ;
+	sf::Texture option4 ;
+
 	Interface *game;
 	int readWritePermission;
+	int menueOption ;
 public:
 	void draw(sf::RenderWindow &window) ;
 	void draw2(sf::RenderWindow &window) ;
@@ -35,6 +40,10 @@ public:
 	void setCurrentScreen(int currentScreen);
 	int getReadWritePermission() const;
 	void setReadWritePermission(int readWritePermission);
+	int getMenueOption() const;
+	void menueOptionReduce();
+	void menueOptionIncrement();
+
 };
 
 #endif /* STATS_H_ */

@@ -68,8 +68,12 @@ void Wall::initialise(int screensize)
 // 		brick[i].setTexture(brickTexture);
 
  		brick[i].setSize(sf::Vector2f (getObjectsize(),getObjectsize()));
- 		brick[i].setFillColor(sf::Color(0,0,0)) ;
- 		brick[i].setOutlineColor(sf::Color(255,102,0)); //255 102 0
- 		brick[i].setOutlineThickness(2.7) ;
+// 		brick[i].setFillColor(sf::Color(0,0,0)) ;
+ 		brick[i].setFillColor(sf::Color(128,128,128)) ;
+
+// 		brick[i].setOutlineColor(sf::Color(153,0,0)); //255 102 0
+ 		brick[i].setOutlineColor(sf::Color(0,0,0)); //255 102 0
+
+ 		brick[i].setOutlineThickness(2) ;
  	}
 }

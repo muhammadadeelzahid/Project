@@ -9,20 +9,35 @@
 
 stats::stats() {
 	currentScreen = 1;
+	menueOption =  1;
+
 	if (!font.loadFromFile("font.ttf")) {
 		cout << "Unable to load font" << endl;
 	}
 	text.setFont(font);
-
+	/*
 	if (!icons.loadFromFile("menue.jpg")) {
 		cout << "Unable to load picture" << endl;
 	}
 	s.setTexture(icons);
+	*/
 	for (int i = 0 ; i<3 ; i++)
 	{
 		readScore1[i] = "" ;
 		readScore2[i] = "" ;
 	}
+	if (!option1.loadFromFile("menue (1).png"))
+		cout<<"Unable to load menue 1"<<endl ;
+
+
+	if (!option2.loadFromFile("menue (2).png"))
+		cout<<"Unable to load menue 2"<<endl ;
+
+	if (!option3.loadFromFile("menue (3).png"))
+		cout<<"Unable to load menue 3"<<endl ;
+	if (!option4.loadFromFile("menue (4).png"))
+		cout<<"Unable to load menue 4"<<endl ;
+
 	readWritePermission = 1 ;
 
 }
@@ -39,13 +54,17 @@ void stats::updateCurrentScreen() {
 }
 void stats::draw(sf::RenderWindow &window) {
 	if (currentScreen == 1) {
-		window.clear(sf::Color(120, 120, 120, 0));
-		text.setString("Tank Attack Maze (N to start)");
-		text.setColor(sf::Color::Black);
-		text.setCharacterSize(50);
-		text.setPosition(sf::Vector2f(50, 100));
-//		window.draw(s) ;
-		window.draw(text);
+		s.setOrigin(sf::Vector2f(0,3.5));
+		if (menueOption == 1 )
+			s.setTexture(option1);
+			else if (menueOption ==2 )
+			s.setTexture(option2);
+			else if (menueOption == 3)
+				s.setTexture(option3) ;
+			else if (menueOption == 4)
+				s.setTexture(option4);
+
+		window.draw(s);
 	}
 	if (currentScreen == 4) {
 		window.clear(sf::Color(120, 120, 120, 0));
@@ -215,6 +234,25 @@ void stats::setCurrentScreen(int currentScreen) {
 int stats::getReadWritePermission() const {
 	return readWritePermission;
 }
+
+int stats::getMenueOption() const {
+	return menueOption;
+}
+
+void stats::menueOptionReduce() {
+
+	this->menueOption = menueOption-1;
+	if (menueOption < 0 )
+		menueOption = 4 ;
+
+}
+void stats::menueOptionIncrement()
+{
+	this->menueOption = menueOption+1;
+	if (menueOption > 4 )
+		menueOption = 1 ;
+}
+
 
 void stats::setReadWritePermission(int readWritePermission) {
 	this->readWritePermission = readWritePermission;

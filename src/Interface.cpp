@@ -765,20 +765,31 @@ void Interface::drawMaze() {
 		coordinates[x][y] = 1;
 	}
 
-	fix();
-	//brickcounter = 0 ;
-	for (int i = 0; i < this->sizeofcoordinates; i++) {
-		for (int j = 0; j < this->sizeofcoordinates; j++) {
-			if (coordinates[i][j] == 1) {
-				cout << coordinates[i][j];
-//				bricks.brick[brickcounter].setPosition(sf::Vector2f(i*screenFactor,j*screenFactor));
-				//			brickcounter++;
-			} else
-				cout << "- ";
-
+//	fix();
+//	//brickcounter = 0 ;
+//	for (int i = 0; i < this->sizeofcoordinates; i++) {
+//		for (int j = 0; j < this->sizeofcoordinates; j++) {
+//			if (coordinates[i][j] == 1) {
+//				cout << coordinates[i][j];
+////				bricks.brick[brickcounter].setPosition(sf::Vector2f(i*screenFactor,j*screenFactor));
+//				//			brickcounter++;
+//			} else
+//				cout << "- ";
+//
+//		}
+//		cout << endl;
+//	}
+/*
+	for (int i = 0 ; i<brickcounter ;i++)
+	{
+		if (int( bricks.brick[i].getPosition().x)%this->screenFactor != 0 || int(bricks.brick[i].getPosition().y)%this->screenFactor != 0)
+		{
+			cout<<"Crap"<<endl;
 		}
-		cout << endl;
 	}
+	*/
+
+
 }
 void Interface::mirror(int **a, int **b, int x) {
 	for (int i = 0; i < x; i++) {                       //prepare array's image data

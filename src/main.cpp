@@ -14,7 +14,7 @@
 void MoveBulletsTimed(sf::Clock &clock, Interface &game);
 void timedIncrement(sf::Clock &clock2, Interface &game);
 void ChangeStateDelay(sf::Clock &clock3, Interface &game);
-void EventHandle(sf::Event &event,sf::RenderWindow &window, Interface &game, stats &stat);
+void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, stats &stat);
 
 int main() {
 	sf::Clock clock;
@@ -37,16 +37,19 @@ int main() {
 
 	game.drawMaze();
 	while (window.isOpen()) {
-		stat.draw2(window2) ;
-		sf::Color background(32, 32, 32);
+		stat.draw2(window2);
+		//sf::Color background(224,224,224);
+		sf::Color background(225, 225, 225);
+
 		window.clear(background);
 
 		sf::Event event;
-		while (window.pollEvent(event)) {EventHandle(event,window,game,stat); }
+		while (window.pollEvent(event)) {
+			EventHandle(event, window, game, stat);
+		}
 		if (game.isGameOver() == true && game.getChangeStateDelay() == 4)
 			stat.setCurrentScreen(4);
-		if (stat.getCurrentScreen() == 3)
-		{
+		if (stat.getCurrentScreen() == 3) {
 			if (game.getPause() == 0 || game.getChangeStateDelay() != 0) {
 				MoveBulletsTimed(clock, game);
 				game.BulletscollisionWithTank();
@@ -55,21 +58,16 @@ int main() {
 			}
 			game.display(window);
 
-
 			if (game.getChangeStateDelay() != 0 || game.getPause() == 1) {
 				game.Maze_Change_And_Pause_Message(window);
 			}
 			ChangeStateDelay(clock3, game);
 			timedIncrement(clock2, game);
 		}
-		if (stat.getCurrentScreen() == 4 &&  stat.getReadWritePermission() == 1)
-		{
-				stat.savetoFile();
-				stat.readFromFile();
+		if (stat.getCurrentScreen() == 4 && stat.getReadWritePermission() == 1) {
+			stat.savetoFile();
+			stat.readFromFile();
 		}
-
-
-
 
 		stat.draw(window);
 		window.display();
@@ -78,13 +76,27 @@ int main() {
 
 	return 0;
 }
-void EventHandle(sf::Event &event,sf::RenderWindow &window, Interface &game, stats &stat)
-{
+void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, stats &stat) {
 
 	if (event.type == sf::Event::Closed)
 		window.close();
 	if (event.type == sf::Event::KeyPressed) {
-		if (game.getPause() == 0 && game.getChangeStateDelay() == 0 && stat.getCurrentScreen() == 3 ) {
+		if (stat.getCurrentScreen() == 1) { //controlling of the menue option
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+				stat.menueOptionReduce();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+				stat.menueOptionIncrement();
+
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				stat.setCurrentScreen(3);
+			}
+		}
+
+		if (game.getPause() == 0 && game.getChangeStateDelay() == 0 && stat.getCurrentScreen() == 3) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 				game.fire(0);
 				//cout << "Fire tank 1" << endl;
@@ -127,19 +139,18 @@ void EventHandle(sf::Event &event,sf::RenderWindow &window, Interface &game, sta
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) {
-				stat.setCurrentScreen(3);
+			stat.setCurrentScreen(3);
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-				stat.setCurrentScreen(1);
-				game.setGameOver(false);
-				game.getTanks()[0].setScore(0);
-				game.getTanks()[1].setScore(0);
-				stat.setReadWritePermission(1);
+			stat.setCurrentScreen(1);
+			game.setGameOver(false);
+			game.getTanks()[0].setScore(0);
+			game.getTanks()[1].setScore(0);
+			stat.setReadWritePermission(1);
 
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
-
 
 	}
 }
