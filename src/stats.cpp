@@ -9,37 +9,35 @@
 
 stats::stats() {
 	currentScreen = 1;
-	menueOption =  1;
-
+	menueOption = 1;
+	noResult = 0;
 	if (!font.loadFromFile("font.ttf")) {
 		cout << "Unable to load font" << endl;
 	}
 	text.setFont(font);
 	/*
-	if (!icons.loadFromFile("menue.jpg")) {
-		cout << "Unable to load picture" << endl;
-	}
-	s.setTexture(icons);
-	*/
-	for (int i = 0 ; i<3 ; i++)
-	{
-		readScore1[i] = "" ;
-		readScore2[i] = "" ;
+	 if (!icons.loadFromFile("menue.jpg")) {
+	 cout << "Unable to load picture" << endl;
+	 }
+	 s.setTexture(icons);
+	 */
+	for (int i = 0; i < 3; i++) {
+		readScore1[i] = "";
+		readScore2[i] = "";
 	}
 	if (!option1.loadFromFile("menue (1).png"))
-		cout<<"Unable to load menue 1"<<endl ;
-
+		cout << "Unable to load menue 1" << endl;
 
 	if (!option2.loadFromFile("menue (2).png"))
-		cout<<"Unable to load menue 2"<<endl ;
+		cout << "Unable to load menue 2" << endl;
 
 	if (!option3.loadFromFile("menue (3).png"))
-		cout<<"Unable to load menue 3"<<endl ;
+		cout << "Unable to load menue 3" << endl;
 	if (!option4.loadFromFile("menue (4).png"))
-		cout<<"Unable to load menue 4"<<endl ;
+		cout << "Unable to load menue 4" << endl;
 
-	readWritePermission = 1 ;
-	readWritePermission2= 1 ;
+	readWritePermission = 1;
+	readWritePermission2 = 1;
 
 }
 void stats::setGame(Interface &game) {
@@ -55,79 +53,80 @@ void stats::updateCurrentScreen() {
 }
 void stats::draw(sf::RenderWindow &window) {
 	if (currentScreen == 1) {
-		s.setOrigin(sf::Vector2f(0,3.5));
-		if (menueOption == 1 )
+		s.setOrigin(sf::Vector2f(0, 3.5));
+		if (menueOption == 1)
 			s.setTexture(option1);
-			else if (menueOption ==2 )
+		else if (menueOption == 2)
 			s.setTexture(option2);
-			else if (menueOption == 3)
-				s.setTexture(option3) ;
-			else if (menueOption == 4)
-				s.setTexture(option4);
+		else if (menueOption == 3)
+			s.setTexture(option3);
+		else if (menueOption == 4)
+			s.setTexture(option4);
 
 		window.draw(s);
 	}
 	if (currentScreen == 4) {
 
-		/*
-		window.clear(sf::Color(120, 120, 120, 0));
-		text.setString("Game Over R to reset");
-		text.setColor(sf::Color::Black);
-		text.setCharacterSize(50);
-		text.setPosition(sf::Vector2f(100, 100));
-//		window.draw(s) ;
-		window.draw(text);
+		s.setPosition(sf::Vector2f(1, 0));
+		window.clear(sf::Color(225, 225, 225));
 
-		text.setString("Previous Records ");
-		text.setPosition(sf::Vector2f(100, 200));
-		window.draw(text);
-
-		text.setString("Team A ");
-		text.setPosition(sf::Vector2f(50, 300));
-		window.draw(text);
-
-
-		text.setString("Team B");
-		text.setPosition(sf::Vector2f(450, 300));
-		window.draw(text);
-		int z = 400 ;
-		for (int i = 0 ; i<3 ;i++,z+=100)
+		if (game->getTanks()[0].getScore() > game->getTanks()[1].getScore()) {
+			end1.loadFromFile("end.A.png");
+			s.setTexture(end1);
+		} else if (game->getTanks()[0].getScore() < game->getTanks()[1].getScore())
 		{
-			text.setString(readScore1[2-i]) ;
-			text.setPosition(sf::Vector2f(82,z)) ;
-			window.draw(text);
+			end1.loadFromFile("end.B.png");
+			s.setTexture(end1);
 		}
-
-		z = 400 ;
-		for (int i = 0 ; i<3 ;i++,z+=100)
-		{
-			text.setString(readScore2[2-i]) ;
-			text.setPosition(sf::Vector2f(500,z)) ;
-			window.draw(text);
-		}
-
-
-
-		text.setString("Press T to Reset");
-		text.setPosition(sf::Vector2f(150, 500));
-//		window.draw(text);
-
-		if (scoret1 >scoret2)
-			text.setString("Team A wins");
-		else if (scoret1 <scoret2)
-			text.setString("Team B wins");
 		else
-		text.setString("Draw");
-		text.setPosition(100,130);
-		window.draw(text);
-		this->readWritePermission = 0 ;
-		*/
-		end1.loadFromFile("end.png");
-		s.setTexture(end1);
-		s.setPosition(sf::Vector2f(1,0)) ;
-		window.clear(sf::Color(225, 225, 225)) ;
+		{
+			end1.loadFromFile("End.C.png");
+			s.setTexture(end1);
+		}
+		text.setCharacterSize(36);
+		text.setColor(sf::Color(46, 49, 146));
 		window.draw(s);
+		int z = 400;
+		for (int i = 0; i < 3; i++, z += 100) {
+			text.setString(readScore1[2 - i]);
+			if (i == 0)
+				text.setPosition(sf::Vector2f(222.533, (472.54 - 30)));
+			if (i == 1)
+				text.setPosition(sf::Vector2f(222.532, (539.917 - 30)));
+			if (i == 2)
+				text.setPosition(sf::Vector2f(223.55, (603.985 - 30)));
 
+			window.draw(text);
+		}
+
+		z = 400;
+		for (int i = 0; i < 3; i++, z += 100) {
+			text.setString(readScore2[2 - i]);
+			if (i == 0)
+				text.setPosition(sf::Vector2f(534.708, (472.454 - 30)));
+			if (i == 1)
+				text.setPosition(sf::Vector2f(534.709, (541.835 - 30)));
+			if (i == 2)
+				text.setPosition(sf::Vector2f(534.709, (607.021 - 30)));
+
+			window.draw(text);
+		}
+
+		/*
+		 text.setString("Press T to Reset");
+		 text.setPosition(sf::Vector2f(150, 500));
+
+		 //		window.draw(text);
+		 if (scoret1 >scoret2)
+		 text.setString("Team A wins");
+		 else if (scoret1 <scoret2)
+		 text.setString("Team B wins");
+		 else
+		 text.setString("Draw");
+		 text.setPosition(100,130);
+		 window.draw(text);
+		 */
+		this->readWritePermission = 0;
 
 	}
 }
@@ -163,10 +162,11 @@ void stats::draw2(sf::RenderWindow &window) {
 		text.setPosition(sf::Vector2f(350, 80));
 		window.draw(text);
 
-
-		if (game->isGameOver() == true && game->getChangeStateDelay() == 4) {
+		if (game->isGameOver() == true && game->getChangeStateDelay() == 4 && readWritePermission2 == 1) {
 			//savetoFile() ;
 			readFromFile();
+			cout << "This" << endl;
+			readWritePermission2 = 0;
 		}
 	}
 }
@@ -175,34 +175,33 @@ stats::~stats() {
 	// TODO Auto-generated destructor stub
 }
 void stats::savetoFile() {
+	if( noResult == 0){
 	ifstream file;
 	file.open("score.txt");
 	if (!file.is_open()) {
 		cout << "Unable to open file to write" << endl;
 	}
-	string stringtemp[3] = {""};
-	for (int i = 0 ; i<3 ; i++)
-	{
-		getline(file,stringtemp[i]) ;
+	string stringtemp[3] = { "" };
+	for (int i = 0; i < 3; i++) {
+		getline(file, stringtemp[i]);
 //		cout<<"HEre "<<stringtemp[i]<<endl;
 	}
-	file.close() ;
+	file.close();
 
-	for (int i = 1 ; i<3 ; i++)
-	{
-		stringtemp[i-1]  = stringtemp[i] ;
+	for (int i = 1; i < 3; i++) {
+		stringtemp[i - 1] = stringtemp[i];
 	}
-	stringtemp[2] = to_string(scoret1) +"-"+to_string(scoret2) + ">\n" ;
+	stringtemp[2] = to_string(scoret1) + "-" + to_string(scoret2) + ">\n";
 
 	ofstream file2;
 	file2.open("score.txt");
-	for (int i = 0 ; i<3 ; i++)
-	{
-		cout<<"i: "<<i<<"  "<<stringtemp[i]<<endl ;
-		file2<<stringtemp[i]<<"\n" ;
+	for (int i = 0; i < 3; i++) {
+		cout << "i: " << i << "  " << stringtemp[i] << endl;
+		file2 << stringtemp[i] << "\n";
 		//cout<<"Writing this "<<stringtemp[i]<<endl;
 	}
 	file2.close();
+	}
 }
 void stats::readFromFile() {
 	ifstream file;
@@ -211,43 +210,40 @@ void stats::readFromFile() {
 		cout << "Unable to open file to read" << endl;
 	string score1[3] = { "" };
 	string scoret[3] = { "" };
-	for (int i = 0 ; i<3 ; i++)
-	{
-		readScore1[i] = "" ;
-		readScore2[i]  = "" ;
+	for (int i = 0; i < 3; i++) {
+		readScore1[i] = "";
+		readScore2[i] = "";
 	}
 	int count = 0;
 	for (; count < 3; count++) {
 		getline(file, score1[count]);
-	//	cout << "Length of this line : " << score1[count].length() << endl;
+		//	cout << "Length of this line : " << score1[count].length() << endl;
 		if (score1[count].length() != 0)
 			scoret[count] = score1[count];
 	}
-	cout<<endl<<endl<<"Scoret[k]"<<endl;
+//	cout << endl << endl << "Scoret[k]" << endl;
 	for (int k = 0; k < count; k++) {
 		for (int i = 0; i < scoret[k].length(); i++) {
 			if (scoret[k][i] == '-') {
 				for (int j = 0; j < i; j++) {
 					readScore1[k] += scoret[k][j];
 				}
-			cout<<readScore1[k]<<"|"<<endl;
+				cout << readScore1[k] << "|" << endl;
 				for (int j = i + 1; j < scoret[k].length() - 1; j++) {
 					readScore2[k] += scoret[k][j];
 				}
-				cout<<readScore2[k]<<"|"<<endl;
+				cout << readScore2[k] << "|" << endl;
 			}
 		}
 	}
-	cout<<endl<<endl;
+	cout << endl << endl;
 	for (int i = 0; i < 3; i++) {
 		cout << "Score team 1: " << readScore1[i] << endl;
 		cout << "Score Team 2: " << readScore2[i] << endl;
 	}
 
-
 	file.close();
 }
-
 void stats::setCurrentScreen(int currentScreen) {
 	this->currentScreen = currentScreen;
 }
@@ -262,9 +258,9 @@ int stats::getMenueOption() const {
 
 void stats::menueOptionReduce() {
 
-	this->menueOption = menueOption-1;
-	if (menueOption < 0 )
-		menueOption = 4 ;
+	this->menueOption = menueOption - 1;
+	if (menueOption <= 0)
+		menueOption = 4;
 
 }
 
@@ -276,14 +272,20 @@ void stats::setReadWritePermission2(int readWritePermission2) {
 	this->readWritePermission2 = readWritePermission2;
 }
 
-void stats::menueOptionIncrement()
-{
-	this->menueOption = menueOption+1;
-	if (menueOption > 4 )
-		menueOption = 1 ;
+void stats::menueOptionIncrement() {
+	this->menueOption = menueOption + 1;
+	if (menueOption > 4)
+		menueOption = 1;
 }
-
 
 void stats::setReadWritePermission(int readWritePermission) {
 	this->readWritePermission = readWritePermission;
+}
+
+int stats::getNoResult() const {
+	return noResult;
+}
+
+void stats::setNoResult(int noResult) {
+	this->noResult = noResult;
 }

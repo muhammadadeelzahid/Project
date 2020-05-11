@@ -87,17 +87,23 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 				stat.menueOptionIncrement();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+				if (stat.getMenueOption() == 3)
+				{
+					stat.setNoResult(1);
+					stat.setCurrentScreen(4);
+
+				}
+				else
+					stat.setCurrentScreen(3);
 
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-			{
-				stat.setCurrentScreen(3);
-			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-					{
-						stat.setCurrentScreen(4);
-					}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+			stat.setNoResult(1);
+			stat.setCurrentScreen(4);
+		}
 
 		if (game.getPause() == 0 && game.getChangeStateDelay() == 0 && stat.getCurrentScreen() == 3) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
@@ -152,10 +158,11 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 			game.getTanks()[0].setScore(0);
 			game.getTanks()[1].setScore(0);
 			stat.setReadWritePermission(1);
+			stat.setReadWritePermission2(1);
+			stat.setNoResult(0);
 
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
-
 
 	}
 }

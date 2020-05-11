@@ -17,6 +17,7 @@ class stats: public Shape {
 	sf::Text text ;
 	sf::Font font ;
 	sf::Sprite s ;
+	int noResult ;
 	int scoret1 ,scoret2;
 	string readScore1[3] , readScore2[3] ;
 	sf::Texture option1 ;
@@ -47,6 +48,8 @@ public:
 	void menueOptionIncrement();
 	int getReadWritePermission2() const;
 	void setReadWritePermission2(int readWritePermission2);
+	int getNoResult() const;
+	void setNoResult(int noResult);
 };
 
 #endif /* STATS_H_ */
