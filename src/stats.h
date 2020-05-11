@@ -23,9 +23,11 @@ class stats: public Shape {
 	sf::Texture option2 ;
 	sf::Texture option3 ;
 	sf::Texture option4 ;
+	sf::Texture end1 ;
 
 	Interface *game;
 	int readWritePermission;
+	int readWritePermission2;
 	int menueOption ;
 public:
 	void draw(sf::RenderWindow &window) ;
@@ -43,7 +45,8 @@ public:
 	int getMenueOption() const;
 	void menueOptionReduce();
 	void menueOptionIncrement();
-
+	int getReadWritePermission2() const;
+	void setReadWritePermission2(int readWritePermission2);
 };
 
 #endif /* STATS_H_ */

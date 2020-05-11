@@ -39,6 +39,7 @@ stats::stats() {
 		cout<<"Unable to load menue 4"<<endl ;
 
 	readWritePermission = 1 ;
+	readWritePermission2= 1 ;
 
 }
 void stats::setGame(Interface &game) {
@@ -67,6 +68,8 @@ void stats::draw(sf::RenderWindow &window) {
 		window.draw(s);
 	}
 	if (currentScreen == 4) {
+
+		/*
 		window.clear(sf::Color(120, 120, 120, 0));
 		text.setString("Game Over R to reset");
 		text.setColor(sf::Color::Black);
@@ -108,7 +111,24 @@ void stats::draw(sf::RenderWindow &window) {
 		text.setString("Press T to Reset");
 		text.setPosition(sf::Vector2f(150, 500));
 //		window.draw(text);
+
+		if (scoret1 >scoret2)
+			text.setString("Team A wins");
+		else if (scoret1 <scoret2)
+			text.setString("Team B wins");
+		else
+		text.setString("Draw");
+		text.setPosition(100,130);
+		window.draw(text);
 		this->readWritePermission = 0 ;
+		*/
+		end1.loadFromFile("end.png");
+		s.setTexture(end1);
+		s.setPosition(sf::Vector2f(1,0)) ;
+		window.clear(sf::Color(225, 225, 225)) ;
+		window.draw(s);
+
+
 	}
 }
 
@@ -132,7 +152,6 @@ void stats::draw2(sf::RenderWindow &window) {
 		window.draw(text);
 
 		text.setString(to_string(game->getTanks()[0].getScore()));
-		;
 		scoret1 = game->getTanks()[0].getScore();
 		scoret2 = game->getTanks()[1].getScore();
 		text.setColor(sf::Color::Red);
@@ -140,10 +159,11 @@ void stats::draw2(sf::RenderWindow &window) {
 		window.draw(text);
 
 		text.setString(to_string(game->getTanks()[1].getScore()));
-		;
 		text.setColor(sf::Color::Red);
 		text.setPosition(sf::Vector2f(350, 80));
 		window.draw(text);
+
+
 		if (game->isGameOver() == true && game->getChangeStateDelay() == 4) {
 			//savetoFile() ;
 			readFromFile();
@@ -224,6 +244,7 @@ void stats::readFromFile() {
 		cout << "Score Team 2: " << readScore2[i] << endl;
 	}
 
+
 	file.close();
 }
 
@@ -246,6 +267,15 @@ void stats::menueOptionReduce() {
 		menueOption = 4 ;
 
 }
+
+int stats::getReadWritePermission2() const {
+	return readWritePermission2;
+}
+
+void stats::setReadWritePermission2(int readWritePermission2) {
+	this->readWritePermission2 = readWritePermission2;
+}
+
 void stats::menueOptionIncrement()
 {
 	this->menueOption = menueOption+1;

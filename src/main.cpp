@@ -42,7 +42,6 @@ int main() {
 		sf::Color background(225, 225, 225);
 
 		window.clear(background);
-
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			EventHandle(event, window, game, stat);
@@ -95,6 +94,10 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 				stat.setCurrentScreen(3);
 			}
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+					{
+						stat.setCurrentScreen(4);
+					}
 
 		if (game.getPause() == 0 && game.getChangeStateDelay() == 0 && stat.getCurrentScreen() == 3) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
@@ -145,12 +148,14 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
 			stat.setCurrentScreen(1);
 			game.setGameOver(false);
+			game.forcedReset();
 			game.getTanks()[0].setScore(0);
 			game.getTanks()[1].setScore(0);
 			stat.setReadWritePermission(1);
 
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
+
 
 	}
 }
