@@ -15,6 +15,17 @@ void MoveBulletsTimed(sf::Clock &clock, Interface &game);
 void timedIncrement(sf::Clock &clock2, Interface &game);
 void ChangeStateDelay(sf::Clock &clock3, Interface &game);
 void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, stats &stat);
+void ResetButtonPressed(Interface &game, stats &stat) {
+	stat.setCurrentScreen(1);
+	game.setGameOver(false);
+	game.forcedReset();
+	game.getTanks()[0].setScore(0);
+	game.getTanks()[1].setScore(0);
+	stat.setReadWritePermission(1);
+	stat.setReadWritePermission2(1);
+	stat.setNoResult(0);
+
+}
 
 int main() {
 	sf::Clock clock;
@@ -72,14 +83,89 @@ int main() {
 		window.display();
 		window2.display();
 	}
-
+	if (!window.isOpen())
+		window2.close();
 	return 0;
 }
 void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, stats &stat) {
 
 	if (event.type == sf::Event::Closed)
 		window.close();
+	if (event.type == sf::Event::MouseButtonPressed) {
+		if (stat.getCurrentScreen() == 4) {
+			if (event.mouseButton.x >= 201 && event.mouseButton.x <= 248 && event.mouseButton.y >= 670 && event.mouseButton.y <= 718) {
+				ResetButtonPressed(game, stat);
+			}
+
+			if (event.mouseButton.x >= 494 && event.mouseButton.x <= 539 && event.mouseButton.y >= 675 && event.mouseButton.y <= 714) {
+				window.close();
+			}
+		}
+
+		if (stat.getCurrentScreen() == 2 || stat.getCurrentScreen() == 5 ) {
+			cout<<event.mouseButton.x <<" , "<<event.mouseButton.y<<endl;
+			 if (event.mouseButton.x >= 227 && event.mouseButton.x <= 256 && event.mouseButton.y >= 694  && event.mouseButton.y <= 720) {
+			 ResetButtonPressed(game, stat);
+			 }
+			 if (event.mouseButton.x >= 511 && event.mouseButton.x <= 547 && event.mouseButton.y >= 693 && event.mouseButton.y <= 724) {
+			 window.close();
+			 }
+		}
+
+		else if (stat.getCurrentScreen() == 1) {
+			if (event.mouseButton.x >= 190 && event.mouseButton.x <= 545) {
+				if (event.mouseButton.y >= 235 && event.mouseButton.y <= 336) {
+					stat.setCurrentScreen(3);
+				}
+
+				if (event.mouseButton.y >= 347 && event.mouseButton.y <= 449) {
+//					stat.setMenueOption(2);
+					stat.setMenueOption(2);
+					stat.setCurrentScreen(2);
+				}
+
+				if (event.mouseButton.y >= 480 && event.mouseButton.y <= 572) {
+					//				stat.setMenueOption(3);
+					stat.setNoResult(1);
+					stat.setCurrentScreen(4);
+				}
+
+				if (event.mouseButton.y >= 591 && event.mouseButton.y <= 692) {
+					//stat.setMenueOption(4);
+					stat.setCurrentScreen(5);
+
+				}
+
+			}
+		}
+	}
+	if (event.type == sf::Event::MouseMoved) {
+		if (stat.getCurrentScreen() == 1) {
+			if (event.mouseMove.x >= 190 && event.mouseMove.x <= 545) {
+				if (event.mouseMove.y >= 235 && event.mouseMove.y <= 336) {
+					stat.setMenueOption(1);
+				}
+
+				else if (event.mouseMove.y >= 347 && event.mouseMove.y <= 449) {
+					stat.setMenueOption(2);
+
+				}
+
+				else if (event.mouseMove.y >= 480 && event.mouseMove.y <= 572) {
+					stat.setMenueOption(3);
+				}
+
+				else if (event.mouseMove.y >= 591 && event.mouseMove.y <= 692) {
+					stat.setMenueOption(4);
+				}
+
+			}
+		}
+	}
 	if (event.type == sf::Event::KeyPressed) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			window.close();
+
 		if (stat.getCurrentScreen() == 1) { //controlling of the menue option
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
@@ -89,14 +175,16 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 				stat.menueOptionIncrement();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-				if (stat.getMenueOption() == 3)
-				{
+				if (stat.getMenueOption() == 3) {
 					stat.setNoResult(1);
 					stat.setCurrentScreen(4);
 
-				}
-				else
+				} else if (stat.getMenueOption() == 1)
 					stat.setCurrentScreen(3);
+				else if (stat.getMenueOption() == 2)
+					stat.setCurrentScreen(2);
+				else if (stat.getMenueOption() == 4)
+					stat.setCurrentScreen(5);
 
 			}
 		}
@@ -105,6 +193,7 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 			stat.setCurrentScreen(4);
 		}
 
+		//controls for controlling the main game
 		if (game.getPause() == 0 && game.getChangeStateDelay() == 0 && stat.getCurrentScreen() == 3) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 				game.fire(0);
@@ -152,20 +241,14 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-			stat.setCurrentScreen(1);
-			game.setGameOver(false);
-			game.forcedReset();
-			game.getTanks()[0].setScore(0);
-			game.getTanks()[1].setScore(0);
-			stat.setReadWritePermission(1);
-			stat.setReadWritePermission2(1);
-			stat.setNoResult(0);
+			ResetButtonPressed(game, stat);
 
 			//cout<<"Pause status: "<<game.getPause()<<endl;
 		}
 
 	}
 }
+
 void timedIncrement(sf::Clock &clock2, Interface &game) {
 	if (clock2.getElapsedTime() > sf::milliseconds(100)) {
 		if (game.getDestruction().getStart() == 1) {

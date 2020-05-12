@@ -25,7 +25,8 @@ class stats: public Shape {
 	sf::Texture option3 ;
 	sf::Texture option4 ;
 	sf::Texture end1 ;
-
+	sf::Texture instruc;
+	sf::Texture about;
 	Interface *game;
 	int readWritePermission;
 	int readWritePermission2;
@@ -50,6 +51,7 @@ public:
 	void setReadWritePermission2(int readWritePermission2);
 	int getNoResult() const;
 	void setNoResult(int noResult);
+	void setMenueOption(int menueOption);
 };
 
 #endif /* STATS_H_ */

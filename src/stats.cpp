@@ -8,8 +8,10 @@
 #include "stats.h"
 
 stats::stats() {
+	about.loadFromFile("about.png");
 	currentScreen = 1;
 	menueOption = 1;
+	instruc.loadFromFile("Instructions.png");
 	noResult = 0;
 	if (!font.loadFromFile("font.ttf")) {
 		cout << "Unable to load font" << endl;
@@ -64,6 +66,21 @@ void stats::draw(sf::RenderWindow &window) {
 			s.setTexture(option4);
 
 		window.draw(s);
+	}
+	if (currentScreen == 2)
+	{
+		window.clear(sf::Color(225,225,225));
+		s.setTexture(instruc);
+		s.setPosition(1.5,0);
+		window.draw(s);
+	}
+	if (currentScreen == 5)
+	{
+		window.clear(sf::Color(225,225,225));
+		s.setTexture(about);
+		s.setPosition(1.5,0);
+		window.draw(s);
+
 	}
 	if (currentScreen == 4) {
 
@@ -288,4 +305,8 @@ int stats::getNoResult() const {
 
 void stats::setNoResult(int noResult) {
 	this->noResult = noResult;
+}
+
+void stats::setMenueOption(int menueOption) {
+	this->menueOption = menueOption;
 }
