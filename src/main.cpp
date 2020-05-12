@@ -50,7 +50,7 @@ int main() {
 	while (window.isOpen()) {
 		stat.draw2(window2);
 		//sf::Color background(224,224,224);
-		sf::Color background(225, 225, 225);
+		sf::Color background(224, 224, 224);
 
 		window.clear(background);
 		sf::Event event;
