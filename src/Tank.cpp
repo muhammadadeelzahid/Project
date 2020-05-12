@@ -61,6 +61,14 @@ void Tank::setStatus(int status) {
 	this->status = status;
 }
 
+int Tank::getLives() const {
+	return lives;
+}
+
+void Tank::setLives(int lives) {
+	this->lives = lives;
+}
+
 void Tank::setScore(int score) {
 	this->score = score;
 }

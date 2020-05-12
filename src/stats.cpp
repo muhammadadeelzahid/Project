@@ -8,6 +8,8 @@
 #include "stats.h"
 
 stats::stats() {
+	side.loadFromFile("stats.png");
+	sp.setTexture(side);
 	about.loadFromFile("about.png");
 	currentScreen = 1;
 	menueOption = 1;
@@ -149,35 +151,48 @@ void stats::draw(sf::RenderWindow &window) {
 }
 
 void stats::draw2(sf::RenderWindow &window) {
-	if (currentScreen == 3 || currentScreen == 1) {
+	if (currentScreen == 3 || currentScreen == 1 || currentScreen == 4) {
 		window.clear(sf::Color::White);
+		sp.setPosition(sf::Vector2f(-0.5,0));
+		window.draw(sp);
 
-		text.setColor(sf::Color::Black);
-		text.setCharacterSize(20);
-
-		text.setString("Scores");
-		text.setPosition(sf::Vector2f(150, 50));
-		window.draw(text);
-
-		text.setString("Team 1:");
-		text.setPosition(sf::Vector2f(10, 80));
-		window.draw(text);
-
-		text.setString("Team 2:");
-		text.setPosition(sf::Vector2f(250, 80));
-		window.draw(text);
+		text.setCharacterSize(28);
 
 		text.setString(to_string(game->getTanks()[0].getScore()));
 		scoret1 = game->getTanks()[0].getScore();
 		scoret2 = game->getTanks()[1].getScore();
+		float height = 145;
 		text.setColor(sf::Color::Red);
-		text.setPosition(sf::Vector2f(100, 80));
+		text.setPosition(sf::Vector2f(130, height));
 		window.draw(text);
 
-		text.setString(to_string(game->getTanks()[1].getScore()));
-		text.setColor(sf::Color::Red);
-		text.setPosition(sf::Vector2f(350, 80));
+		text.setCharacterSize(25);
+		if (this->currentScreen == 4)
+			text.setString(to_string(2));
+		else
+			text.setString(to_string(game->getTanks()[0].getLives()));
+		text.setPosition(sf::Vector2f(130,height+47));
 		window.draw(text);
+
+
+		text.setCharacterSize(28);
+		text.setString(to_string(game->getTanks()[1].getScore()));
+		text.setColor(sf::Color::Blue);
+		text.setPosition(sf::Vector2f(310, height));
+		window.draw(text);
+
+		text.setCharacterSize(25);
+		text.setString(to_string(game->getTanks()[1].getLives()));
+		text.setPosition(sf::Vector2f(310,height+47));
+		window.draw(text);
+
+
+		text.setFillColor(sf::Color(96,57,19));
+		text.setCharacterSize(26);
+		text.setString(to_string(game->getCurrentMaze()));
+		text.setPosition(sf::Vector2f(256,247));
+		window.draw(text);
+
 
 		if (game->isGameOver() == true && game->getChangeStateDelay() == 4 && readWritePermission2 == 1) {
 			//savetoFile() ;

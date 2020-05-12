@@ -94,6 +94,8 @@ public:
 	bool isGameOver() const;
 	void setGameOver(bool gameOver);
 	void forcedReset() ;
+	int getCurrentMaze() const;
+	void setCurrentMaze(int currentMaze);
 
 	//for rotation of the array of coordinates
 private:

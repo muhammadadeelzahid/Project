@@ -1002,6 +1002,15 @@ void Interface::roteste90(int **a, int **b, int n, int m) {
 			b[i][j] = a[n - j - 1][i];
 
 }
+
+int Interface::getCurrentMaze() const {
+	return currentMaze;
+}
+
+void Interface::setCurrentMaze(int currentMaze) {
+	this->currentMaze = currentMaze;
+}
+
 void Interface::fix() {
 	int **arr = new int*[sizeofcoordinates];
 	for (int i = 0; i < sizeofcoordinates; i++) {

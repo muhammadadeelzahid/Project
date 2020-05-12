@@ -34,6 +34,8 @@ public:
 	void setStatus(int status);
 	int getScore() const;
 	void setScore(int score);
+	int getLives() const;
+	void setLives(int lives);
 };
 
 #endif /* TANK_H_ */

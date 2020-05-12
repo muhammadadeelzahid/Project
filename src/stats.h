@@ -27,6 +27,8 @@ class stats: public Shape {
 	sf::Texture end1 ;
 	sf::Texture instruc;
 	sf::Texture about;
+	sf::Texture side;
+	sf::Sprite sp;
 	Interface *game;
 	int readWritePermission;
 	int readWritePermission2;

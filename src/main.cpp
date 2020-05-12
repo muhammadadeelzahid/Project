@@ -38,10 +38,10 @@ int main() {
 	int sizeForBar = 780;
 	Interface game(sizeForBar, sizeOfObject);
 
-	sf::RenderWindow window2(sf::VideoMode(400, 250), "Game Stats");
+	sf::RenderWindow window2(sf::VideoMode(460, 320), "Game Stats");
 	window2.setPosition(sf::Vector2i(10, 200));
 	sf::RenderWindow window(sf::VideoMode(sizeForBar, sizeScreen), "Game");
-	window.setPosition(sf::Vector2i(window.getPosition().x + 100, window.getPosition().y));
+	window.setPosition(sf::Vector2i(window.getPosition().x + 150, window.getPosition().y));
 
 	stats stat;
 	stat.setGame(game);
@@ -87,6 +87,7 @@ int main() {
 		window2.close();
 	return 0;
 }
+
 void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, stats &stat) {
 
 	if (event.type == sf::Event::Closed)
@@ -95,6 +96,7 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 		if (stat.getCurrentScreen() == 4) {
 			if (event.mouseButton.x >= 201 && event.mouseButton.x <= 248 && event.mouseButton.y >= 670 && event.mouseButton.y <= 718) {
 				ResetButtonPressed(game, stat);
+				return ;
 			}
 
 			if (event.mouseButton.x >= 494 && event.mouseButton.x <= 539 && event.mouseButton.y >= 675 && event.mouseButton.y <= 714) {
@@ -102,14 +104,14 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 			}
 		}
 
-		if (stat.getCurrentScreen() == 2 || stat.getCurrentScreen() == 5 ) {
-			cout<<event.mouseButton.x <<" , "<<event.mouseButton.y<<endl;
-			 if (event.mouseButton.x >= 227 && event.mouseButton.x <= 256 && event.mouseButton.y >= 694  && event.mouseButton.y <= 720) {
-			 ResetButtonPressed(game, stat);
-			 }
-			 if (event.mouseButton.x >= 511 && event.mouseButton.x <= 547 && event.mouseButton.y >= 693 && event.mouseButton.y <= 724) {
-			 window.close();
-			 }
+		if (stat.getCurrentScreen() == 2 || stat.getCurrentScreen() == 5) {
+			//cout << event.mouseButton.x << " , " << event.mouseButton.y << endl;
+			if (event.mouseButton.x >= 227 && event.mouseButton.x <= 256 && event.mouseButton.y >= 694 && event.mouseButton.y <= 720) {
+				ResetButtonPressed(game, stat);
+			}
+			if (event.mouseButton.x >= 511 && event.mouseButton.x <= 547 && event.mouseButton.y >= 693 && event.mouseButton.y <= 724) {
+				window.close();
+			}
 		}
 
 		else if (stat.getCurrentScreen() == 1) {
@@ -248,7 +250,6 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 
 	}
 }
-
 void timedIncrement(sf::Clock &clock2, Interface &game) {
 	if (clock2.getElapsedTime() > sf::milliseconds(100)) {
 		if (game.getDestruction().getStart() == 1) {
