@@ -7,9 +7,8 @@
 
 #include "Interface.h"
 #include "Collision.hpp"
-Interface::Interface(int size, int ratio) {
+Interface::Interface(int size, int ratio) { // @suppress("Class members should be properly initialized")
 
-	Shape *pointer = new Wall ;
 	gameOver = false;
 	srand(time(NULL));
 	if (!this->pauseMessage.loadFromFile("Pause.png")) {
@@ -58,6 +57,25 @@ Interface::Interface(int size, int ratio) {
 		cout << "Unable to load the message box" << endl;
 	}
 	s.setTexture(t);
+	shapeCount = 3 + tankcount;
+
+	drawables = new Shape *[shapeCount];
+	shapeCount = 0 ;
+	drawables[shapeCount] = &bricks ;
+	shapeCount++ ;
+
+	for (int i = 0 ; i<tankcount ;i ++)
+	{
+		drawables[shapeCount] = &tanks[i] ;
+		shapeCount++ ;
+	}
+
+	drawables[shapeCount] = &destruction ;
+	shapeCount++ ;
+
+	drawables[shapeCount] = &mine ;
+	shapeCount++ ;
+
 }
 void Interface::maze1() {
 	//top most row
@@ -990,6 +1008,10 @@ void Interface::drawMaze() {
 	*/
 
 
+	this->mine.setGame(this);
+	this->bricks.setBrickCounter(this->brickcounter);
+
+
 }
 void Interface::mirror(int **a, int **b, int x) {
 	for (int i = 0; i < x; i++) {                       //prepare array's image data
@@ -1037,21 +1059,10 @@ void Interface::fix() {
 	}
 }
 void Interface::display(sf::RenderWindow &window) {
-	for (int i = 0; i < brickcounter; i++) {
-		window.draw(bricks.getBrick()[i]);
+	for (int i = 0; i<shapeCount ;i++)
+	{
+		drawables[i]->draw(window);
 	}
-
-//	cout<<tanks[0].tank.getPosition().x<<","<<tanks[0].tank.getPosition().y<<endl ;
-
-	for (int i = 0; i < this->tankcount; i++) {
-		this->tanks[i].draw(window);
-	}
-
-	this->destruction.draw(window);
-	//end of function
-	if (changeStateDelay == 0)
-		mine.draw(window);
-
 }
 bool Interface::collisionTankWall(int tankNumber) {
 	for (int i = 0; i < brickcounter; i++) {

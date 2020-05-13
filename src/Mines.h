@@ -8,13 +8,14 @@
 #ifndef MINES_H_
 #define MINES_H_
 #include "Shape.h"
-
+class Interface;
 class Mines: public Shape {
 	sf::Texture t;
 	sf::Sprite mine[10] ;
 	sf::Clock *clock ;
 	bool resetMines ;
 	bool CollisionWithTank ;
+	Interface *game;
 public:
 	void draw(sf::RenderWindow &window) ;
 	Mines();
@@ -27,6 +28,8 @@ public:
 	void setCollisionWithTank(bool collisionWithTank);
 	bool isResetMines() const;
 	void setResetMines(bool resetMines);
+	 Interface* getGame() ;
+	void setGame( Interface *game);
 };
 
 #endif /* MINES_H_ */

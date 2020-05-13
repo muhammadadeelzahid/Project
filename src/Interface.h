@@ -20,7 +20,7 @@ using namespace std ;
 class Interface {
 	//basic array that identifies with each token of the object
 	bool gameOver ;
-	TankDestroyed destruction;
+	TankDestroyed destruction;	// this is for the flames and smoke effect when tanks are destroyed
 	int **coordinates ;//set the size in the constructor
 	int sizeofcoordinates ; // size of screen /screenFactor
 	int screenFactor ; //Walls and spaces will be of 15x15
@@ -46,6 +46,9 @@ class Interface {
 
 	sf::Sprite pause;
 	sf::Texture pauseMessage;
+
+	Shape **drawables; //this is to benifit from polymorphic pointer to display overriden functions in one go
+	int shapeCount ;
 public:
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;

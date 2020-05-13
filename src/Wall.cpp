@@ -6,7 +6,6 @@
  */
 
 #include "Wall.h"
-
 Wall::Wall() {
 	this->setObjectsize(30);
 	//brick = new sf::RectangleShape [NULL] ;
@@ -75,4 +74,22 @@ void Wall::initialise(int screensize)
 
  		brick[i].setOutlineThickness(2) ;
  	}
+}
+
+
+ void Wall::draw(sf::RenderWindow &window)
+ {
+	 for (int i =0 ; i<brickCounter ;i ++)
+	 {
+		 window.draw(brick[i]);
+	 }
+
+}
+
+int Wall::getBrickCounter() const {
+	return brickCounter;
+}
+
+void Wall::setBrickCounter(int brickCounter) {
+	this->brickCounter = brickCounter;
 }
