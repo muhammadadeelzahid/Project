@@ -12,7 +12,9 @@
 #include "Interface.h"
 #include <fstream>
 #include <string>
+#include <SFML/Audio.hpp>
 class stats: public Shape {
+	sf::Music music;
 	int currentScreen ;
 	sf::Text text ;
 	sf::Font font ;
@@ -33,6 +35,8 @@ class stats: public Shape {
 	int readWritePermission;
 	int readWritePermission2;
 	int menueOption ;
+
+	int startMusic ;
 public:
 	void draw(sf::RenderWindow &window) ;
 	void draw2(sf::RenderWindow &window) ;
@@ -54,6 +58,8 @@ public:
 	int getNoResult() const;
 	void setNoResult(int noResult);
 	void setMenueOption(int menueOption);
+	int getStartMusic() const;
+	void setStartMusic(int startMusic);
 };
 
 #endif /* STATS_H_ */

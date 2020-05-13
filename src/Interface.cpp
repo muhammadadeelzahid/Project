@@ -8,6 +8,8 @@
 #include "Interface.h"
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) {
+
+	Shape *pointer = new Wall ;
 	gameOver = false;
 	srand(time(NULL));
 	if (!this->pauseMessage.loadFromFile("Pause.png")) {
@@ -29,7 +31,7 @@ Interface::Interface(int size, int ratio) {
 			coordinates[i][j] = 0;
 		}
 	}
-	bricks.setObjectsize(screenFactor); // set the size of the bricks
+//	bricks.setObjectsize(screenFactor); // set the size of the bricks
 	bricks.initialise(sizeofcoordinates);
 
 	tankcount = 2;

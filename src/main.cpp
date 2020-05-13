@@ -38,7 +38,7 @@ int main() {
 	int sizeForBar = 780;
 	Interface game(sizeForBar, sizeOfObject);
 
-	sf::RenderWindow window2(sf::VideoMode(460, 320), "Game Stats");
+	sf::RenderWindow window2(sf::VideoMode(460, 380), "Game Stats");
 	window2.setPosition(sf::Vector2i(10, 200));
 	sf::RenderWindow window(sf::VideoMode(sizeForBar, sizeScreen), "Game");
 	window.setPosition(sf::Vector2i(window.getPosition().x + 150, window.getPosition().y));

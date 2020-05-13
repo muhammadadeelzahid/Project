@@ -11,29 +11,6 @@ Shape::Shape() {
 
 }
 
-const string& Shape::getName() const {
-	return name;
-}
-
-void Shape::setName(const string &name) {
-	this->name = name;
-}
-
-int Shape::getSpeedOfMovement() const {
-	return speedOfMovement;
-}
-
-void Shape::setSpeedOfMovement(int speedOfMovement) {
-	this->speedOfMovement = speedOfMovement;
-}
-
-int Shape::getTokenValue() const {
-	return tokenValue;
-}
-
-void Shape::setTokenValue(int tokenValue) {
-	this->tokenValue = tokenValue;
-}
 
 
 int Shape::getObjectsize() const {

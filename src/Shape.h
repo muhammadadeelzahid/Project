@@ -13,21 +13,14 @@ using namespace std;
 class Shape {
 	int objectsize ;
 	string name ;
-	int speedOfMovement ;
-	int tokenValue ;
 
 public:
 	virtual void draw(sf::RenderWindow &window) = 0 ;
+	void setObjectsize(int objectsize);
+
+	int getObjectsize() const  ;
 	Shape();
 	virtual ~Shape() { ;}
-	const string& getName() const;
-	void setName(const string &name);
-	int getSpeedOfMovement() const;
-	void setSpeedOfMovement(int speedOfMovement);
-	int getTokenValue() const;
-	void setTokenValue(int tokenValue);
-	int getObjectsize() const;
-	void setObjectsize(int objectsize);
 };
 
 #endif /* SHAPE_H_ */

@@ -11,7 +11,6 @@
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
-
 #include <iostream>
 #include "Wall.h"
 #include "Tank.h"

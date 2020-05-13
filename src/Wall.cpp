@@ -9,7 +9,6 @@
 
 Wall::Wall() {
 	this->setObjectsize(30);
-	this->setTokenValue(1) ;
 	//brick = new sf::RectangleShape [NULL] ;
 	sf::Color grey (128,128,128);
 //

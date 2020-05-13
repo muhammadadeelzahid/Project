@@ -8,6 +8,10 @@
 #include "stats.h"
 
 stats::stats() {
+	music.openFromFile("music.ogg");
+	music.setLoop(true);
+	this->startMusic = 0;
+
 	side.loadFromFile("stats.png");
 	sp.setTexture(side);
 	about.loadFromFile("about.png");
@@ -56,6 +60,25 @@ void stats::updateCurrentScreen() {
 	this->currentScreen = currentScreen + 1;
 }
 void stats::draw(sf::RenderWindow &window) {
+	if (currentScreen != 3 )
+	{
+		if (startMusic == 0 )
+			startMusic = 1;
+	}
+	else
+	{
+		if (startMusic == 2 )
+			startMusic = 0;
+	}
+	if (startMusic == 1 ){
+		music.play();
+		startMusic = 2 ;
+	}else if (startMusic == 0 )
+	{
+		music.stop();
+		startMusic = 1 ;
+	}
+
 	if (currentScreen == 1) {
 		s.setOrigin(sf::Vector2f(0, 3.5));
 		if (menueOption == 1)
@@ -190,7 +213,7 @@ void stats::draw2(sf::RenderWindow &window) {
 		text.setFillColor(sf::Color(96,57,19));
 		text.setCharacterSize(26);
 		text.setString(to_string(game->getCurrentMaze()));
-		text.setPosition(sf::Vector2f(256,247));
+		text.setPosition(sf::Vector2f(130,232));
 		window.draw(text);
 
 
@@ -204,7 +227,7 @@ void stats::draw2(sf::RenderWindow &window) {
 }
 
 stats::~stats() {
-	// TODO Auto-generated destructor stub
+	;
 }
 void stats::savetoFile() {
 	if( noResult == 0){
@@ -320,6 +343,14 @@ int stats::getNoResult() const {
 
 void stats::setNoResult(int noResult) {
 	this->noResult = noResult;
+}
+
+int stats::getStartMusic() const {
+	return startMusic;
+}
+
+void stats::setStartMusic(int startMusic) {
+	this->startMusic = startMusic;
 }
 
 void stats::setMenueOption(int menueOption) {

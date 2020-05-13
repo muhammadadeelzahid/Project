@@ -11,7 +11,7 @@ Tank::Tank() {
 	status = 1;
 	score = 0 ;
 	lives = 2 ;
-	this->setTokenValue(2) ;
+//	this->setTokenValue(2) ;
 	firedbullets = 0;
 	//setting the texture ;
 	for (int i = 0 ; i<50 ; i++)
