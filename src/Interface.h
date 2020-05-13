@@ -92,7 +92,6 @@ public:
 
 
 
-	void ShowStats() ;
 	bool isGameOver() const;
 	void setGameOver(bool gameOver);
 	void forcedReset() ;

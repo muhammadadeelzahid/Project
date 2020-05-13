@@ -1665,7 +1665,4 @@ void Interface::setGameOver(bool gameOver) {
 	this->gameOver = gameOver;
 }
 
-void Interface::ShowStats() {
-
-}
 
