@@ -7,7 +7,8 @@
 
 #include "Mines.h"
 #include "Interface.h"
-Mines::Mines() {
+#include "Collision.hpp"
+Mines::Mines() { // @suppress("Class members should be properly initialized")
 	clock = new sf::Clock;
 	clock->restart();
 	CollisionWithTank = false;
@@ -89,4 +90,50 @@ void Mines::setResetMines(bool resetMines) {
 
 void Mines::setGame( Interface *game) {
 	this->game = game;
+}
+void Mines::setMineCoordinates() {
+	Mines &mine = *this ;
+	int x1, y1, x2, y2;
+	bool status = true;
+	int time = 3;
+
+	for (int i = 0; i < game->tankcount; i++) {
+		if (game->tanks[i].getStatus() == 0)
+			setResetMines(true);
+	}
+	if (mine.getClock()->getElapsedTime() > sf::seconds(time) || mine.isResetMines() == true) {
+		mine.getClock()->restart();
+	for (int a = 0; a < 4; a++) {
+			do {
+				status = true;
+				x2 = rand() % (game->screenFactor * game->sizeofcoordinates);
+				y2 = rand() % (game->screenFactor * game->sizeofcoordinates);
+
+				mine.getMine()[a].setPosition(sf::Vector2f(x2, y2));
+				//checking collision with Tanks
+				for (int i = 0; i < game->tankcount; i++) {
+					if (Collision::PixelPerfectTest(mine.getMine()[a], game->tanks[i].getTank())) {
+						status = false;
+					}
+				}
+				//with walls
+				for (int i = 0; i < game->brickcounter; i++) {
+					game->temp1.setPosition(game->bricks.getBrick()[i].getPosition());
+					if (Collision::PixelPerfectTest(mine.getMine()[a], game->temp1)) {
+						status = false;
+					}
+				}
+				//Most important check if two mines have exact same coordinates
+				for (int g = 0; g < a; g++) {
+					if (Collision::PixelPerfectTest(mine.getMine()[a], mine.getMine()[g]))
+						status = false;
+				}
+
+			} while (status == false);
+		}
+		if (!(mine.getClock()->getElapsedTime() > sf::seconds(time)) && mine.isResetMines() == true) {
+			mine.setResetMines(false);
+		}
+
+	}
 }

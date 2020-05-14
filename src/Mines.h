@@ -30,6 +30,7 @@ public:
 	void setResetMines(bool resetMines);
 	 Interface* getGame() ;
 	void setGame( Interface *game);
+	void setMineCoordinates();
 };
 
 #endif /* MINES_H_ */

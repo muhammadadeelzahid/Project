@@ -50,6 +50,7 @@ class Interface {
 	Shape **drawables; //this is to benifit from polymorphic pointer to display overriden functions in one go
 	int shapeCount ;
 public:
+	friend class Mines ;
 	//functions involving movement and collision of Bullets
 	void moveBullets() ;
 	void maze1() ;
@@ -69,8 +70,6 @@ public:
 	//function for flames
 	void increment(sf::Clock &clock2) ;
 
-	//function for the mines
-	void setMineCoordinates();
 
 	Interface(int,int) ;
 	void drawMaze() ;
@@ -92,11 +91,13 @@ public:
 
 
 
+	void ShowStats() ;
 	bool isGameOver() const;
 	void setGameOver(bool gameOver);
 	void forcedReset() ;
 	int getCurrentMaze() const;
 	void setCurrentMaze(int currentMaze);
+	 Mines& getMine() ;
 
 	//for rotation of the array of coordinates
 private:

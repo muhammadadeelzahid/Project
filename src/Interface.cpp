@@ -972,8 +972,10 @@ void Interface::drawMaze() {
 		tanks[1].tank.setPosition(27 * screenFactor, 25 * screenFactor);
 
 	}
+	this->mine.setGame(this);
+	this->bricks.setBrickCounter(this->brickcounter);
 	mine.setResetMines(1);
-	setMineCoordinates();
+	mine.setMineCoordinates();
 	int x, y;
 	for (int i = 0; i < brickcounter; i++) {
 		x = bricks.brick[i].getPosition().x;
@@ -1008,8 +1010,6 @@ void Interface::drawMaze() {
 	*/
 
 
-	this->mine.setGame(this);
-	this->bricks.setBrickCounter(this->brickcounter);
 
 
 }
@@ -1537,75 +1537,6 @@ void Interface::Maze_Change_And_Pause_Message(sf::RenderWindow &window) {
 
 }
 
-void Interface::setMineCoordinates() {
-	int x1, y1, x2, y2;
-	bool status = true;
-	int time = 3;
-	for (int i = 0; i < tankcount; i++) {
-		if (tanks[i].getStatus() == 0)
-			mine.setResetMines(true);
-	}
-
-	if (mine.getClock()->getElapsedTime() > sf::seconds(time) || mine.isResetMines() == true) {
-		mine.getClock()->restart();
-		/*
-		 do {
-		 status = true;
-		 x1 = rand() % (this->screenFactor * this->sizeofcoordinates);
-		 y1 = rand() % (this->screenFactor * this->sizeofcoordinates);
-
-		 this->mine.getMine()[0].setPosition(sf::Vector2f(x1, y1));
-		 //checking collision with Tanks
-		 for (int i = 0; i < tankcount; i++) {
-		 if (Collision::PixelPerfectTest(mine.getMine()[0], tanks[i].tank)) {
-		 status = false;
-		 }
-		 }
-		 //with walls
-		 for (int i = 0; i < this->brickcounter; i++) {
-		 temp1.setPosition(bricks.brick[i].getPosition());
-		 if (Collision::PixelPerfectTest(mine.getMine()[0], temp1)) {
-		 status = false;
-		 }
-
-		 }
-		 } while (status == false);
-		 */
-		for (int a = 0; a < 4; a++) {
-			do {
-				status = true;
-				x2 = rand() % (this->screenFactor * this->sizeofcoordinates);
-				y2 = rand() % (this->screenFactor * this->sizeofcoordinates);
-
-				this->mine.getMine()[a].setPosition(sf::Vector2f(x2, y2));
-				//checking collision with Tanks
-				for (int i = 0; i < tankcount; i++) {
-					if (Collision::PixelPerfectTest(mine.getMine()[a], tanks[i].tank)) {
-						status = false;
-					}
-				}
-				//with walls
-				for (int i = 0; i < this->brickcounter; i++) {
-					temp1.setPosition(bricks.brick[i].getPosition());
-					if (Collision::PixelPerfectTest(mine.getMine()[a], temp1)) {
-						status = false;
-					}
-				}
-				//Most important check if two mines have exact same coordinates
-				for (int g = 0; g < a; g++) {
-					if (Collision::PixelPerfectTest(mine.getMine()[a], mine.getMine()[g]))
-						status = false;
-				}
-
-			} while (status == false);
-		}
-		if (!(mine.getClock()->getElapsedTime() > sf::seconds(time)) && mine.isResetMines() == true) {
-			mine.setResetMines(false);
-		}
-
-	}
-
-}
 void Interface::BombscollisionWithTank() {
 	bool collided = false;
 	for (int i = 0; i < tankcount && collided == false; i++) {
@@ -1665,4 +1596,6 @@ void Interface::setGameOver(bool gameOver) {
 	this->gameOver = gameOver;
 }
 
-
+ Mines& Interface::getMine()  {
+	return mine;
+}
