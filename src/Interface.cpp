@@ -1186,12 +1186,11 @@ void Interface::moveTank(string direction, int tankNumber) {
 
 }
 
-//function call is controlled by the timer in main.cpp
-void Interface::destroyBullet() {
+
+void Interface::destroyBullet() {//function call is controlled by the timer in main.cpp
 	// destroy a bullet based on its own timer or status
 	for (int i = 0; i < this->tankcount; i++) {
 		for (int j = 0; j < this->tanks[i].firedbullets; j++) {
-			//				cout<<"Times up for bullet: "<<j<<endl ;
 			for (int a = 1; a <= tanks[i].firedbullets; a++) {
 				this->tanks[i].bullets[a - 1] = this->tanks[i].bullets[a];
 			}
@@ -1219,8 +1218,8 @@ void Interface::fire(int tankNumber) {
 
 	//code to move the current bullet one step forward
 }
-//function call is controlled by the timer in main.cpp
-void Interface::moveBullets() {
+void Interface::moveBullets() {//function call is controlled by the timer in main.cpp
+
 	BulletscollisionWithWalls();
 	//	cout<<"Moving bullets"<<endl ;
 	//move all bullets for all tanks

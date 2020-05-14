@@ -9,7 +9,6 @@
 
 stats::stats() {
 	music.openFromFile("music.ogg");
-	music.setVolume(45);
 	music.setLoop(true);
 	this->startMusic = 0;
 
