@@ -15,8 +15,13 @@
 #include "Tank.h"
 #include "Mines.h"
 #include "TankDestroyed.h"
+#include <SFML/Audio.hpp>
 using namespace std;
 class Interface {
+	sf::SoundBuffer gunshot ;
+	sf::SoundBuffer hitone;
+	sf::SoundBuffer hittwo;
+	sf::Sound sound;
 	//basic array that identifies with each token of the object
 	bool gameOver;
 	TankDestroyed destruction;	// this is for the flames and smoke effect when tanks are destroyed

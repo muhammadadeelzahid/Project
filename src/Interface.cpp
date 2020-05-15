@@ -9,6 +9,9 @@
 #include "Collision.hpp"
 Interface::Interface(int size, int ratio) { // @suppress("Class members should be properly initialized")
 
+	gunshot.loadFromFile("shot.ogg");
+	hitone.loadFromFile("hitone.ogg");
+	hittwo.loadFromFile("hittwo.ogg");
 	gameOver = false;
 	srand(time(NULL));
 	if (!this->pauseMessage.loadFromFile("Pause.png")) {
@@ -91,7 +94,6 @@ void Interface::maze1() {
 	//last brick of horizontal row act as a vertical wall and vice versa
 	bricks.orientation[brickcounter - 1] = "horizontal";
 	bricks.orientation[brickcounter - first] = "end";
-	bricks.orientation[brickcounter] = "end";
 	//left most coloumn
 	first = 0;
 	for (int j = 0; j < this->sizeofcoordinates; j++) {
@@ -107,6 +109,8 @@ void Interface::maze1() {
 	bricks.orientation[brickcounter - 14] = "end";
 	bricks.orientation[brickcounter - 15] = "end";
 	bricks.orientation[brickcounter - 16] = "end";
+	bricks.orientation[brickcounter - 23] = "end";
+	bricks.orientation[brickcounter - 24] = "end";
 	bricks.orientation[brickcounter] = "end";
 	//bottom most row
 	first = 0;
@@ -142,38 +146,7 @@ void Interface::maze1() {
 	bricks.orientation[brickcounter - 16] = "end";
 	bricks.orientation[brickcounter - 20] = "end";
 
-	for (int i = 0; i < brickcounter; i++)
-	{
-		if (bricks.brick[i].getPosition().x == ((sizeofcoordinates - 1)*screenFactor) && bricks.brick[i].getPosition().y == ((sizeofcoordinates - 9)*screenFactor))
-		{
-			bricks.orientation[i] = "end";
-			cout << "True";
-		}
-		if (bricks.brick[i].getPosition().x == ((sizeofcoordinates - 1)*screenFactor) && bricks.brick[i].getPosition().y == ((sizeofcoordinates - 4)*screenFactor))
-		{
-			bricks.orientation[i] = "end";
-			cout << "True";
-		}
-		if (bricks.brick[i].getPosition().x == ((sizeofcoordinates - 1)*screenFactor) && bricks.brick[i].getPosition().y == ((sizeofcoordinates - 14)*screenFactor))
-		{
-			bricks.orientation[i] = "end";
-			cout << "True";
-		}
-		if (bricks.brick[i].getPosition().x == ((sizeofcoordinates - 1)*screenFactor) && bricks.brick[i].getPosition().y == ((sizeofcoordinates - 19)*screenFactor))
-		{
-			bricks.orientation[i] = "end";
-			cout << "True";
-		}
-		if (bricks.brick[i].getPosition().x == ((sizeofcoordinates - 1)*screenFactor) && bricks.brick[i].getPosition().y == ((sizeofcoordinates - 24)*screenFactor))
-		{
-			bricks.orientation[i] = "end";
-			cout << "True";
-		}
-	}
 
-	bricks.orientation[brickcounter - 21] = "end";
-
-	bricks.orientation[brickcounter - 15] = "end";
 	bricks.orientation[brickcounter - 24] = "vertical";
 	bricks.orientation[brickcounter - 25] = "end";
 	bricks.orientation[brickcounter - 26] = "end";
@@ -223,7 +196,7 @@ void Interface::maze1() {
 	}
 	first = 0;
 	for (int n = 1; n < this->sizeofcoordinates; n++) {
-		if ((n > this->sizeofcoordinates / 2) & n <= (5 * (this->sizeofcoordinates / 6))) {
+		if ((n > this->sizeofcoordinates / 2) && n <= (5 * (this->sizeofcoordinates / 6))) {
 			coordinates[sizeofcoordinates / 2][n] = 1;
 			bricks.getBrick()[brickcounter].setPosition(sizeofcoordinates / 2, n);
 			bricks.orientation[brickcounter] = "vertical";
@@ -1081,6 +1054,7 @@ bool Interface::collisionTankWall(int tankNumber) {
 	return false;
 }
 void Interface::moveTank(string direction, int tankNumber) {
+
 	sf::Sprite *temp = &this->tanks[tankNumber].getTank();
 	float distance = 10; //distance to be moved // controls the speed of movement
 	//the key factors for movement is the direction of the movement and the angle at which the tank is rotated
@@ -1203,6 +1177,8 @@ void Interface::destroyBullet() {//function call is controlled by the timer in m
 
 void Interface::fire(int tankNumber) {
 	if (tanks[tankNumber].firedbullets <= 5) {
+		sound.setBuffer(gunshot);
+		sound.play();
 		this->tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].startTimer();
 
 		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setRotation(tanks[tankNumber].tank.getRotation()); //set same rotation as that of the tank
@@ -1212,7 +1188,8 @@ void Interface::fire(int tankNumber) {
 		tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.setPosition(tanks[tankNumber].tank.getPosition());	// set the same position as that of tank
 		//cout<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<","<<tanks[tankNumber].bullets[tanks[tankNumber].firedbullets].bullet.getPosition().x<<endl<<endl;
 		tanks[tankNumber].setFiredbullets(tanks[tankNumber].getFiredbullets() + 1);
-		this->moveBullets();
+
+	this->moveBullets();
 	}
 	//	cout << "All bullets used" << endl;
 
@@ -1307,8 +1284,14 @@ void Interface::BulletscollisionWithTank() {
 				//	cout << "Friendly FIre Lives for tank " << (i + 1) << ":" << tanks[i].lives << endl;
 				destruction.start = 1;
 				if (tanks[i].lives <= 0) {
+					sound.setBuffer(hittwo);
+					sound.play();
 					tanks[i].status = 0;
 					DestroyBullet2();
+				}
+				else{
+					sound.setBuffer(hitone);
+					sound.play();
 				}
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
 				destruction.flames.setRotation(tanks[i].tank.getRotation());
@@ -1542,6 +1525,8 @@ void Interface::BombscollisionWithTank() {
 		for (int j = 0; j < 4; j++) {
 			if (mine.isCollisionWithTank() == false) {
 				if (Collision::PixelPerfectTest(mine.getMine()[j], tanks[i].tank)) {
+					sound.setBuffer(hittwo);
+					sound.play();
 					collided = 1;
 					tanks[1 - i].score += 20;
 					tanks[i].lives = 0;
