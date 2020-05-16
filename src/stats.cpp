@@ -220,7 +220,7 @@ void stats::draw2(sf::RenderWindow &window) {
 		if (game->isGameOver() == true && game->getChangeStateDelay() == 4 && readWritePermission2 == 1) {
 			//savetoFile() ;
 			readFromFile();
-			cout << "This" << endl;
+			//cout << "This" << endl;
 			readWritePermission2 = 0;
 		}
 	}
@@ -251,8 +251,8 @@ void stats::savetoFile() {
 	ofstream file2;
 	file2.open("score.txt");
 	for (int i = 0; i < 3; i++) {
-		cout << "i: " << i << "  " << stringtemp[i] << endl;
-		file2 << stringtemp[i] << "\n";
+		//cout << "i: " << i << "  " << stringtemp[i] << endl;
+		//file2 << stringtemp[i] << "\n";
 		//cout<<"Writing this "<<stringtemp[i]<<endl;
 	}
 	file2.close();
@@ -283,18 +283,18 @@ void stats::readFromFile() {
 				for (int j = 0; j < i; j++) {
 					readScore1[k] += scoret[k][j];
 				}
-				cout << readScore1[k] << "|" << endl;
+		//		cout << readScore1[k] << "|" << endl;
 				for (int j = i + 1; j < scoret[k].length() - 1; j++) {
 					readScore2[k] += scoret[k][j];
 				}
-				cout << readScore2[k] << "|" << endl;
+	//			cout << readScore2[k] << "|" << endl;
 			}
 		}
 	}
-	cout << endl << endl;
+	//cout << endl << endl;
 	for (int i = 0; i < 3; i++) {
-		cout << "Score team 1: " << readScore1[i] << endl;
-		cout << "Score Team 2: " << readScore2[i] << endl;
+	//	cout << "Score team 1: " << readScore1[i] << endl;
+		//cout << "Score Team 2: " << readScore2[i] << endl;
 	}
 
 	file.close();

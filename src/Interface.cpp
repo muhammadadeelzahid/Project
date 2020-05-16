@@ -1055,6 +1055,7 @@ bool Interface::collisionTankWall(int tankNumber) {
 }
 void Interface::moveTank(string direction, int tankNumber) {
 
+
 	sf::Sprite *temp = &this->tanks[tankNumber].getTank();
 	float distance = 10; //distance to be moved // controls the speed of movement
 	//the key factors for movement is the direction of the movement and the angle at which the tank is rotated
@@ -1157,6 +1158,9 @@ void Interface::moveTank(string direction, int tankNumber) {
 		if ((this->collisionTankWall(tankNumber)))
 			temp->rotate(+45);
 	}
+
+	cout<<"Tank : "<<tankNumber<<" \nCoordinates  ("<<this->tanks[tankNumber].tank.getPosition().x<<" , "<<this->tanks[tankNumber].tank.getPosition().y<<")"<<endl;
+	cout<<"Rotation: "<<tanks[tankNumber].tank.getRotation()<<endl<<endl<<endl;
 
 }
 
@@ -1297,8 +1301,8 @@ void Interface::BulletscollisionWithTank() {
 				destruction.flames.setRotation(tanks[i].tank.getRotation());
 				tanks[i].bullets[j].RemoveBullet = 1;
 				destroyBullet();
-				cout << "-\tScore Update: \t-" << endl;
-				cout << "Tank [1]: " << tanks[0].score << "\tTank [2]: " << tanks[1].score << endl;
+				//cout << "-\tScore Update: \t-" << endl;
+				//cout << "Tank [1]: " << tanks[0].score << "\tTank [2]: " << tanks[1].score << endl;
 			}
 
 		}
