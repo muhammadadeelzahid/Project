@@ -126,7 +126,7 @@ void stats::draw(sf::RenderWindow &window) {
 			s.setTexture(end1);
 		}
 		text.setCharacterSize(36);
-		text.setColor(sf::Color(46, 49, 146));
+		text.setFillColor(sf::Color(46, 49, 146));
 		window.draw(s);
 		int z = 400;
 		for (int i = 0; i < 3; i++, z += 100) {
@@ -185,7 +185,7 @@ void stats::draw2(sf::RenderWindow &window) {
 		scoret1 = game->getTanks()[0].getScore();
 		scoret2 = game->getTanks()[1].getScore();
 		float height = 145;
-		text.setColor(sf::Color::Red);
+		text.setFillColor(sf::Color::Red);
 		text.setPosition(sf::Vector2f(130, height));
 		window.draw(text);
 
@@ -200,7 +200,7 @@ void stats::draw2(sf::RenderWindow &window) {
 
 		text.setCharacterSize(28);
 		text.setString(to_string(game->getTanks()[1].getScore()));
-		text.setColor(sf::Color::Blue);
+		text.setFillColor(sf::Color::Blue);
 		text.setPosition(sf::Vector2f(310, height));
 		window.draw(text);
 
