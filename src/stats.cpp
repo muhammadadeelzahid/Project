@@ -251,8 +251,8 @@ void stats::savetoFile() {
 	ofstream file2;
 	file2.open("score.txt");
 	for (int i = 0; i < 3; i++) {
-		//cout << "i: " << i << "  " << stringtemp[i] << endl;
-		//file2 << stringtemp[i] << "\n";
+		cout << "i: " << i << "  " << stringtemp[i] << endl;
+		file2 << stringtemp[i] << "\n";
 		//cout<<"Writing this "<<stringtemp[i]<<endl;
 	}
 	file2.close();
