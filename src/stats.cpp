@@ -154,20 +154,6 @@ void stats::draw(sf::RenderWindow &window) {
 			window.draw(text);
 		}
 
-		/*
-		 text.setString("Press T to Reset");
-		 text.setPosition(sf::Vector2f(150, 500));
-
-		 //		window.draw(text);
-		 if (scoret1 >scoret2)
-		 text.setString("Team A wins");
-		 else if (scoret1 <scoret2)
-		 text.setString("Team B wins");
-		 else
-		 text.setString("Draw");
-		 text.setPosition(100,130);
-		 window.draw(text);
-		 */
 		this->readWritePermission = 0;
 
 	}
