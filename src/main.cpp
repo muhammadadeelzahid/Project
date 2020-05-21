@@ -194,6 +194,21 @@ void EventHandle(sf::Event &event, sf::RenderWindow &window, Interface &game, st
 			stat.setNoResult(1);
 			stat.setCurrentScreen(4);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+			game.setCurrentMaze(1);
+			game.drawMaze();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+			game.setCurrentMaze(2);
+			game.drawMaze();
+
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+			game.setCurrentMaze(3);
+			game.drawMaze();
+
+		}
+
 
 		//controls for controlling the main game
 		if (game.getPause() == 0 && game.getChangeStateDelay() == 0 && stat.getCurrentScreen() == 3) {
