@@ -7,13 +7,26 @@
 
 #ifndef BULLET_H_
 #define BULLET_H_
-
+class Interface;
 #include "Shape.h"
-
 class Bullet: public Shape {
+//sf::Sprite bullet ;
+sf::Sprite bullet ;
+sf::Texture t;
+int RotationAngle;
+sf::Clock clock ;
+int RemoveBullet ;
 public:
+	friend class Interface;
+	void startTimer() ;
+	bool CheckBulletTimeout() ;
 	Bullet();
-	virtual ~Bullet();
+	~Bullet() { ;}//
+	void draw(sf::RenderWindow &window);
+	sf::Sprite& getBullet();
+	void setBullet(const sf::Sprite &bullet);
+	int getStatus() const;
+	void setStatus(int status);
 };
 
 #endif /* BULLET_H_ */
