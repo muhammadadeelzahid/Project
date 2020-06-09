@@ -1327,9 +1327,16 @@ void Interface::BulletscollisionWithTank() {
 				tanks[i].lives -= 1;
 				//cout << "Enemy FIre Lives for tank " << (i + 1) << ":" << tanks[i].lives << endl;
 				tanks[1 - i].score += 40;
-				if (tanks[1 - i].lives <= 0) {
-					tanks[1 - i].status = 0;
+				if (tanks[i].lives <= 0) {
+					tanks[i].status = 0;
 					DestroyBullet2();
+					sound.setBuffer(hittwo);
+					sound.play();
+				}
+				else
+				{
+					sound.setBuffer(hitone);
+					sound.play();
 				}
 				destruction.start = 1;
 				destruction.flames.setPosition(tanks[i].tank.getPosition());
