@@ -81,7 +81,7 @@ Interface::Interface(int size, int ratio) { // @suppress("Class members should b
 
 }
 void Interface::maze1() {
-	//top most row
+	//left most coloumn
 	int first = 0;
 	brickcounter = 0;
 	for (int i = 1; i < this->sizeofcoordinates; i++) {
@@ -95,7 +95,7 @@ void Interface::maze1() {
 	bricks.orientation[brickcounter - 1] = "end";
 	bricks.orientation[brickcounter - 2] = "end";
 	bricks.orientation[brickcounter - first] = "end";
-	//left most coloumn
+	//top most row
 	first = 0;
 	for (int j = 0; j < this->sizeofcoordinates; j++) {
 		coordinates[j][0] = 1; // 1 is the  token for a brick
@@ -291,7 +291,7 @@ void Interface::maze1() {
 	bricks.orientation[brickcounter - first + 1] = "end";
 }
 void Interface::maze2()  {
-	//top most row
+	//left most coloumn
 	int first = 0;
 	brickcounter = 0;
 	for (int i = 1; i < this->sizeofcoordinates; i++) {
@@ -311,7 +311,7 @@ void Interface::maze2()  {
 	bricks.orientation[brickcounter - 18] = "end";
 	bricks.orientation[brickcounter - 17] = "end";
 	bricks.orientation[brickcounter - 10] = "end";
-	//left most coloumn
+	//top most row
 	first = 0;
 	for (int j = 0; j < this->sizeofcoordinates; j++) {
 		coordinates[j][0] = 1; // 1 is the  token for a brick
